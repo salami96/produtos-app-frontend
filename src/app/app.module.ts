@@ -16,7 +16,7 @@ import { HomeComponent } from './home/home.component';
     HomeComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'supercopac-ssr'}),
+    BrowserModule.withServerTransition({appId: 'produtos-app'}),
     IconsModule,
     AppRoutingModule,
     /* RouterModule.forRoot([

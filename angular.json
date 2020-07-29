@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "supercopac-ssr": {
+    "produtos-app": {
       "root": "",
       "projectType": "application",
       "architect": {
@@ -65,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "supercopac-ssr:build"
+            "browserTarget": "produtos-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "supercopac-ssr:build:production"
+              "browserTarget": "produtos-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "supercopac-ssr:build"
+            "browserTarget": "produtos-app:build"
           }
         },
         "test": {
@@ -171,7 +171,7 @@
       "inlineTemplate": false,
       "prefix": "app",
       "styleext": "css",
-      "project": "supercopac-ssr"
+      "project": "produtos-app"
     },
     "@schematics/angular:directive": {
       "spec": false,
@@ -182,14 +182,14 @@
     },
     "@schematics/angular:module": {
       "spec": false,
-      "project": "supercopac-ssr"
+      "project": "produtos-app"
     },
     "@schematics/angular:pipe": {
       "spec": false
     },
     "@schematics/angular:service": {
       "spec": false,
-      "project": "supercopac-ssr"
+      "project": "produtos-app"
     }
   }
 }
