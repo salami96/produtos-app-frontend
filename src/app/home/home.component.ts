@@ -8,6 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  loadMap = false;
 
   constructor(
     // private uService: UserService,
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     // this.uService.ping().subscribe(resp => console.log(resp));
     if (isPlatformBrowser(this.platformID)) {
-      this.route.params.subscribe(res => {
+      this.loadMap = true;
+      /* this.route.params.subscribe(res => {
         if (res.data === 'cadastro') {
           const checkExist = setInterval(function() {
             if (document.readyState !== 'loading') {
@@ -27,11 +29,11 @@ export class HomeComponent implements OnInit {
             }
           }, 100);
         }
-      });
+      }); */
     }
   }
 
-  animate(id: string, animationName: string, event: any) {
+  /* animate(id: string, animationName: string, event: any) {
     if (event.type === 'mouseover') {
       const node = document.getElementById(id);
       node.classList.add('animated', animationName);
@@ -40,5 +42,5 @@ export class HomeComponent implements OnInit {
       const node = document.getElementById(id);
       node.classList.remove('animated', animationName);
     }
-  }
+  } */
 }

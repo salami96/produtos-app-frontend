@@ -18,7 +18,7 @@ import { blue, green, brown, red } from './theme/themes';
     HomeComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'supercopac-ssr'}),
+    BrowserModule.withServerTransition({ appId: 'produtos-app' }),
     IconsModule,
     AppRoutingModule,
     /* RouterModule.forRoot([
