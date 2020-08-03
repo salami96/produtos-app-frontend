@@ -1,7 +1,82 @@
-body {
-  color: #202833;
+main {
+  min-height: 100vh;
+}
+.jumbotron {
+  display: flex;
+  border-radius: 0;
+  border-bottom-left-radius: 4em;
+  justify-content: space-evenly;
+  background: var(--dark);
+  padding-bottom: 1em;
+}
+.jumbotron img {
+  align-self: flex-end;
+  width: 30vw;
+  height: 30vw;
+  background-color: white;
+}
+.jumbotron div, .jumbotron div a {
+  max-width: 60vw;
+  text-align: center;
+  color: var(--secondary);
+}
+.jumbotron div h1 {
+  font-size: 2em;
 }
 .first-section {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.first-section button {
+  max-width: 400px;
+  width: 80vw;
+  border-radius: 1.5em;
+  background: var(--dark);
+  transition: 300ms;
+  margin-bottom: 2em;
+}
+.first-section button:hover {
+  border: 1px solid white;
+  background: var(--primary);
+  transition: 300ms;
+}
+.first-section .card {
+  padding: 1em;
+  border-radius: 1em;
+}
+.first-section iframe {
+  width: 80vw;
+  height: 80vw;
+  max-width: 400px;
+  border-radius: 1em;
+  margin-bottom: 1em;
+}
+.first-section a {
+  color: var(--primary);
+}
+.first-section a * {
+  margin-right: 0.5em;
+}
+.social {
+  display: flex;
+  justify-content: center;
+  height: 10em;
+}
+.social a {
+  color: var(--primary);
+  margin: 2em 1em;
+}
+.social a * {
+  width: 36px;
+  height: 36px;
+}
+svg .shadow {
+  box-shadow: 1px 1px 1px 0 #333;
+}
+
+/* .first-section {
   position: relative;
   height: 90vh;
   width: 100%;
@@ -119,3 +194,4 @@ body {
 .logo{
   height: 1.5em;
 }
+ */

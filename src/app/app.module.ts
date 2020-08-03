@@ -6,17 +6,19 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
 
 import { IconsModule } from './icons/icons.module';
 import { AppRoutingModule } from './routing/app.routing.module';
-import { HeaderComponent } from './header/header.component';
+import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
+import { ThemeModule } from './theme/theme.module';
+import { blue, green, brown, red } from './theme/themes';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    NavComponent,
     HomeComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'produtos-app'}),
+    BrowserModule.withServerTransition({appId: 'supercopac-ssr'}),
     IconsModule,
     AppRoutingModule,
     /* RouterModule.forRoot([
@@ -25,6 +27,10 @@ import { HomeComponent } from './home/home.component';
       { path: 'lazy/nested', loadChildren: './lazy/lazy.module#LazyModule'}
     ]), */
     TransferHttpCacheModule,
+    ThemeModule.forRoot({
+      themes: [ blue, green, brown, red ],
+      active: 'green'
+    }),
   ],
   providers: [
     IconsModule

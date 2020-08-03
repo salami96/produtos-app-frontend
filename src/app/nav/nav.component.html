@@ -1,0 +1,114 @@
+<div theme>
+  <nav class="navbar navbar-expand sticky-top mx-auto">
+    <ul class="navbar-nav nav mx-auto">
+      <li class="mr-5 my-auto">
+        <a class="navbar-brand" [routerLink]="[ '/' ]"><img src="favicon.ico">NomeEmpresa</a>
+      </li>
+      <li class="nav-item" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" [routerLink]="[ '/' ]">
+          <i-briefcase></i-briefcase>
+          Empresa
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="isActive">
+        <a class="nav-link" [routerLink]="[ '/produtos' ]">
+          <i-book-open></i-book-open>
+          Produtos
+        </a>
+      </li>
+      <li class="nav-item nav-proms-analytics" routerLinkActive="isActive">
+        <a class="nav-link" [routerLink]="[ '/pedido' ]">
+          <i-shopping-bag></i-shopping-bag>
+          Pedido
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="isActive">
+        <a class="nav-link" [routerLink]="[ '/perfil' ]">
+          <i-user></i-user>
+          Perfil
+        </a>
+      </li>
+      <!--         <li *ngIf="nome !== null" class="nav-item dropdown btn btn-success">
+        <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+          aria-haspopup="true" aria-expanded="false">Criar</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item btn" routerLink="/create-proms">Promoções</a>
+          <a class="dropdown-item btn" routerLink="/create-notif">Notificações</a>
+          <a class="dropdown-item btn" routerLink="/publish-video">Vídeo</a>
+        </div>
+      </li>-->
+    </ul>
+    <!--       <button *ngIf="nome === null" id="modal" data-toggle="modal" data-target="#login"
+        class="nav-iten btn btn-success login">
+        <i-user></i-user>
+      </button>
+      <button *ngIf="nome !== null" (click)="deslogar()" class="nav-iten btn btn-success login">
+        <i-user></i-user>
+        Sair
+      </button>
+ -->
+  </nav>
+  <nav class="fixed-bottom">
+    <div class="nav-item" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }">
+      <a class="tab" [routerLink]="[ '/' ]">
+        <i-briefcase></i-briefcase>
+        Empresa
+      </a>
+    </div>
+    <div class="nav-item" routerLinkActive="isActive">
+      <a class="tab" [routerLink]="[ '/produtos' ]">
+        <i-book-open></i-book-open>
+        Produtos
+      </a>
+    </div>
+    <div class="nav-item" routerLinkActive="isActive">
+      <a class="tab" [routerLink]="[ '/pedido' ]">
+        <i-shopping-bag></i-shopping-bag>
+        Pedido
+      </a>
+    </div>
+    <div class="nav-item" routerLinkActive="isActive">
+      <a class="tab" [routerLink]="[ '/perfil' ]">
+        <i-user></i-user>
+        Perfil
+      </a>
+    </div>
+  </nav>
+</div>
+<!-- <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-nav">
+        <h5 class="modal-title"><span data-feather="user"></span>Login do Usuário</h5>
+        <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
+          <i-x-square></i-x-square>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-signin" (submit)="logar()" action="#" method="dialog">
+          <div class="form-label-group">
+            <label for="inputEmail">Email:</label>
+            <input type="email" id="inputEmail" name="inputEmail" [(ngModel)]="inputEmail" [class.invalid]="erroEmail"
+            class="form-control invalid" placeholder="email@domain.com" required autofocus>
+            <div class="alert alert-danger" role="alert" [hidden]="!erroEmail">
+              Informe corretamente o campo de email!
+            </div>
+          </div>
+          <div class="form-label-group">
+            <label for="inputPassword">Senha:</label>
+            <input type="password" id="inputPassword" [(ngModel)]="inputSenha" name="inputSenha" [class.invalid]="erroSenha"
+             class="form-control" placeholder="*******">
+          </div>
+          <hr>
+          <div class="alert alert-danger" role="alert" [hidden]="!erroSenha">
+            Informe corretamente o campo de senha!
+          </div>
+          <div class="alert alert-danger" role="alert" [hidden]="!erroLogin">
+            Email ou senha incorretos!
+          </div>
+          <button class="btn btn-lg btn-success btn-block" type="submit">Entrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->

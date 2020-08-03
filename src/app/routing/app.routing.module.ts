@@ -23,9 +23,11 @@ import { FormComponent } from '../form/form.component'; */
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'lazy', loadChildren: 'app/lazy/lazy.module#LazyModule' },
-  { path: 'lazy/nested', loadChildren: 'app/lazy/lazy.module#LazyModule' },
-  { path: 'nao-encontrado', loadChildren: 'app/errors/errors.module#ErrorsModule' }
+  { path: 'produtos', loadChildren: 'app/products/products.module#ProductsModule' },
+  { path: 'pedido', loadChildren: 'app/order/order.module#OrderModule' },
+  { path: 'perfil', loadChildren: 'app/profile/profile.module#ProfileModule' },
+  { path: 'nao-encontrado', loadChildren: 'app/errors/errors.module#ErrorsModule' },
+  { path: '**', loadChildren: 'app/errors/errors.module#ErrorsModule' }
   /* { path: 'compras', component: ShopComponent },
   { path: 'saiba-mais', component: KnowMoreComponent },
   // { path: 'compras', component: LimitComponent },

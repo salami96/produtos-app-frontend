@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import {
+  IconBriefcase,
+  IconBookOpen,
+  IconShoppingBag,
+  // -------
   IconTrash2,
   IconUser,
   IconGithub,
@@ -38,10 +42,19 @@ import {
   IconUsers,
   IconFacebook,
   IconStar,
-  IconShare
+  IconShare,
+  IconHome,
+  IconInstagram
 } from 'angular-feather';
 
 const icons = [
+  IconBriefcase,
+  IconBookOpen,
+  IconShoppingBag,
+  IconUser,
+  IconFacebook,
+  IconInstagram,
+  // ------------
   IconUser,
   IconTrash2,
   IconGithub,
@@ -80,7 +93,8 @@ const icons = [
   IconUsers,
   IconFacebook,
   IconStar,
-  IconShare
+  IconShare,
+  IconHome
 ];
 
 @NgModule({

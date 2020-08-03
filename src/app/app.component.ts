@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ThemeService } from './theme/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,12 @@ import { Component } from '@angular/core';
     }
   `]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Supermercado Copac';
 
+  constructor(private themeService: ThemeService) { }
+
+  ngOnInit() {
+    // this.themeService.setTheme('brown');
+  }
 }
