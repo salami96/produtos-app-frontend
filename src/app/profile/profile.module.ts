@@ -3,11 +3,12 @@ import { ProfileComponent } from './profile.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [ProfileComponent],
+  declarations: [ ProfileComponent ],
   imports: [
     RouterModule.forChild([
-      { path: '', component: ProfileComponent, pathMatch: 'full'}
-    ])
+      { path: '', component: ProfileComponent, pathMatch: 'full'},
+      { path: 'entrar', component: ProfileComponent, pathMatch: 'full'},
+    ]),
   ]
 })
 export class ProfileModule { }

@@ -1,10 +1,10 @@
-<main theme>
+<main>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
   <section class="jumbotron">
-    <img src="assets/error.svg" class="rounded-circle" alt="Logotipo da Empresa">
+    <img src="https://supercopac.com.br/assets/logo.png" class="rounded-circle" alt="Logotipo da Empresa">
     <div>
-      <h1>Nome Da Empresa</h1>
-      <a href="tel:+5551998446478">(51) 99844-6478</a>
+      <h1>Supermercado COPAC</h1>
+      <a href="tel:+5551998446478"><i-phone class="fill"></i-phone> (51) 99844-6478</a>
     </div>
     <!-- <div class="bg"></div>
   <h1>
@@ -27,9 +27,14 @@
     </button>
   </div> -->
   </section>
-  <section class="first-section">
-    <button class="btn btn-block btn-dark">WhatsApp</button>
-    <div class="card clean-card" *ngIf="loadMap">
+  <section class="actions">
+    <a class="btn btn-block btn-dark" [routerLink]="[ '/produtos' ]">
+      <i-shopping-bag></i-shopping-bag>
+      Ver produtos
+    </a>
+  </section>
+  <section class="map" *ngIf="canLoad">
+    <div class="card clean-card">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1728.2553552706645!2d-51.612164141892826
     !3d-29.964749495477786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951bc144e0420b7b%3A0xf76
     269ba228bc30f!2sN%C3%BAcleo%20F-49%2C%2059%20-%20Vila%20Acos%20Finos%20Piratini%2C%20Charqueadas%20-
@@ -39,10 +44,15 @@
     </div>
   </section>
   <section class="social">
-    <a href="https://facebook.com/"><i-facebook class="shadow"></i-facebook></a>
-    <a href="https://instagram.com/"><i-instagram class="shadow"></i-instagram></a>
-    <a href="tel:+5551998446478"><i-phone class="shadow"></i-phone></a>
+    <a href="https://facebook.com/"><i-facebook></i-facebook></a>
+    <a href="https://instagram.com/"><i-instagram></i-instagram></a>
+    <a href="tel:+5551998446478"><i-phone></i-phone></a>
   </section>
+  <footer>
+    <div class="card">
+      <a href="https://www.produtos.app">Desenvolvido com <i-heart class="fill"></i-heart> <br> por www.produtos.app</a>
+    </div>
+  </footer>
   <!-- <section class="container-fluid actions">
   <a class="card clean-card" id="cadastro" data-toggle="modal" data-target="#envio-whats">
     <i-bell class="card-icon"></i-bell>

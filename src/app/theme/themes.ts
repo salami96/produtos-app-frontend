@@ -1,4 +1,7 @@
-import { Theme } from './symbols';
+interface Theme {
+    name: string;
+    properties: any;
+}
 
 export const blue: Theme = {
     name: 'blue',

@@ -1,0 +1,26 @@
+main {
+  min-height: 100vh;
+}
+.jumbotron {
+  display: flex;
+  border-radius: 0;
+  border-bottom-left-radius: 4em;
+  justify-content: space-evenly;
+  background: var(--dark);
+  padding-bottom: 1em;
+  align-items: center;
+}
+.jumbotron img {
+  align-self: flex-end;
+  width: 30vw;
+  height: 30vw;
+  background-color: white;
+}
+.jumbotron div, .jumbotron div a {
+  max-width: 60vw;
+  text-align: center;
+  color: var(--secondary);
+}
+.jumbotron div h1 {
+  font-size: 2em;
+}
