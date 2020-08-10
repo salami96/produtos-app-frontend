@@ -1,146 +1,63 @@
 <main>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
-  <section class="jumbotron">
-    <img src="https://supercopac.com.br/assets/logo.png" class="rounded-circle" alt="Logotipo da Empresa">
-    <div>
-      <h1>Supermercado COPAC</h1>
-      <a href="tel:+5551998446478"><i-phone class="fill"></i-phone> (51) 99844-6478</a>
+  <div class="mobile">
+    <section class="jumbotron">
+      <img src="{{store.logo}}" class="rounded-circle" alt="Logotipo da Empresa">
+      <div class="logo-and-number">
+        <h1>{{store.title}}</h1>
+        <a href="tel:+55{{store.phone}}"><i-phone class="fill"></i-phone> {{store.phone}}</a>
+      </div>
+    </section>
+    <section class="actions">
+      <a class="btn btn-block btn-dark" [routerLink]="[ '/produtos' ]">
+        <i-book-open></i-book-open>
+        Ver produtos
+      </a>
+    </section>
+    <section class="map" *ngIf="canLoad">
+      <div class="card clean-card">
+        <iframe [src]="map" frameborder="0"
+        allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        <a href="https://maps.google.com" class="card-action"><i-map></i-map>Como Chegar</a>
+      </div>
+    </section>
+    <section class="social">
+      <a href="{{store.fb}}"><i-facebook></i-facebook></a>
+      <a href="{{store.insta}}"><i-instagram></i-instagram></a>
+      <a href="{{store.whatsapp}}"><i-whatsapp></i-whatsapp></a>
+    </section>
+  </div>
+  <div class="desktop row">
+    <div class="actions col">
+      <img src="{{store.logo}}" class="rounded-circle" alt="Logotipo da Empresa">
+      <div class="logo-and-number">
+        <h1>{{store.title}}</h1>
+        <a href="tel:+5551998446478"><i-phone class="fill"></i-phone> (51) 99844-6478</a>
+      </div>
+      <a class="btn btn-block btn-dark mt-5" [routerLink]="[ '/produtos' ]">
+        <i-book-open></i-book-open>
+        Ver produtos
+      </a>
+      <section class="social">
+        <a href="{{store.fb}}"><i-facebook></i-facebook></a>
+        <a href="{{store.insta}}"><i-instagram></i-instagram></a>
+        <a href="{{store.whatsapp}}"><i-whatsapp></i-whatsapp></a>
+      </section>
     </div>
-    <!-- <div class="bg"></div>
-  <h1>
-    Fique em casa, se cuide
-    <i-heart style="fill: green"></i-heart>
-  </h1>
-  <h2>Compre pelo site e entregamos para você!</h2>
-  <div class="animated zoomIn">
-    <a routerLink="/compras" class="btn btn-success rounded-pill m-1">
-      <i-shopping-cart></i-shopping-cart>
-      Comprar agora
-    </a>
-    <a routerLink="/saiba-mais" class="btn btn-outline-success rounded-pill m-1">
-      <i-info></i-info>
-      Saiba mais
-    </a>
-    <button class="btn btn-outline-success rounded-pill m-1" data-toggle="modal" data-target="#envio-whats">
-      <img src="/assets/wpp.png" alt="WhatsApp Icon" class="logo">
-      Fale com a gente
-    </button>
-  </div> -->
-  </section>
-  <section class="actions">
-    <a class="btn btn-block btn-dark" [routerLink]="[ '/produtos' ]">
-      <i-shopping-bag></i-shopping-bag>
-      Ver produtos
-    </a>
-  </section>
-  <section class="map" *ngIf="canLoad">
-    <div class="card clean-card">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1728.2553552706645!2d-51.612164141892826
-    !3d-29.964749495477786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951bc144e0420b7b%3A0xf76
-    269ba228bc30f!2sN%C3%BAcleo%20F-49%2C%2059%20-%20Vila%20Acos%20Finos%20Piratini%2C%20Charqueadas%20-
-    %20RS%2C%2096745-000!5e0!3m2!1sen!2sbr!4v1596135888316!5m2!1sen!2sbr" frameborder="0"
-      allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-      <a href="https://maps.google.com" class="card-action"><i-map></i-map>Como Chegar</a>
-    </div>
-  </section>
-  <section class="social">
-    <a href="https://facebook.com/"><i-facebook></i-facebook></a>
-    <a href="https://instagram.com/"><i-instagram></i-instagram></a>
-    <a href="tel:+5551998446478"><i-phone></i-phone></a>
-  </section>
+    <section class="map col" *ngIf="canLoad">
+      <div class="card clean-card">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1728.2553552706645!2d-51.612164141892826
+      !3d-29.964749495477786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951bc144e0420b7b%3A0xf76
+      269ba228bc30f!2sN%C3%BAcleo%20F-49%2C%2059%20-%20Vila%20Acos%20Finos%20Piratini%2C%20Charqueadas%20-
+      %20RS%2C%2096745-000!5e0!3m2!1sen!2sbr!4v1596135888316!5m2!1sen!2sbr" frameborder="0"
+        allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        <a href="https://maps.google.com" class="card-action"><i-map></i-map>Como Chegar</a>
+      </div>
+    </section>
+  </div>
   <footer>
     <div class="card">
-      <a href="https://www.produtos.app">Desenvolvido com <i-heart class="fill"></i-heart> <br> por www.produtos.app</a>
+      <a href="https://www.produtos.app">Desenvolvido com <i-heart class="fill"></i-heart> por www.produtos.app</a>
     </div>
   </footer>
-  <!-- <section class="container-fluid actions">
-  <a class="card clean-card" id="cadastro" data-toggle="modal" data-target="#envio-whats">
-    <i-bell class="card-icon"></i-bell>
-    <div class="card-body">
-      <h6 class="card-title">Receber Ofertas</h6>
-      <p class="card-text">Se cadastre e receba nossa ofertas todos os dias no seu WhatsApp</p>
-    </div>
-  </a>
-  <a href="/home#social" class="card clean-card">
-    <i-facebook class="card-icon"></i-facebook>
-    <div class="card-body">
-      <h6 class="card-title">Redes Sociais</h6>
-      <p class="card-text">Siga-nos e fale conosco pelas nossas redes sociais</p>
-    </div>
-  </a>
-  <a routerLink="/proms" class="card clean-card">
-    <i-trending-down class="card-icon"></i-trending-down>
-    <div class="card-body">
-      <h6 class="card-title">Promoções</h6>
-      <p class="card-text">Ver todas as nossas ofertas ativas</p>
-    </div>
-  </a>
-  <a routerLink="/video" class="card clean-card">
-    <i-play class="card-icon"></i-play>
-    <div class="card-body">
-      <h6 class="card-title">Vídeo</h6>
-      <p class="card-text">Ver o vídeo com as ofertas especiais do fim de semana</p>
-    </div>
-  </a>
-  <a routerLink="/about" class="card clean-card">
-    <i-users class="card-icon"></i-users>
-    <div class="card-body">
-      <h6 class="card-title">Sobre nós</h6>
-      <p class="card-text">Saiba mais sobre a história de lutas e superação</p>
-    </div>
-  </a>
-</section>
-<section class="container setores">
-  <div class="card clean-card">
-    <div class="row no-gutters">
-      <div class="col-3 col-md-4 my-auto">
-        <img id="img-verd" (mouseover)="animate('img-verd','pulse',$event)" (mouseout)="animate('img-verd','pulse',$event)"
-        class="rounded-circle"  src="/assets/verduras.jpg" alt="Hortifruti">
-      </div>
-      <div class="col-9 col-md-8 card-body">
-        <h2 class="card-title">Hortifruti</h2>
-        <p class="card-text">Aqui você encontra frutas, legumes e verduras fresquinhos com qualidade e preços que você merece! Venha conferir.</p>
-      </div>
-    </div>
-  </div>
-  <div class="card clean-card">
-    <div class="row no-gutters">
-      <div class="col-3 col-md-4 my-auto">
-        <img id="img-carne" (mouseover)="animate('img-carne','pulse',$event)" (mouseout)="animate('img-carne','pulse',$event)"
-        class="rounded-circle"  src="/assets/carne.jpg" alt="Carnes">
-      </div>
-      <div class="col-9 col-md-8 card-body">
-        <h2 class="card-title">Açougue</h2>
-        <p class="card-text">As melhores carnes da cidade e embutidos frescos produzidos em nossa própria agroindústria com a qualidade que você conhece.</p>
-      </div>
-    </div>
-  </div>
-  <div class="card clean-card">
-    <div class="row no-gutters">
-      <div class="col-3 col-md-4 my-auto">
-        <img id="img-pao" (mouseover)="animate('img-pao','pulse',$event)" (mouseout)="animate('img-pao','pulse',$event)"
-        class="rounded-circle"  src="/assets/padaria.jpg" alt="Padaria">
-      </div>
-      <div class="col-9 col-md-8 card-body">
-        <h2 class="card-title">Padaria</h2>
-        <p class="card-text">Pães, cucas, bolachas, tudo produzido na nossa padaria colonial e pensado para agradar o seu paladar. Prove essas delícias!</p>
-      </div>
-    </div>
-  </div>
-  <div class="card clean-card">
-    <div class="row no-gutters">
-      <div class="col-3 col-md-4 my-auto">
-        <img id="img-loja" (mouseover)="animate('img-loja','pulse',$event)" (mouseout)="animate('img-loja','pulse',$event)"
-        class="rounded-circle"  src="/assets/loja.jpg" alt="Loja">
-      </div>
-      <div class="col-9 col-md-8 card-body">
-        <h2 class="card-title">Mercearia</h2>
-        <p class="card-text">Tudo para as compras do mês, da semana ou do dia, muita variedade e principalmente os melhores preços para sua família!</p>
-      </div>
-    </div>
-  </div>
-  <div id="social" class="card clean-card mt-3">
-    <app-contact></app-contact>
-  </div>
-</section> -->
 </main>

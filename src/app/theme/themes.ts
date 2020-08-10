@@ -6,7 +6,7 @@ interface Theme {
 export const blue: Theme = {
     name: 'blue',
     properties: {
-        '--background': '#F5F7FA',
+        '--background': '#E6EBF2',
         '--dark': '#103B66',
         '--primary': '#215C96',
         '--secondary': '#CCE5FF',
@@ -16,7 +16,7 @@ export const blue: Theme = {
 export const green: Theme = {
     name: 'green',
     properties: {
-        '--background': '#F5F7FA',
+        '--background': '#E6EBF2',
         '--dark': '#0F6634',
         '--primary': '#219653',
         '--secondary': '#CCFFE2',
@@ -26,7 +26,7 @@ export const green: Theme = {
 export const brown: Theme = {
     name: 'brown',
     properties: {
-        '--background': '#F5F7FA',
+        '--background': '#E6EBF2',
         '--dark': '#340100',
         '--primary': '#7D4106',
         '--secondary': '#FFD6B2',
@@ -36,7 +36,7 @@ export const brown: Theme = {
 export const red: Theme = {
     name: 'red',
     properties: {
-        '--background': '#F5F7FA',
+        '--background': '#E6EBF2',
         '--dark': '#7D0C0C',
         '--primary': '#C00000',
         '--secondary': '#FFCCCC',

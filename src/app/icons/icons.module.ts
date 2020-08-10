@@ -46,6 +46,7 @@ import {
   IconHome,
   IconInstagram
 } from 'angular-feather';
+import { WhatsappIconComponent } from './whatsapp-icon/whatsapp-icon.component';
 
 const icons = [
   IconBriefcase,
@@ -54,6 +55,7 @@ const icons = [
   IconUser,
   IconFacebook,
   IconInstagram,
+  WhatsappIconComponent,
   // ------------
   IconUser,
   IconTrash2,
@@ -98,6 +100,7 @@ const icons = [
 ];
 
 @NgModule({
-  exports: icons
+  exports: icons,
+  declarations: [ WhatsappIconComponent ]
 })
 export class IconsModule { }

@@ -26,7 +26,6 @@ export class AppComponent implements OnInit {
 
       // tslint:disable-next-line:forin
       for (const key in obj[active].properties) {
-        console.log(key);
         document.querySelector('body').style.setProperty(key, obj[active].properties[key]);
       }
       document.querySelector('body').style.setProperty('background-color', obj[active].properties['--background']);
