@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
         red,
         brown
       };
-      const active = 'brown';
+      const active = 'green';
 
       // tslint:disable-next-line:forin
       for (const key in obj[active].properties) {

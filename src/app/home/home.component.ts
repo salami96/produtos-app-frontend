@@ -27,11 +27,8 @@ export class HomeComponent implements OnInit {
     // this.uService.ping().subscribe(resp => console.log(resp));
     if (isPlatformBrowser(this.platformID)) {
       this.canLoad = true;
-      this.map = this.sanitizer.bypassSecurityTrustResourceUrl(
-        `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1294.8316396084465!2d
-        ${this.store.long}!3d${this.store.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x8b2261e53fcc3dfc!2s
-        Supermercado+Copac!5e0!3m2!1spt-BR!2sbr!4v1540222183652`
-      );
+      this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');
+      console.log(this.map);
       /* this.route.params.subscribe(res => {
         if (res.data === 'cadastro') {
           const checkExist = setInterval(function() {

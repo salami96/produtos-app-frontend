@@ -18,13 +18,13 @@
       <div class="card clean-card">
         <iframe [src]="map" frameborder="0"
         allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-        <a href="https://maps.google.com" class="card-action"><i-map></i-map>Como Chegar</a>
+        <a href="{{store.directions}}" target="_blank" class="card-action"><i-map></i-map>Como Chegar</a>
       </div>
     </section>
     <section class="social">
-      <a href="{{store.fb}}"><i-facebook></i-facebook></a>
-      <a href="{{store.insta}}"><i-instagram></i-instagram></a>
-      <a href="{{store.whatsapp}}"><i-whatsapp></i-whatsapp></a>
+      <a href="{{store.fb}}" target="_blank"><i-facebook></i-facebook></a>
+      <a href="{{store.insta}}" target="_blank"><i-instagram></i-instagram></a>
+      <a href="{{store.whatsapp}}" target="_blank"><i-whatsapp></i-whatsapp></a>
     </section>
   </div>
   <div class="desktop row">
@@ -39,19 +39,21 @@
         Ver produtos
       </a>
       <section class="social">
-        <a href="{{store.fb}}"><i-facebook></i-facebook></a>
-        <a href="{{store.insta}}"><i-instagram></i-instagram></a>
-        <a href="{{store.whatsapp}}"><i-whatsapp></i-whatsapp></a>
+        <a href="{{store.fb}}" target="_blank"><i-facebook></i-facebook></a>
+        <a href="{{store.insta}}" target="_blank"><i-instagram></i-instagram></a>
+        <a href="{{store.whatsapp}}" target="_blank"><i-whatsapp></i-whatsapp></a>
       </section>
     </div>
     <section class="map col" *ngIf="canLoad">
       <div class="card clean-card">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1728.2553552706645!2d-51.612164141892826
+        <iframe [src]="map" frameborder="0"
+        allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1728.2553552706645!2d-51.612164141892826
       !3d-29.964749495477786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951bc144e0420b7b%3A0xf76
       269ba228bc30f!2sN%C3%BAcleo%20F-49%2C%2059%20-%20Vila%20Acos%20Finos%20Piratini%2C%20Charqueadas%20-
       %20RS%2C%2096745-000!5e0!3m2!1sen!2sbr!4v1596135888316!5m2!1sen!2sbr" frameborder="0"
-        allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-        <a href="https://maps.google.com" class="card-action"><i-map></i-map>Como Chegar</a>
+        allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
+        <a href="{{store.directions}}" class="card-action" target="_blank"><i-map></i-map>Como Chegar</a>
       </div>
     </section>
   </div>
