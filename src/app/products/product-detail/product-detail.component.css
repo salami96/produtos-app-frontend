@@ -1,0 +1,79 @@
+@media (max-width: 949px) {
+    .desktop {
+      display: none;
+    }
+}
+@media (min-width: 950px) {
+    .mobile {
+        display: none;
+      }
+    .navbar.sticky-top {
+        background-color: var(--dark);
+        border-radius: 0 0 2em 2em;
+        padding: 1em 5em;
+    }
+}
+.navbar.sticky-top {
+    background: var(--primary);
+    color: white !important;
+    margin: 0 auto;
+    border-bottom-left-radius: 2em;
+}
+.navbar-brand {
+    color: white;
+}
+.mobile .product-img {
+    width: 80vw;
+    height: auto;
+    border-radius: 1em;
+    margin: 1em auto;
+}
+.mobile main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mobile main .card {
+    padding: 1em 2em;
+    border-radius: 1em;
+}
+.chk input {
+    display: none;
+}
+.chk label {
+    cursor: pointer;
+}
+.chk input[type="radio"] + label:before, .chk input[type="checkbox"] + label:before {
+    border: 1px solid #5D5C5C;
+    content: "\00a0";
+    display: inline-block;
+    font: 16px/1em sans-serif;
+    height: 20px;
+    margin: 0 .25em 0 0;
+    padding:0;
+    vertical-align: top;
+    width: 20px;
+    border-radius: 4px;
+}
+ 
+.chk input[type="radio"]:checked + label:before, .chk input[type="checkbox"]:checked + label:before {
+    background: var(--secondary);
+    color: var(--primary);
+    content: "\2713";
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+}
+ 
+.chk input[type="radio"]:checked + label:after, .chk input[type="checkbox"]:checked + label:after {
+    font-weight: bold;
+}
+/* .chk input:hover {
+    border: 1px solid var(--primary);
+}
+.chk input:checked{
+    border: 2.5px solid #333;
+    background-color: var(--primary);
+    width: 15px;
+    height: 15px;
+} */

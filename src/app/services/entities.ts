@@ -24,18 +24,19 @@ interface Category {
     icon: string;
 }
 interface Product {
+    cod: string;
     store: string;
     category: string;
     name: string;
     imgs: string[];
-    sizes: [{
+    sizes: {
         name: string;
         value: number;
-    }];
+    }[];
     unity: string;
-    extras: [{
+    extras: {
         name: string;
         value: number;
-    }];
+    }[];
     optional: string[];
 }

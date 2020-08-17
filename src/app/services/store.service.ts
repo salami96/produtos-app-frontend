@@ -171,6 +171,7 @@ export class StoreService {
   getProducts() {
     this.products = [
       {
+        cod: '0',
         store: 'askjdhajsdfkjsdjkfk',
         category: 'Bolos',
         name: 'Bolo de Cenoura',
@@ -183,10 +184,15 @@ export class StoreService {
         extras: [{
           name: 'Cobertura Dupla',
           value: 5
+        },
+        {
+          name: 'Açucar Light',
+          value: 5
         }],
-        optional: ['']
+        optional: ['Granulado', 'Cobertura']
       },
       {
+        cod: '1',
         store: 'askjdhajsdfkjsdjkfk',
         category: 'Bolos',
         name: 'Bolo de Milho',
@@ -199,11 +205,20 @@ export class StoreService {
         extras: [{
           name: 'Cobertura Dupla',
           value: 5
+        },
+        {
+          name: 'Açucar Light',
+          value: 5
         }],
-        optional: ['']
+        optional: ['Granulado', 'Cobertura']
       }
     ];
 
     return this.products;
   }
+
+  async getProduct(cod: string): Promise<Product> {
+    return await this.getProducts().find(prod => prod.cod === cod);
+  }
+
 }

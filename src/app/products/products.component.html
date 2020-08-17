@@ -34,46 +34,46 @@
   </div>
 </nav>
 <main>
-  <div class="card" *ngFor="let product of products">
+  <a routerLink="/produtos/{{product.cod}}" class="card" *ngFor="let product of products">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
       <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
     </div>
-  </div>
-  <div class="card" *ngFor="let product of products">
+  </a>
+  <a routerLink="/produtos/{{product.cod}}" class="card" *ngFor="let product of products">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
       <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
     </div>
-  </div>
-  <div class="card" *ngFor="let product of products">
+  </a>
+  <a routerLink="/produtos/{{product.cod}}" class="card" *ngFor="let product of products">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
       <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
     </div>
-  </div>
-  <div class="card" *ngFor="let product of products">
+  </a>
+  <a routerLink="/produtos/{{product.cod}}" class="card" *ngFor="let product of products">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
       <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
     </div>
-  </div>
-  <div class="card" *ngFor="let product of products">
+  </a>
+  <a routerLink="/produtos/{{product.cod}}" class="card" *ngFor="let product of products">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
       <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
     </div>
-  </div>
-  <div class="card" *ngFor="let product of products">
+  </a>
+  <a routerLink="/produtos/{{product.cod}}" class="card" *ngFor="let product of products">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
       <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
     </div>
-  </div>
+  </a>
 </main>

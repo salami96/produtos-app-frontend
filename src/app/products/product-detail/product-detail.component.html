@@ -1,0 +1,20 @@
+<div class="mobile">
+  <nav class="navbar sticky-top">
+    <a routerLink="/produtos" class="navbar-brand">
+      <i-chevron-left></i-chevron-left>
+      {{product?.name}}
+    </a>
+  </nav>
+  <main>
+    <img src="assets/error.svg" alt="" class="product-img" *ngIf="product == undefined">
+    <img src="{{product.imgs[0]}}" alt="" class="product-img" *ngIf="product != undefined">
+    <div *ngIf="product.optional != 0" class="card px-5 py-2">
+      <h3>Quero retirar</h3>
+      <div class="chk" *ngFor="let option of product.optional">
+        <input type="checkbox" [id]="option">
+        <label [for]="option">{{option}}</label>
+      </div>
+    </div>
+  </main>
+</div>
+
