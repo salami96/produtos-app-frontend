@@ -38,7 +38,7 @@ export const red: Theme = {
     properties: {
         '--background': '#E6EBF2',
         '--dark': '#7D0C0C',
-        '--primary': '#C00000',
+        '--primary': '#A50104',
         '--secondary': '#FFCCCC',
         '--accent': '#F2C94C',
     }

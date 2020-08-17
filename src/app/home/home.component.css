@@ -17,7 +17,7 @@ main {
   border-bottom-left-radius: 4em;
   justify-content: space-evenly;
   align-items: center;
-  background: var(--dark);
+  background: var(--primary);
   padding-bottom: 1em;
 }
 .jumbotron img {
@@ -30,6 +30,16 @@ main {
   max-width: 60vw;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
+}
+.logo-and-number a {
+  transition: 300ms;
+  padding: 0.5em;
+}
+.logo-and-number a:hover {
+  background: white;
+  border-radius: 1.5em;
+  text-decoration: none;
+  transition: 300ms;
 }
 .jumbotron .logo-and-number * {
   color: var(--secondary);
@@ -54,14 +64,17 @@ main {
 .actions .btn {
   width: 80%;
   border-radius: 1.5em;
-  background: var(--dark);
+  background: var(--primary);
   transition: 300ms;
   margin: 0.25em 0;
+  border: 1px solid var(--primary);
+  color: var(--secondary);
 }
 .actions .btn:hover {
   border: 1px solid white;
-  background: var(--primary);
+  background: var(--dark);
   transition: 300ms;
+  color: white;
 }
 .map {
   width: 80%;
@@ -102,6 +115,8 @@ main {
   transition: 300ms;
 }
 .social a:hover {
+  background: var(--primary);
+  color: white;
   box-shadow: 3px 3px 2px 2px rgba(100, 100, 100, 0.25);
   transition: 300ms;
 }
@@ -142,6 +157,7 @@ footer a:hover {
 }
 .desktop > .actions > img {
   width: 50%;
+  max-width: 250px;
 }
 .desktop .logo-and-number * {
   color: var(--primary);

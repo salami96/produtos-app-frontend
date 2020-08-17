@@ -1,3 +1,79 @@
-<p>
-  products works!
-</p>
+<nav role="toolbar" class="navbar sticky-top btn-toolbar" data-toggle="buttons">
+  <div class="input-group search mb-1">
+    <input class="form-control" [(ngModel)]="query" placeholder="Pesquisar produtos..." aria-label="Search" autofocus (keyup.enter)="searchName()">
+    <div class="input-group-append">
+      <button class="btn btn-outline-theme" (click)="searchName()"><i-search></i-search></button>
+    </div>
+  </div>
+  <div id="category-selector">
+    <!-- <span (click)="slide(true)"><i-chevron-left></i-chevron-left></span> -->
+    <div class="btn-toolbar btn-group-toggle btn-group btn-group-theme" [innerHtml]="safeHtml" id="categorias">
+      <!-- <label class="btn btn-outline-success active" (click)="setTitle('Todos os  Produtos')">
+        <input type="radio" checked>Todos
+      </label>
+      <label class="btn btn-outline-success" (click)="setTitle('Açougue')" >
+        <input type="radio">Açougue
+      </label>
+      <label class="btn btn-outline-success" (click)="setTitle('Limpeza')" >
+        <input type="radio">Limpeza
+      </label>
+      <label class="btn btn-outline-success" (click)="setTitle('Bebidas')" >
+        <input type="radio">Bebidas
+      </label>
+      <label class="btn btn-outline-success" (click)="setTitle('Geral')" >
+        <input type="radio">Geral
+      </label>
+      <label class="btn btn-outline-success" (click)="setTitle('Padaria')" >
+        <input type="radio">Padaria
+      </label>
+      <label class="btn btn-outline-success" (click)="setTitle('Verduras')" >
+        <input type="radio">Verduras
+      </label> -->
+    </div>
+    <!-- <span (click)="slide(false)"><i-chevron-right></i-chevron-right></span> -->
+  </div>
+</nav>
+<main>
+  <div class="card" *ngFor="let product of products">
+    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
+    <div class="card-body">
+      <p>{{product.name}}</p>
+      <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
+    </div>
+  </div>
+  <div class="card" *ngFor="let product of products">
+    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
+    <div class="card-body">
+      <p>{{product.name}}</p>
+      <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
+    </div>
+  </div>
+  <div class="card" *ngFor="let product of products">
+    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
+    <div class="card-body">
+      <p>{{product.name}}</p>
+      <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
+    </div>
+  </div>
+  <div class="card" *ngFor="let product of products">
+    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
+    <div class="card-body">
+      <p>{{product.name}}</p>
+      <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
+    </div>
+  </div>
+  <div class="card" *ngFor="let product of products">
+    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
+    <div class="card-body">
+      <p>{{product.name}}</p>
+      <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
+    </div>
+  </div>
+  <div class="card" *ngFor="let product of products">
+    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
+    <div class="card-body">
+      <p>{{product.name}}</p>
+      <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
+    </div>
+  </div>
+</main>

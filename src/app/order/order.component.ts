@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-order',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    @Inject(PLATFORM_ID) private platformID: Object
+  ) { }
 
   ngOnInit() {
+    if (isPlatformBrowser(this.platformID)) {
+      document.querySelector('nav').style.setProperty('box-shadow', 'none');
+
+    }
   }
 
 }

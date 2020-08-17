@@ -44,63 +44,30 @@ import {
   IconStar,
   IconShare,
   IconHome,
-  IconInstagram
+  IconInstagram,
+  IconChevronLeft,
+  IconChevronRight
 } from 'angular-feather';
-import { WhatsappIconComponent } from './whatsapp-icon/whatsapp-icon.component';
+import { IconWhatsappComponent } from './whatsapp-icon/whatsapp-icon.component';
 
 const icons = [
   IconBriefcase,
   IconBookOpen,
   IconShoppingBag,
   IconUser,
+  IconPhone,
   IconFacebook,
   IconInstagram,
-  WhatsappIconComponent,
-  // ------------
-  IconUser,
-  IconTrash2,
-  IconGithub,
-  IconPlus,
-  IconMail,
+  IconWhatsappComponent,
   IconMap,
-  IconDollarSign,
-  IconCalendar,
-  IconSmartphone,
-  IconLinkedin,
-  IconImage,
-  IconBell,
-  IconMenu,
-  IconBellOff,
-  IconXSquare,
-  IconPhone,
-  IconHelpCircle,
-  IconSearch,
-  IconX,
-  IconChevronDown,
-  IconShoppingCart,
-  IconMinus,
-  IconArrowLeft,
-  IconCheck,
-  IconCreditCard,
-  IconSlash,
-  IconLoader,
-  IconInfo,
-  IconLock,
-  IconGlobe,
-  IconEdit,
-  IconAlertCircle,
   IconHeart,
-  IconTrendingDown,
-  IconPlay,
-  IconUsers,
-  IconFacebook,
-  IconStar,
-  IconShare,
-  IconHome
+  IconSearch,
+  IconChevronLeft,
+  IconChevronRight,
 ];
 
 @NgModule({
   exports: icons,
-  declarations: [ WhatsappIconComponent ]
+  declarations: [ IconWhatsappComponent ]
 })
 export class IconsModule { }

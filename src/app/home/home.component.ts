@@ -25,10 +25,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.store = this.service.store;
     // this.uService.ping().subscribe(resp => console.log(resp));
+    document.querySelector('nav').style.setProperty('box-shadow', 'none');
     if (isPlatformBrowser(this.platformID)) {
       this.canLoad = true;
       this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');
-      console.log(this.map);
       /* this.route.params.subscribe(res => {
         if (res.data === 'cadastro') {
           const checkExist = setInterval(function() {

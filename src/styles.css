@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+label.btn-outline-theme {
+    color: var(--secondary);
+    border: 0.1px solid var(--dark);
+    border-radius: 1.5em;
+    transition: 300ms;
+    margin-bottom: 5px !important;
+}
+label.btn-outline-theme.focus, label.btn-outline-theme:focus {
+    box-shadow: none;
+}
+label.btn-outline-theme:hover, label.btn-outline-theme.active {
+    color: #fff;
+    background-color: var(--dark);
+    transition: 300ms;
+}
+@media (min-width: 950px) {
+    label.btn-outline-theme {
+        border: 0.1px solid var(--primary);
+    }
+    label.btn-outline-theme:hover, label.btn-outline-theme.active {
+        color: #fff;
+        background-color: var(--primary);
+    }
+}

@@ -1,6 +1,7 @@
 interface Store {
     title: string;
     logo: string;
+    favicon: string;
     slogan: string;
     phone: string;
     whatsapp: string;
@@ -11,6 +12,7 @@ interface Store {
     map: string;
     directions: string;
     payments: Payment[];
+    categories: Category[];
     ship: number;
 }
 interface Payment {
@@ -26,10 +28,14 @@ interface Product {
     category: string;
     name: string;
     imgs: string[];
-    sizes: Value[];
+    sizes: [{
+        name: string;
+        value: number;
+    }];
     unity: string;
-}
-interface Value {
-    name: string;
-    value: number;
+    extras: [{
+        name: string;
+        value: number;
+    }];
+    optional: string[];
 }

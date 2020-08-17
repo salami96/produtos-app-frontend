@@ -9,7 +9,13 @@
     }
 }
 nav {
-    background-color: var(--dark);
+    background-color: var(--primary);
+}
+nav.navbar {
+    border-radius: 0 0 2em 2em;
+}
+.navbar-brand {
+    color: white !important;
 }
 .fixed-bottom {
     display: flex;
@@ -22,6 +28,11 @@ div.nav-item {
     padding: 0.5em;
     border-radius: 0.5em;
     line-height: normal;
+}
+.nav-item:hover .nav-link {
+    color: white;
+    text-shadow: 1px 1px 4px white;
+    transition: 500ms;
 }
 .isActive {
     box-shadow:
