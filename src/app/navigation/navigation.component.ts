@@ -13,7 +13,7 @@ export class NavigationComponent implements OnInit {
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
-    private service: StoreService,
+    public service: StoreService,
   ) { }
 
   ngOnInit() {
