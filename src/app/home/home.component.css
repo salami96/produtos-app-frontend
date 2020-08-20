@@ -63,6 +63,7 @@ main {
 }
 .actions .btn {
   width: 80%;
+  max-width: 400px;
   border-radius: 1.5em;
   background: var(--primary);
   transition: 300ms;

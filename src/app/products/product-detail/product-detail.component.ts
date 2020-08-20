@@ -12,6 +12,8 @@ export class ProductDetailComponent implements OnInit {
 
   cod: string;
   product: Product;
+  observations: string;
+  quantity = 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,5 +33,12 @@ export class ProductDetailComponent implements OnInit {
         ).catch(e => console.log(e));
       });
     }
+  }
+
+  formatPrice(price: number) {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(price);
   }
 }
