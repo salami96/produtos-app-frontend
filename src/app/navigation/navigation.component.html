@@ -16,10 +16,11 @@
           Produtos
         </a>
       </li>
-      <li class="nav-item nav-proms-analytics" routerLinkActive="isActive">
+      <li class="nav-item" routerLinkActive="isActive">
         <a class="nav-link" [routerLink]="[ '/pedido' ]">
           <i-shopping-bag></i-shopping-bag>
           Pedido
+          <span class="badge badge-pill" [class.cart-top]="cartTop" *ngIf="qtt != 0">{{qtt}}</span>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="isActive">
@@ -65,6 +66,7 @@
       <a class="tab" [routerLink]="[ '/pedido' ]">
         <i-shopping-bag></i-shopping-bag>
         Pedido
+        <span class="badge badge-pill" [class.cart-bottom]="cartBottom" *ngIf="qtt != 0">{{qtt}}</span>
       </a>
     </div>
     <div class="nav-item" routerLinkActive="isActive">

@@ -40,3 +40,20 @@ interface Product {
     }[];
     optional: string[];
 }
+interface Order {
+    products: OrderItem[];
+}
+interface OrderItem {
+    cod: string;
+    img: string;
+    name: string;
+    size: string;
+    value: number;
+    extras: {
+        name: string;
+        value: number;
+    }[];
+    removed: string[];
+    quantity: number;
+    observations: string;
+}

@@ -75,3 +75,31 @@ ul.nav a * {
     display: grid;
     margin-right: 0.5em;
 }
+.sticky-top .badge.badge-pill {
+    position: absolute;
+    color: var(--dark);
+    background: var(--secondary);
+    margin: -0.5em 1em;
+}
+.fixed-bottom .badge.badge-pill {
+    color: var(--secondary);
+    background: var(--dark);
+    position: absolute;
+    margin-left: 2em;
+}
+.cart-bottom {
+    animation: cart-bottom 500ms ease-in-out;
+}
+@keyframes cart-bottom {
+    from {
+        transform: translate(-10vw, -10vh);
+    }
+}
+.cart-top {
+    animation: cart-top 500ms ease-in-out;
+}
+@keyframes cart-top {
+    from {
+        transform: translate(-20vw, 50vh) scale(5);
+    }
+}

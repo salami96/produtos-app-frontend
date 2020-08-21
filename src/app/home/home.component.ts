@@ -25,8 +25,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.store = this.service.store;
     // this.uService.ping().subscribe(resp => console.log(resp));
-    document.querySelector('nav').style.setProperty('box-shadow', 'none');
     if (isPlatformBrowser(this.platformID)) {
+      document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.canLoad = true;
       this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');
       /* this.route.params.subscribe(res => {

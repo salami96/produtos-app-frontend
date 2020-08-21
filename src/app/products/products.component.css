@@ -109,32 +109,32 @@ main .card {
         width: 48%;
     }
 }
-@media (min-width: 400px) {
+@media (min-width: 450px) {
     main .card {
         width: 31%;
     }
 }
-@media (min-width: 500px) {
+@media (min-width: 600px) {
     main .card {
         width: 23%;
     }
 }
-@media (min-width: 600px) {
+@media (min-width: 850px) {
     main .card {
         width: 18%;
     }
 }
-@media (min-width: 850px) {
+@media (min-width: 1080px) {
     main .card {
         width: 12%;
     }
 }
-@media (min-width: 990px) {
+@media (min-width: 1200px) {
     main {
         padding: 1em 5em 7em ;
     }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
     main {
         padding: 1em 10em 7em ;
     }
@@ -146,8 +146,8 @@ main .card .card-img-top {
 main .card .card-body {
     border-radius: 0.5em;
     position: absolute;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%);
-    color: var(--primary);
+    /* background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%); */
+    color: var(--dark);
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
@@ -158,5 +158,9 @@ main .card .card-body {
 }
 main .card .card-body p {
     margin: 0;
-    font-weight: 400;
+    font-weight: 600;
+    font-size: 0.85em;
+    padding: 0 0.5em;
+    border-radius: 1em;
+    background: rgba(255,255,255,.75);
 }

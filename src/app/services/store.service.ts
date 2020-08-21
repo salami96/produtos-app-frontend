@@ -175,7 +175,7 @@ export class StoreService {
         store: 'askjdhajsdfkjsdjkfk',
         category: 'Bolos',
         name: 'Bolo de Cenoura',
-        imgs: ['https://scontent.fbfh9-1.fna.fbcdn.net/v/t1.0-9/104841876_102569048186490_8577872177362638693_o.jpg?_nc_cat=109&_nc_sid=09cbfe&_nc_ohc=rR6KLcp4v_oAX-SM_JS&_nc_ht=scontent.fbfh9-1.fna&oh=927764607969c2d0ce29cee47c1ac4cb&oe=5F5942C2'],
+        imgs: ['https://statics.angeloni.com.br/super/files/produtos/3805514/3805514_1_zoom.jpg'],
         sizes: [ {
           name: 'Grande',
           value: 15
@@ -196,11 +196,14 @@ export class StoreService {
         store: 'askjdhajsdfkjsdjkfk',
         category: 'Bolos',
         name: 'Bolo de Milho',
-        imgs: ['https://scontent.fbfh9-1.fna.fbcdn.net/v/t1.0-9/104841876_102569048186490_8577872177362638693_o.jpg?_nc_cat=109&_nc_sid=09cbfe&_nc_ohc=rR6KLcp4v_oAX-SM_JS&_nc_ht=scontent.fbfh9-1.fna&oh=927764607969c2d0ce29cee47c1ac4cb&oe=5F5942C2'],
-        sizes: [ {
+        imgs: ['https://statics.angeloni.com.br/super/files/produtos/1310993/1310993_1_zoom.jpg'],
+        sizes: [{
           name: 'Grande',
           value: 15
-        } ],
+        }, {
+          name: 'Gigante',
+          value: 20
+        }],
         unity: 'Tamanho',
         extras: [{
           name: 'Cobertura Dupla',
@@ -211,6 +214,23 @@ export class StoreService {
           value: 5
         }],
         optional: ['Granulado', 'Cobertura']
+      },
+      {
+        cod: '2',
+        store: 'askjdhajsdfkjsdjkfk',
+        category: 'Bebidas',
+        name: 'Refri Pepsi 2LT',
+        imgs: ['https://www.redeultramercado.com.br/redeultramercado/fotos/g341650.jpg'],
+        sizes: [ {
+          name: '2LT',
+          value: 4.99
+        } ],
+        unity: 'Tamanho',
+        extras: [{
+          name: 'Gelado',
+          value: 0.5
+        }],
+        optional: []
       }
     ];
 

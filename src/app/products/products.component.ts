@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, PLATFORM_ID, AfterViewInit } from '@angular/
 import { StoreService } from '../services/store.service';
 import { isPlatformBrowser } from '@angular/common';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -17,6 +18,7 @@ export class ProductsComponent implements OnInit {
   products: Product[];
 
   constructor(
+    private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private store: StoreService,
     @Inject(PLATFORM_ID) private platformID: Object,
@@ -28,6 +30,16 @@ export class ProductsComponent implements OnInit {
     if (isPlatformBrowser(this.platformID)) {
       document.querySelector('nav').style.setProperty('box-shadow', '0 0 0 1em var(--dark)');
       this.showCategories();
+      const selectedCategory: string = this.route.snapshot.queryParamMap.get('categoria');
+      const searchedName: string = this.route.snapshot.queryParamMap.get('busca');
+      // console.log(category);
+      // this.route.params.subscribe(async res => {
+      //   console.log(res.categoria);
+      //   // this.cod = res.cod;
+      //   // this.service.getProduct(res.cod).then(response =>
+      //   //   this.product = response
+      //   // ).catch(e => console.log(e));
+      // });
     }
   }
 
