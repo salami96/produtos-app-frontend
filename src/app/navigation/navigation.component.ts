@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { StoreService } from '../services/store.service';
 import { CartService } from '../services/cart.service';
@@ -9,11 +9,12 @@ import { animate } from '@angular/animations';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
   canLoad = false;
   qtt = 0;
   cartTop = false;
   cartBottom = false;
+  observer: any;
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
@@ -24,7 +25,7 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
       this.canLoad = true;
-      this.cartService.quantity().subscribe(
+      this.observer = this.cartService.quantity().subscribe(
         value => {
           this.cartTop = true;
           this.cartBottom = true;
@@ -39,6 +40,12 @@ export class NavigationComponent implements OnInit {
           this.qtt = 0;
         }
       );
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.observer) {
+      this.observer.unsubscribe();
     }
   }
 

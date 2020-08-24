@@ -55,6 +55,14 @@ main {
     font-size: 1em;
   }
 }
+@media (max-width: 280px) {
+  .jumbotron div h1 {
+    font-size: 1em;
+  }
+  .jumbotron div a {
+    font-size: 0.75em;
+  }
+}
 .actions {
   display: flex;
   justify-content: center;

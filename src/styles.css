@@ -23,3 +23,27 @@ label.btn-outline-theme:hover, label.btn-outline-theme.active {
         background-color: var(--primary);
     }
 }
+.btn.btn-theme {
+    color: var(--secondary);
+    background: var(--primary);
+    transition: 1s;
+}
+.btn.btn-theme:focus,
+.btn.btn-theme:hover {
+    border-color: var(--secondary);
+    background: var(--dark);
+    transition: 1s;
+}
+.btn.btn-outline-theme {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: transparent;
+    transition: 1s;
+}
+.btn.btn-outline-theme:focus,
+.btn.btn-outline-theme:hover {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--secondary);
+    transition: 1s;
+}

@@ -95,18 +95,36 @@ export class ProductDetailComponent implements OnInit {
   }
 
   buy() {
-    let removed: string[] = [];
+    let removed: string[]
+    removed = [];
     this.product.optional.forEach(op => {
       if (this.optional[op]) {
         removed.push(op);
       }
     });
 
+    let total = 0;
+    if (this.product) {
+      if (this.extras.length > 0) {
+        this.selectedExtras = this.extras.filter(extra => extra.checked);
+        this.selectedExtras.forEach(ext => {
+          total += ext.value;
+        });
+      }
+      if (this.product.sizes.length > 1) {
+        total += this.selectedSize.value;
+      } else {
+        total += this.product.sizes[0].value;
+      }
+      total *= this.quantity;
+    }
+
     const orderItem: OrderItem = {
       cod: this.product.cod,
       img: this.product.imgs[0],
       name: this.product.name,
       size: this.selectedSize.name,
+      total,
       value: this.selectedSize.value,
       extras: this.selectedExtras,
       removed,

@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+const { CryptoStorage } = require('@webcrypto/storage');
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-
-  _quantity = 0;
-  _qttObserver;
-  _order: OrderItem[] = [];
-  _orderObserver;
+  private _quantity = 0;
+  private _qttObserver;
+  private _orderObserver;
+  private _orderItems: OrderItem[] = [];
+  private _cryptoStore = new CryptoStorage('salami1996');
 
   constructor() {
-    this.order().subscribe();
+    this._getLocal();
   }
 
   quantity(): Observable<number> {
@@ -20,6 +21,7 @@ export class CartService {
       this._qttObserver = observer;
     });
   }
+
   order(): Observable<OrderItem[]> {
     return new Observable<OrderItem[]>(observer => {
       this._orderObserver = observer;
@@ -28,8 +30,44 @@ export class CartService {
 
   add2Cart(item: OrderItem) {
     this._quantity += item.quantity;
-    this._order.push(item);
+    this._orderItems.push(item);
     this._qttObserver.next(this._quantity);
-    this._orderObserver.next(this._order);
+    this._saveLocal();
   }
+
+  getItems(): OrderItem[] {
+    return this._orderItems;
+  }
+
+  clear() {
+    this._cryptoStore.clear();
+    this._setOrderItems([]);
+    this._setQuantity(0);
+  }
+
+  private async _saveLocal() {
+    await this._cryptoStore.set('cartItems', JSON.stringify(this._orderItems));
+    await this._cryptoStore.set('quantity', JSON.stringify(this._quantity));
+  }
+  private _getLocal() {
+    this._cryptoStore.get('cartItems').then(items => {
+      if (items) {
+        this._setOrderItems(JSON.parse(items));
+      }
+    });
+    this._cryptoStore.get('quantity').then(qtt => {
+      if (qtt) {
+        this._setQuantity(JSON.parse(qtt));
+      }
+    });
+  }
+  private _setQuantity(val: number) {
+    this._quantity = val;
+    this._qttObserver.next(val);
+  }
+  private _setOrderItems(items: OrderItem[]) {
+    this._orderItems = items;
+    this._orderObserver.next(items);
+  }
+
 }

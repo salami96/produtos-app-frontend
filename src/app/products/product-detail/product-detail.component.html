@@ -7,10 +7,16 @@
     <span>{{product?.name}}</span>
     <a routerLink="/produtos/{{product?.category}}" class="badge badge-pill badge-theme-light">{{product?.category}}</a>
   </nav>
-  <main>
-    <img src="assets/error.svg" alt="" class="product-img" *ngIf="product == undefined">
-    <img src="{{product.imgs[0]}}" alt="" class="product-img" *ngIf="product != undefined">
-    <div *ngIf="product && product.sizes.length > 1" class="card">
+  <div *ngIf="!product" class="text-center">
+    <img src="assets/confused.svg" alt="Imagem de erro" class="product-img" *ngIf="product == undefined">
+    <h6 *ngIf="!product" class="my-5">Produto não encontrado</h6>
+    <a class="btn btn-theme mx-auto w-100" *ngIf="!product" routerLink="/produtos">
+      Continuar Comprando
+    </a>
+  </div>
+  <main *ngIf="product">
+    <img src="{{product.imgs[0]}}" alt="Imagem do produto" class="product-img" *ngIf="product != undefined">
+    <div *ngIf="product.sizes.length > 1" class="card">
       <h5>Quero o {{product.unity}}:</h5>
       <div class="chk" *ngFor="let size of product.sizes">
         <input type="radio" [id]="size.name" [(ngModel)]="selectedSize" [value]="size">
@@ -18,14 +24,14 @@
         <label [for]="size.name" class="badge-pill badge badge-theme">{{formatPrice(size.value)}}</label>
       </div>
     </div>
-    <div *ngIf="product && product.optional.length != 0" class="card">
+    <div *ngIf="product.optional.length != 0" class="card">
       <h5>Quero retirar:</h5>
       <div class="chk" *ngFor="let option of product.optional; let i=index">
         <input type="checkbox" [id]="option" [(ngModel)]="optional[option]">
         <label [for]="option">{{option}}</label>
       </div>
     </div>
-    <div *ngIf="product && extras.length != 0" class="card">
+    <div *ngIf="extras.length != 0" class="card">
       <h5>Quero adicionar:</h5>
       <div class="chk" *ngFor="let extra of extras">
         <input type="checkbox" [id]="extra.name" [(ngModel)]="extra.checked">

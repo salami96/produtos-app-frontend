@@ -22,6 +22,10 @@
     width: 100%;
     height: auto;
     border-radius: 1em;
+    padding: 0.5em;
+    max-width: 400px;
+    background: white;
+    margin: 1em auto;
 }
 .mobile main {
     display: flex;
@@ -43,7 +47,7 @@
 .chk label {
     cursor: pointer;
     font-size: 0.75em;
-    margin-right: 1em;
+    margin-right: 0.5em;
 }
 .badge-theme {
     background: var(--primary);
@@ -114,7 +118,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 .btn-theme {
     background: var(--primary);
-    color: var(--secondary);
+    color: var(--secondary) !important;
     border-radius: 2em;
     max-width: 400px;
 }

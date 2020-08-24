@@ -48,6 +48,7 @@ interface OrderItem {
     img: string;
     name: string;
     size: string;
+    total: number;
     value: number;
     extras: {
         name: string;

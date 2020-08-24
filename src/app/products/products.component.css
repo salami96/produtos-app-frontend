@@ -142,6 +142,7 @@ main .card {
 main .card .card-img-top {
     border-radius: 0.5em;
     position: relative;
+    padding: 0.5em;
 }
 main .card .card-body {
     border-radius: 0.5em;
@@ -154,7 +155,7 @@ main .card .card-body {
     flex-direction: column;
     padding: 5px;
     width: 100%;
-    height: 100%;
+    height: 75%;
 }
 main .card .card-body p {
     margin: 0;

@@ -1,5 +1,33 @@
-<div class="card" *ngFor="let item of items">
-    <h3 class="card-title">{{item.name}}</h3>
-    <img src="{{item.img}}" alt="">
-</div>
-<button class="btn btn-block btn-theme btn-outline-dark">Entrar para continuar</button>
+<main>
+    <div class="items">
+        <div class="card" *ngFor="let item of items; index as i">
+            <img src="{{item.img}}" alt="Miniatura do Produto">
+            <div class="card-body">
+                <h6 class="card-title">{{item.name}}</h6>
+                <p>Quantidade: {{item.quantity}}</p>
+                <p>Total: {{formatPrice(item.total)}}</p>
+                <div class="collapse" [id]="'more-' + i">
+                    <p>Retirar: {{item.removed.join(',')}}</p>
+                    <p>Adicionar: {{item.extras}}</p>
+                    <p>Observações: {{item.observations}}</p>
+                </div>
+            </div>
+            <div class="card-actions">
+                <span class="edit"><i-edit></i-edit></span>
+                <span class="delete"><i-trash-2></i-trash-2></span>
+                <span data-toggle="collapse" [attr.data-target]="'#more-' + i" role="button" aria-expanded="false" [attr.aria-controls]="'more-' + i" (click)="isExpanded[i] = !isExpanded[i]">
+                    <i-chevron-down [hidden]="isExpanded[i]"></i-chevron-down>
+                    <i-chevron-up [hidden]="!isExpanded[i]"></i-chevron-up>
+                </span>
+            </div>
+        </div>
+        <div class="card card-error" *ngIf="items == undefined || items.length == 0">
+            <img src="assets/empty.svg" alt="Imagem de Erro">
+            <h6 class="card-title">Carrinho vazio...</h6>
+            <a routerLink="/produtos" class="btn btn-block btn-theme"><i-shopping-bag></i-shopping-bag>Ver Produtos</a>
+        </div>
+    </div>
+    <a routerLink="/produtos" class="btn btn-block btn-outline-theme" *ngIf="!items == undefined || !items.length == 0"><i-shopping-bag></i-shopping-bag>Continuar Comprando</a>
+    <button class="btn btn-block btn-outline-danger" (click)="clear()"><i-trash-2></i-trash-2>Esvaziar</button>
+    <button class="btn btn-block btn-theme" (click)="show()"><i-user></i-user>Entrar para continuar</button>
+</main>
