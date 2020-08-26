@@ -18,12 +18,14 @@ export class CartService {
 
   quantity(): Observable<number> {
     return new Observable<number>(observer => {
+      observer.next(this._quantity);
       this._qttObserver = observer;
     });
   }
 
   order(): Observable<OrderItem[]> {
     return new Observable<OrderItem[]>(observer => {
+      observer.next(this._orderItems);
       this._orderObserver = observer;
     });
   }

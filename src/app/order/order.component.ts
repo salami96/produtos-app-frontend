@@ -18,18 +18,13 @@ export class OrderComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     @Inject(PLATFORM_ID) private platformID: Object,
     private cService: CartService,
-  ) {
+  ) { }
+
+  ngOnInit() {
     this.observer = this.cService.order().subscribe(resp => {
       this.items = resp;
       this.showBadges(resp);
-      console.log("subscribe");
     });
-  }
-
-  ngOnInit() {
-
-    console.log("oninit");
-    // this.items = this.cService.getItems();
     if (isPlatformBrowser(this.platformID)) {
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
     }
@@ -52,25 +47,8 @@ export class OrderComponent implements OnInit, OnDestroy {
       currency: 'BRL',
     }).format(price);
   }
-/*   getProp(item: OrderItem , property) {
-    let text;
-    switch (property) {
-      case 'extra':
-        if (item.extras.length > 0) {
-          text = '';
-          item.extras.forEach((ext) => {
-            text += ext.name;
-            if (item.extras.lastIndexOf(ext) < (item.extras.length - 1)) {
-              text += ', ';
-            }
-          });
-        }
-        break
-    }
-    return text;
-  } */
 
-  showBadges(items) {
+  showBadges(items: OrderItem[]) {
     for (let index = 0; index < items.length; index++) {
       const el = items[index];
       let text = '';

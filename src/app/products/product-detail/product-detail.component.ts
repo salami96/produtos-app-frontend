@@ -35,18 +35,17 @@ export class ProductDetailComponent implements OnInit {
       this.route.params.subscribe(async res => {
         this.cod = res.cod;
         this.service.getProduct(res.cod).then(response => {
-          if(response) {
+          if (response) {
             this.product = response;
             this.selectedSize = response.sizes[0];
             response.optional.forEach(op => {
               this.optional[op] = false;
             });
-  
             for (let index = 0; index < response.extras.length; index++) {
               const element: any = response.extras[index];
               element.checked = false;
               this.extras.push(element);
-            }  
+            }
           }
         }).catch(e => console.log(e));
       });
@@ -91,7 +90,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   buy() {
-    let removed: string[]
+    let removed: string[];
     removed = [];
     this.product.optional.forEach(op => {
       if (this.optional[op]) {
