@@ -7,15 +7,15 @@
     <span>{{product?.name}}</span>
     <a routerLink="/produtos/{{product?.category}}" class="badge badge-pill badge-theme-light">{{product?.category}}</a>
   </nav>
-  <div *ngIf="!product" class="text-center">
+  <main *ngIf="!product" class="text-center">
     <img src="assets/confused.svg" alt="Imagem de erro" class="product-img" *ngIf="product == undefined">
     <h6 *ngIf="!product" class="my-5">Produto não encontrado</h6>
     <a class="btn btn-theme mx-auto w-100" *ngIf="!product" routerLink="/produtos">
       Continuar Comprando
     </a>
-  </div>
+  </main>
   <main *ngIf="product">
-    <img src="{{product.imgs[0]}}" alt="Imagem do produto" class="product-img" *ngIf="product != undefined">
+    <img src="{{product.imgs[0]}}" alt="Imagem do produto" class="product-img">
     <div *ngIf="product.sizes.length > 1" class="card">
       <h5>Quero o {{product.unity}}:</h5>
       <div class="chk" *ngFor="let size of product.sizes">
@@ -67,7 +67,7 @@
   </main>
 </div>
 <div class="desktop">
-  <main class="card">
+  <main class="card" *ngIf="product">
     <div class="back-and-img">
       <div>
         <a routerLink="/produtos" class="btn btn-theme">
@@ -81,17 +81,25 @@
       <img src="{{product.imgs[0]}}" alt="" class="product-img" *ngIf="product != undefined">
     </div>
     <div class="buy-options">
+      <div *ngIf="product.sizes.length > 1">
+        <h5>Quero o {{product.unity}}:</h5>
+        <div class="chk" *ngFor="let size of product.sizes">
+          <input type="radio" id="{{size.name}}-desktop" [(ngModel)]="selectedSize" [value]="size">
+          <label for="{{size.name}}-desktop">{{size.name}}</label>
+          <label for="{{size.name}}-desktop" class="badge-pill badge badge-theme">{{formatPrice(size.value)}}</label>
+        </div>
+      </div>
       <div *ngIf="product && product.optional.length != 0">
         <h5>Quero retirar</h5>
-        <div class="chk" *ngFor="let option of product.optional">
-          <input type="checkbox" id="{{option}}-desktop">
+        <div class="chk" *ngFor="let option of product.optional; let i=index">
+          <input type="checkbox" id="{{option}}-desktop" [(ngModel)]="optional[option]">
           <label for="{{option}}-desktop">{{option}}</label>
         </div>
       </div>
       <div *ngIf="product && product.extras.length != 0">
         <h5>Quero adicionar</h5>
         <div class="chk" *ngFor="let extra of product.extras">
-          <input type="checkbox" id="{{extra.name}}-destop">
+          <input type="checkbox" id="{{extra.name}}-destop" [(ngModel)]="extra.checked">
           <label for="{{extra.name}}-destop">{{extra.name}}</label>
           <label for="{{extra.name}}-destop" class="badge-pill badge badge-theme">{{formatPrice(extra.value)}}</label>
         </div>
@@ -120,6 +128,19 @@
       </div>
       <button class="btn btn-theme mx-auto w-100" (click)="buy()">
         Adicionar ao Pedido
+      </button>
+    </div>
+  </main>
+  <main class="card" *ngIf="!product">
+    <div class="back-and-img">
+      <img src="assets/confused.svg" alt="" class="product-img">
+    </div>
+    <div class="buy-options text-center my-auto">
+      <div>
+        <h5>Produto não encontrado</h5>
+      </div>
+      <button class="btn btn-theme mx-auto w-100" (click)="buy()">
+        Continuar Comprando
       </button>
     </div>
   </main>

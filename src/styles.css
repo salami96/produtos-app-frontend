@@ -47,3 +47,11 @@ label.btn-outline-theme:hover, label.btn-outline-theme.active {
     color: var(--secondary);
     transition: 1s;
 }
+.badge-theme {
+    background: var(--primary);
+    color: var(--secondary);
+}
+.badge-theme-light {
+    background: var(--secondary);
+    color: var(--dark) !important;
+}

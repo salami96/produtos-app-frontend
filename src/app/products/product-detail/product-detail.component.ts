@@ -35,23 +35,19 @@ export class ProductDetailComponent implements OnInit {
       this.route.params.subscribe(async res => {
         this.cod = res.cod;
         this.service.getProduct(res.cod).then(response => {
-          this.product = response;
-          this.selectedSize = response.sizes[0];
-          response.optional.forEach(op => {
-            this.optional[op] = false;
-          });
-
-          for (let index = 0; index < response.extras.length; index++) {
-            // this.extras[index].checked = false;
-            const element: any = response.extras[index];
-            element.checked = false;
-            this.extras.push(element);
+          if(response) {
+            this.product = response;
+            this.selectedSize = response.sizes[0];
+            response.optional.forEach(op => {
+              this.optional[op] = false;
+            });
+  
+            for (let index = 0; index < response.extras.length; index++) {
+              const element: any = response.extras[index];
+              element.checked = false;
+              this.extras.push(element);
+            }  
           }
-          // for (let i: number; i <= response.extras.length; i++) {
-          //   this.extras[i].name = response.extras[i].name;
-          //   this.extras[i].value = response.extras[i].value;
-          //   this.extras[i].checked = false;
-          // }
         }).catch(e => console.log(e));
       });
     }

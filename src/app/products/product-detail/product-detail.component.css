@@ -49,14 +49,6 @@
     font-size: 0.75em;
     margin-right: 0.5em;
 }
-.badge-theme {
-    background: var(--primary);
-    color: var(--secondary);
-}
-.badge-theme-light {
-    background: var(--secondary);
-    color: var(--dark) !important;
-}
 .chk input[type="radio"] + label:before, .chk input[type="checkbox"] + label:before {
     border: 1px solid #5D5C5C;
     content: "\00a0";
@@ -96,8 +88,8 @@ textarea:focus {
 }
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
-  }
-  input[type=number] {
+}
+input[type=number] {
     -moz-appearance: textfield;
     appearance: textfield;
     min-width: 20px;
@@ -162,6 +154,7 @@ input[type=number]::-webkit-inner-spin-button {
     height: auto;
     border-radius: 1em;
     max-width: 500px;
+    margin: auto;
 }
 .buy-options {
     padding: 1em 3em;
