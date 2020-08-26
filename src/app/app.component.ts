@@ -22,6 +22,10 @@ export class AppComponent implements OnInit {
         red,
         brown
       };
+
+      console.log(window.location.href);
+
+
       const active = 'green';
 
       // tslint:disable-next-line:forin

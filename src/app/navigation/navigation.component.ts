@@ -41,7 +41,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
             this.qtt = 0;
           }
         ),
-        this.cartService.order().subscribe(v => console.log('subscribed'))
+        this.cartService.order().subscribe(v => console.log())
       );
     }
   }

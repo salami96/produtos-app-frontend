@@ -26,7 +26,7 @@
     <a routerLink="/produtos" class="btn btn-block btn-theme"  *ngIf="items == undefined || items.length == 0">
         <i-book-open></i-book-open>Ver Produtos
     </a>
-    <div *ngIf="!items == undefined || !items.length == 0">
+    <div *ngIf="items !== undefined && items.length !== 0">
         <a routerLink="/produtos" class="btn btn-block btn-outline-theme"><i-shopping-bag></i-shopping-bag>Continuar Comprando</a>
         <button class="btn btn-block btn-outline-danger" (click)="clear()"><i-trash-2></i-trash-2>Esvaziar</button>
         <button class="btn btn-block btn-theme" (click)="show()"><i-user></i-user>Entrar para continuar</button>

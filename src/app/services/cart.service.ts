@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-const { CryptoStorage } = require('@webcrypto/storage');
+// import { CryptoStorage } from '@webcrypto/storage/';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class CartService {
   private _qttObserver;
   private _orderObserver;
   private _orderItems: OrderItem[] = [];
-  private _cryptoStore = new CryptoStorage('salami1996');
+//  private _cryptoStore = new CryptoStorage('salami1996');
 
   constructor() {
     this._getLocal();
@@ -42,22 +42,27 @@ export class CartService {
   }
 
   clear() {
-    this._cryptoStore.clear();
+    // this._cryptoStore.clear();
+    localStorage.clear();
     this._setOrderItems([]);
     this._setQuantity(0);
   }
 
   private async _saveLocal() {
-    await this._cryptoStore.set('cartItems', JSON.stringify(this._orderItems));
-    await this._cryptoStore.set('quantity', JSON.stringify(this._quantity));
+    await localStorage.set('cartItems', JSON.stringify(this._orderItems));
+    // await this._cryptoStore.set('cartItems', JSON.stringify(this._orderItems));
+    // await this._cryptoStore.set('quantity', JSON.stringify(this._quantity));
+    await localStorage.set('quantity', JSON.stringify(this._quantity));
   }
   private _getLocal() {
-    this._cryptoStore.get('cartItems').then(items => {
+    // this._cryptoStore.get('cartItems').then(items => {
+    localStorage.get('cartItems').then(items => {
       if (items) {
         this._setOrderItems(JSON.parse(items));
       }
     });
-    this._cryptoStore.get('quantity').then(qtt => {
+        // this._cryptoStore.get('quantity').then(qtt => {
+    localStorage.get('quantity').then(qtt => {
       if (qtt) {
         this._setQuantity(JSON.parse(qtt));
       }

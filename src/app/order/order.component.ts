@@ -69,7 +69,9 @@ export class OrderComponent implements OnInit, OnDestroy {
       if (el.observations) {
         text += `<hr class="m-0"><p class="m-0">Obs.: ${el.observations}</p>`;
       }
-      if (text !== undefined) {
+      if (text === '') {
+        this.safeHtml[index] = this.sanitizer.bypassSecurityTrustHtml('<hr class="m-0"><p>Sem alterações...</p>');
+      } else if (text !== undefined || text !== '') {
         this.safeHtml[index] = this.sanitizer.bypassSecurityTrustHtml(text);
       }
     }
