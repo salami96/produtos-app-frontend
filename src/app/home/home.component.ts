@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   canLoad = false;
   store: Store;
   map: SafeUrl;
+  public innerWidth: any;
 
   constructor(
     // private uService: UserService,
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit {
     this.store = this.service.store;
     // this.uService.ping().subscribe(resp => console.log(resp));
     if (isPlatformBrowser(this.platformID)) {
+      this.innerWidth = window.innerWidth;
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.canLoad = true;
       this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');

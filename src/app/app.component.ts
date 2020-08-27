@@ -8,7 +8,8 @@ import { isPlatformBrowser } from '@angular/common';
   styles: []
 })
 export class AppComponent implements OnInit {
-  title = 'Supermercado Copac';
+  title = 'produtos.app';
+  active: string;
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object
@@ -26,13 +27,13 @@ export class AppComponent implements OnInit {
       console.log(window.location.href);
 
 
-      const active = 'green';
+      this.active = 'green';
 
       // tslint:disable-next-line:forin
-      for (const key in obj[active].properties) {
-        document.querySelector('body').style.setProperty(key, obj[active].properties[key]);
+      for (const key in obj[this.active].properties) {
+        document.querySelector('body').style.setProperty(key, obj[this.active].properties[key]);
       }
-      document.querySelector('body').style.setProperty('background-color', obj[active].properties['--background']);
+      document.querySelector('body').style.setProperty('background-color', obj[this.active].properties['--background']);
     }
   }
 }
