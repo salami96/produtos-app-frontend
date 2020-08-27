@@ -14,7 +14,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   qtt = 0;
   cartTop = false;
   cartBottom = false;
-  observer: any[] = [];
+  observer;
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
@@ -25,23 +25,20 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
       this.canLoad = true;
-      this.observer.push(
-        this.cartService.quantity().subscribe(
-          value => {
-            this.cartTop = true;
-            this.cartBottom = true;
-            setTimeout(() => {
-              this.cartTop = false;
-              this.cartBottom = false;
-            }, 1000);
-            this.qtt = value;
-          }, erro => {
-            console.log(erro);
-          }, () => {
-            this.qtt = 0;
-          }
-        ),
-        this.cartService.order().subscribe(v => console.log())
+      this.observer = this.cartService.quantity().subscribe(
+        value => {
+          this.cartTop = true;
+          this.cartBottom = true;
+          setTimeout(() => {
+            this.cartTop = false;
+            this.cartBottom = false;
+          }, 1000);
+          this.qtt = value;
+        }, erro => {
+          console.log(erro);
+        }, () => {
+          this.qtt = 0;
+        }
       );
     }
   }

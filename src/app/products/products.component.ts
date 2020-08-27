@@ -3,6 +3,7 @@ import { StoreService } from '../services/store.service';
 import { isPlatformBrowser } from '@angular/common';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { element } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-products',
@@ -15,7 +16,10 @@ export class ProductsComponent implements OnInit {
   categories: Category[];
   buttons = [];
   query: string;
+  selectedCategory: string;
   products: Product[];
+  filteredProducts: Product[];
+  filterTitle: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,11 +31,19 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.categories = this.store.store.categories;
     this.products = this.store.getProducts();
+    this.filteredProducts = this.store.getProducts();
     if (isPlatformBrowser(this.platformID)) {
       document.querySelector('nav').style.setProperty('box-shadow', '0 0 0 1em var(--dark)');
-      this.showCategories();
-      const selectedCategory: string = this.route.snapshot.queryParamMap.get('categoria');
-      const searchedName: string = this.route.snapshot.queryParamMap.get('busca');
+      this.selectedCategory = this.route.snapshot.queryParamMap.get('categoria');
+      // this.showCategories();
+      if (this.selectedCategory) {
+        this.setCategory(this.selectedCategory);
+      } else {
+        this.query = this.route.snapshot.queryParamMap.get('busca');
+        if (this.query) {
+          this.searchName();
+        }
+      }
       // console.log(category);
       // this.route.params.subscribe(async res => {
       //   console.log(res.categoria);
@@ -43,36 +55,19 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  showCategories() {
+  isActive(i: number) {
+    if (this.selectedCategory) {
+      return this.categories[i].name.toLowerCase() === this.selectedCategory.toLowerCase();
+    } else {
+      return i === 0;
+    }
+  }
+
+  /* showCategories() {
     for (let index = 0; index < this.categories.length; index++) {
       const el = this.categories[index];
-      this.buttons.push(
-      `
-        <label class="btn btn-outline-theme ${index === 0 ? 'active' : ''}" (click)="setTitle('${el.name}')">
-        <input type="radio" ${index === 0 ? 'checked' : ''}>
-          ${el.icon}
-          ${el.name}
-        </label>
-      `);
-      this.buttons.push(
-      `
-        <label class="btn btn-outline-theme" (click)="setTitle('${el.name}')">
-        <input type="radio">
-          ${el.icon}
-          ${el.name}
-        </label>
-      `);
-      this.buttons.push(
-      `
-        <label class="btn btn-outline-theme" (click)="setTitle('${el.name}')">
-        <input type="radio">
-          ${el.icon}
-          ${el.name}
-        </label>
-      `);
-      this.buttons.push(
-      `
-        <label class="btn btn-outline-theme" (click)="setTitle('${el.name}')">
+      this.buttons.push(`
+        <label class="btn btn-outline-theme ${this.isActive(index) ? 'active' : ''}" value="${el.name}">
         <input type="radio">
           ${el.icon}
           ${el.name}
@@ -82,11 +77,55 @@ export class ProductsComponent implements OnInit {
     if (this.buttons !== undefined) {
       this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.buttons.join(''));
     }
-  }
+    var arr = [].slice.call(document.querySelector('#categorias').children);
+    console.log(Array.from(document.querySelector('#categorias').children));
+  } */
 
   searchName() {
-    console.log(this.query);
+    // console.log(this.query);
+    // this.loading = true;
+    if (this.query) {
+      this.filterTitle = 'Pesquisa: ' + this.query;
+      this.filteredProducts = this.products.filter(prod =>
+        prod.name.toLowerCase().includes(this.rmAccents(this.query))
+      );
+    } else {
+      this.setCategory('todos');
+    }
+    // this.total = 50;
+    /* this.pService
+      .searchProducts('nome', this.rmAccents(this.query))
+      .subscribe((resp) => this.setResults(resp)); */
   }
+
+  setCategory(text: string) {
+    if (text.toLowerCase() === 'todos') {
+      this.filteredProducts = this.products;
+      this.filterTitle = 'Todos os produtos';
+    } else {
+      this.filterTitle = text;
+      this.filteredProducts = this.products.filter(prod =>
+        prod.category.toLowerCase() === text.toLowerCase()
+      );
+    }
+    // console.log(this.query);
+    // this.loading = true;
+    // this.
+    // if (this.selectedCategory) {
+    //   this.filterTitle = 'Categoria: ' + this.selectedCategory;
+    //   this.filteredProducts = this.products.filter(prod =>
+    //     prod.category === this.selectedCategory
+    //   );
+    // } else {
+    //   this.filterTitle = '';
+    //   this.filteredProducts = this.products;
+    // }
+    // this.total = 50;
+    /* this.pService
+      .searchProducts('nome', this.rmAccents(this.query))
+      .subscribe((resp) => this.setResults(resp)); */
+  }
+
 
   formatPrice(price: number) {
     return new Intl.NumberFormat('pt-BR', {
@@ -94,6 +133,28 @@ export class ProductsComponent implements OnInit {
       currency: 'BRL',
     }).format(price);
   }
+
+  rmAccents(s: string) {
+    let r = s.toLowerCase();
+    const non_asciis = {
+      a: '[àáâãäå]',
+      ae: 'æ',
+      c: 'ç',
+      e: '[èéêë]',
+      i: '[ìíîï]',
+      n: 'ñ',
+      o: '[òóôõö]',
+      oe: 'œ',
+      u: '[ùúûűü]',
+      y: '[ýÿ]',
+    };
+    // tslint:disable-next-line: forin
+    for (const i in non_asciis) {
+      r = r.replace(new RegExp(non_asciis[i], 'g'), i);
+    }
+    return r;
+  }
+
 
 
 }

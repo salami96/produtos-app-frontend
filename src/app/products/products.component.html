@@ -7,7 +7,13 @@
   </div>
   <div id="category-selector">
     <!-- <span (click)="slide(true)"><i-chevron-left></i-chevron-left></span> -->
-    <div class="btn-toolbar btn-group-toggle btn-group btn-group-theme" [innerHtml]="safeHtml" id="categorias">
+    <div class="btn-toolbar btn-group-toggle btn-group btn-group-theme" id="categorias">
+      <label class="btn btn-outline-theme" *ngFor="let el of categories; let i = index" (click)="setCategory(el.name)" [class.active]="isActive(i)">
+        <input type="radio">
+        <app-category-button icon="{{el.icon}}"></app-category-button>
+        {{el.name}}
+      </label>
+    <!-- <div class="btn-toolbar btn-group-toggle btn-group btn-group-theme" [innerHtml]="safeHtml" id="categorias"> -->
       <!-- <label class="btn btn-outline-success active" (click)="setTitle('Todos os  Produtos')">
         <input type="radio" checked>Todos
       </label>
@@ -33,8 +39,9 @@
     <!-- <span (click)="slide(false)"><i-chevron-right></i-chevron-right></span> -->
   </div>
 </nav>
+<h3 class="text-theme text-center" *ngIf="filterTitle">{{filterTitle}}</h3>
 <main>
-  <div class="card" *ngFor="let product of products">
+  <div class="card" *ngFor="let product of filteredProducts">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
@@ -45,7 +52,7 @@
       Comprar
     </button>
   </div>
-  <div class="card" *ngFor="let product of products">
+  <div class="card" *ngFor="let product of filteredProducts">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
@@ -56,7 +63,7 @@
       Comprar
     </button>
   </div>
-  <div class="card" *ngFor="let product of products">
+  <div class="card" *ngFor="let product of filteredProducts">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
@@ -67,7 +74,7 @@
       Comprar
     </button>
   </div>
-  <div class="card" *ngFor="let product of products">
+  <div class="card" *ngFor="let product of filteredProducts">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
@@ -78,7 +85,7 @@
       Comprar
     </button>
   </div>
-  <div class="card" *ngFor="let product of products">
+  <div class="card" *ngFor="let product of filteredProducts">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
@@ -89,7 +96,7 @@
       Comprar
     </button>
   </div>
-  <div class="card" *ngFor="let product of products">
+  <div class="card" *ngFor="let product of filteredProducts">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
@@ -99,5 +106,11 @@
       <i-shopping-bag></i-shopping-bag>
       Comprar
     </button>
+  </div>
+  <div class="card" *ngIf="filteredProducts.length == 0">
+    <img src="assets/confused.svg" alt="" class="card-img-top">
+    <div class="error-msg">
+      <p>Nenhum produto encontrado...</p>
+    </div>
   </div>
 </main>

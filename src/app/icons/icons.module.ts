@@ -70,6 +70,7 @@ const icons = [
   IconEdit,
   IconChevronDown,
   IconChevronUp,
+  IconX
 ];
 
 @NgModule({

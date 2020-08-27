@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 // import { CryptoStorage } from '@webcrypto/storage/';
 
 @Injectable({
@@ -10,9 +11,12 @@ export class CartService {
   private _qttObserver;
   private _orderObserver;
   private _orderItems: OrderItem[] = [];
-//  private _cryptoStore = new CryptoStorage('salami1996');
 
-  constructor() {
+  constructor(
+    @Inject(PLATFORM_ID) private platformID: Object,
+  ) {
+    this.quantity().subscribe();
+    this.order().subscribe();
     this._getLocal();
   }
 
@@ -49,25 +53,26 @@ export class CartService {
   }
 
   private async _saveLocal() {
-    await localStorage.set('cartItems', JSON.stringify(this._orderItems));
+    localStorage.setItem('cartItems', JSON.stringify(this._orderItems));
     // await this._cryptoStore.set('cartItems', JSON.stringify(this._orderItems));
     // await this._cryptoStore.set('quantity', JSON.stringify(this._quantity));
-    await localStorage.set('quantity', JSON.stringify(this._quantity));
+    localStorage.setItem('quantity', JSON.stringify(this._quantity));
   }
   private _getLocal() {
-    // this._cryptoStore.get('cartItems').then(items => {
-    localStorage.get('cartItems').then(items => {
-      if (items) {
-        this._setOrderItems(JSON.parse(items));
+    if (isPlatformBrowser(this.platformID)) {
+      const { cartItems, quantity } = localStorage;
+      if (cartItems) {
+        this._setOrderItems(JSON.parse(cartItems));
       }
-    });
-        // this._cryptoStore.get('quantity').then(qtt => {
-    localStorage.get('quantity').then(qtt => {
-      if (qtt) {
-        this._setQuantity(JSON.parse(qtt));
+      if (quantity) {
+        this._setQuantity(JSON.parse(quantity));
       }
-    });
+    } else if (isPlatformServer(this.platformID)) {
+      this._setOrderItems([]);
+      this._setQuantity(0);
+    }
   }
+
   private _setQuantity(val: number) {
     this._quantity = val;
     this._qttObserver.next(val);

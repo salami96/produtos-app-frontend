@@ -157,6 +157,10 @@ main .card .card-body {
     width: 100%;
     height: 75%;
 }
+main .card .error-msg, .text-theme {
+    color: var(--dark);
+    padding: 0.5em;
+}
 main .card .card-body p {
     margin: 0;
     font-weight: 600;

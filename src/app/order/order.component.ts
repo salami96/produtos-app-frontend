@@ -21,18 +21,18 @@ export class OrderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.observer = this.cService.order().subscribe(resp => {
-      this.items = resp;
-      this.showBadges(resp);
-    });
     if (isPlatformBrowser(this.platformID)) {
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
+      this.observer = this.cService.order().subscribe(resp => {
+        this.items = resp;
+        this.showBadges(resp);
+      });
     }
   }
 
   clear() {
     this.items = [];
-    this.cService.clear();
+    // this.cService.clear();
   }
 
   ngOnDestroy() {

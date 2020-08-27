@@ -31,8 +31,9 @@ import { NavigationComponent } from './navigation/navigation.component';
     }), */
   ],
   providers: [
-    IconsModule
+    IconsModule,
   ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
+

@@ -5,9 +5,10 @@ import { NgModule } from '@angular/core';
 import { ProductsComponent } from './products.component';
 import { RouterModule } from '@angular/router';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { CategoryButtonComponent } from './category-button/category-button.component';
 
 @NgModule({
-  declarations: [ProductsComponent, ProductDetailComponent],
+  declarations: [ProductsComponent, ProductDetailComponent, CategoryButtonComponent],
   imports: [
     CommonModule,
     FormsModule,
