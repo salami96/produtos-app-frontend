@@ -31,6 +31,9 @@ export class HomeComponent implements OnInit {
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.canLoad = true;
       this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');
+/*       window.onresize = () => {
+        this.innerWidth = window.innerWidth;
+      }; */
       /* this.route.params.subscribe(res => {
         if (res.data === 'cadastro') {
           const checkExist = setInterval(function() {

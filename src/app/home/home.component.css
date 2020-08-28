@@ -1,12 +1,12 @@
 main {
   min-height: 100vh;
 }
-@media (max-width: 950px) {
+@media (max-width: 949px) {
   .desktop {
     display: none;
   }
 }
-@media (min-width: 949px) {
+@media (min-width: 950px) {
   .mobile {
     display: none;
   }
