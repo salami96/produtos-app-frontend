@@ -9,7 +9,8 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AppComponent implements OnInit {
   title = 'produtos.app';
-  active: string;
+  url: string;
+  landing = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object
@@ -23,20 +24,29 @@ export class AppComponent implements OnInit {
         red,
         brown
       };
+      let active: string;
 
+      this.url = window.location.host.split('.')[0];
 
-      if (window.location.host.split('.')[0] === 'nick') {
-        this.active = 'brown';
-      } else {
-        this.active = 'green';
+      switch (this.url) {
+        case 'nick':
+          active = 'brow';
+          break;
+        case 'agroking':
+          active = 'blue';
+          break;
+        default:
+          active = 'green';
+          // this.landing = true;
+          break;
       }
 
 
       // tslint:disable-next-line:forin
-      for (const key in obj[this.active].properties) {
-        document.querySelector('body').style.setProperty(key, obj[this.active].properties[key]);
+      for (const key in obj[active].properties) {
+        document.querySelector('body').style.setProperty(key, obj[active].properties[key]);
       }
-      document.querySelector('body').style.setProperty('background-color', obj[this.active].properties['--background']);
+      document.querySelector('body').style.setProperty('background-color', obj[active].properties['--background']);
     }
   }
 }

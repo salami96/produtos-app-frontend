@@ -1,8 +1,8 @@
-<div *ngIf="active">
+<div *ngIf="url && !landing">
     <app-navigation></app-navigation>
     <router-outlet></router-outlet>
 </div>
-<div *ngIf="!active" class="m-auto">
+<div *ngIf="!url" class="m-auto">
     <div class="loadingio-spinner-dual-ring-gspfozvrkgt m-auto"><div class="ldio-pb38kjbadq">
     <div></div><div><div></div></div>
     </div></div>
@@ -67,3 +67,4 @@
     </style>
     <!-- <app-footer></app-footer> -->
 </div>
+<app-landing-page *ngIf="landing"></app-landing-page>
