@@ -16,7 +16,11 @@ export class ProductDetailComponent implements OnInit {
   observations: string;
   quantity = 1;
   selectedSize: any;
-  extras: any[] = [];
+  extras: {
+    name: string,
+    value: number,
+    checked: boolean,
+  }[] = [];
   selectedExtras: any[] = [];
   optional: boolean[] = [];
 

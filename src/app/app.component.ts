@@ -24,10 +24,13 @@ export class AppComponent implements OnInit {
         brown
       };
 
-      console.log(window.location.href);
 
+      if (window.location.host.split('.')[0] === 'nick') {
+        this.active = 'brown';
+      } else {
+        this.active = 'green';
+      }
 
-      this.active = 'green';
 
       // tslint:disable-next-line:forin
       for (const key in obj[this.active].properties) {

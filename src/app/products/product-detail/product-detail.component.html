@@ -98,10 +98,10 @@
       </div>
       <div *ngIf="product && product.extras.length != 0">
         <h5>Quero adicionar</h5>
-        <div class="chk" *ngFor="let extra of product.extras">
-          <input type="checkbox" id="{{extra.name}}-destop" [(ngModel)]="extra.checked">
-          <label for="{{extra.name}}-destop">{{extra.name}}</label>
-          <label for="{{extra.name}}-destop" class="badge-pill badge badge-theme">{{formatPrice(extra.value)}}</label>
+        <div class="chk" *ngFor="let extra of extras">
+          <input type="checkbox" id="{{extra.name}}-desktop" [(ngModel)]="extra.checked">
+          <label for="{{extra.name}}-desktop">{{extra.name}}</label>
+          <label for="{{extra.name}}-desktop" class="badge-pill badge badge-theme">{{formatPrice(extra.value)}}</label>
         </div>
       </div>
       <div>
