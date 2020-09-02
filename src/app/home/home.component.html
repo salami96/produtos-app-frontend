@@ -8,6 +8,7 @@
         <a href="tel:+55{{store.phone}}"><i-phone class="fill"></i-phone> {{store.phone}}</a>
       </div>
     </section>
+    <p class="text-center text-theme">{{store.slogan}}</p>
     <section class="actions">
       <a class="btn btn-block btn-dark" [routerLink]="[ '/produtos' ]">
         <i-book-open></i-book-open>
@@ -32,7 +33,8 @@
       <img src="{{store.logo}}" class="rounded-circle" alt="Logotipo da Empresa">
       <div class="logo-and-number">
         <h1>{{store.title}}</h1>
-        <a href="tel:+5551998446478"><i-phone class="fill"></i-phone> (51) 99844-6478</a>
+        <p class="mb-2">{{store.slogan}}</p>
+        <a href="tel:+55{{store.phone}}"><i-phone class="fill"></i-phone> {{store.phone}}</a>
       </div>
       <a class="btn btn-block btn-dark mt-5" [routerLink]="[ '/produtos' ]">
         <i-book-open></i-book-open>

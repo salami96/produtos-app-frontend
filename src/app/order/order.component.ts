@@ -32,7 +32,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   clear() {
     this.items = [];
-    // this.cService.clear();
+    this.cService.clear();
   }
 
   ngOnDestroy() {

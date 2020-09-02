@@ -32,7 +32,7 @@ export class StoreService {
       title: 'Supermercado Copac',
       logo: 'https://www.supercopac.com.br/assets/logo.png',
       favicon: 'https://www.supercopac.com.br/favicon.ico',
-      slogan: 'Produtos saudáveis para a vida ❤',
+      slogan: 'Alimentos saudáveis para a vida ❤',
       phone: '51 36584137',
       whatsapp: 'https://wa.me/555136584137',
       fb: 'https://www.facebook.com/supercopac',

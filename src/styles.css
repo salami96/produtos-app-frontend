@@ -60,3 +60,6 @@ a.badge-theme:hover {
     background: var(--secondary);
     color: var(--dark) !important;
 }
+.text-theme {
+    color: var(--primary);
+}

@@ -1,5 +1,5 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscriber } from 'rxjs';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 // import { CryptoStorage } from '@webcrypto/storage/';
 
@@ -8,8 +8,8 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 })
 export class CartService {
   private _quantity = 0;
-  private _qttObserver;
-  private _orderObserver;
+  private _qttObserver: Subscriber<number>;
+  private _orderObserver: Subscriber<OrderItem[]>;
   private _orderItems: OrderItem[] = [];
 
   constructor(

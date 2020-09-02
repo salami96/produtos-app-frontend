@@ -58,3 +58,17 @@ interface OrderItem {
     quantity: number;
     observations: string;
 }
+interface User {
+    uuid: string;
+    name: string;
+    phone: string;
+    email: string;
+    address: Address[];
+}
+interface Address {
+    name: string;
+    street: string;
+    number: string;
+    district: string;
+    city: string;
+}

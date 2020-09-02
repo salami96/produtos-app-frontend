@@ -41,6 +41,12 @@ main {
   text-decoration: none;
   transition: 300ms;
 }
+.jumbotron .logo-and-number a:hover {
+  background: var(--dark);
+  border-radius: 1.5em;
+  text-decoration: none;
+  transition: 300ms;
+}
 .jumbotron .logo-and-number * {
   color: var(--secondary);
 }
