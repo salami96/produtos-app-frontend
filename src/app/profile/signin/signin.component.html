@@ -1,0 +1,25 @@
+<main class="mobile mb-5 pb-5">
+  <nav>
+    <div [class.isActive]="tab == 'entrar'" (click)="setTab('entrar')">
+      <span>Entrar</span>
+    </div>
+    <div [class.isActive]="tab == 'cadastrar'" (click)="setTab('cadastrar')">
+      <span>Cadastrar</span>
+    </div>
+  </nav>
+  <div class="my-3 form-signin">
+    <div class="label-float">
+      <input type="email" [(ngModel)]="email" [class.invalid]="emailError" placeholder=" " />
+      <label>Email</label>
+    </div>
+    <br/>
+    <div class="label-float">
+      <input type="password" [(ngModel)]="password" [class.invalid]="passwordError" placeholder=" " />
+      <label>Senha</label>
+    </div>
+    <div>
+      <a routerLink="/perfil/resetar-senha" class="text-theme">Esqueceu a senha?</a>
+    </div>
+    <button type="button" class="btn btn-theme btn-block mt-5" (click)="signIn()">Entrar</button>
+  </div>
+</main>

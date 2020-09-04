@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+.btn.btn-block {
+    border-radius: 2em;
+}
 label.btn-outline-theme {
     color: var(--secondary);
     border: 0.1px solid var(--dark);

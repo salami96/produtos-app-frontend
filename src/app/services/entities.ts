@@ -59,7 +59,7 @@ interface OrderItem {
     observations: string;
 }
 interface User {
-    uuid: string;
+    uid: string;
     name: string;
     phone: string;
     email: string;
@@ -71,4 +71,6 @@ interface Address {
     number: string;
     district: string;
     city: string;
+    state: string;
+    zipCode: string;
 }

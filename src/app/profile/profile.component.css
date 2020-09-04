@@ -1,5 +1,5 @@
 main {
-  min-height: 100vh;
+  min-height: 1000vh;
 }
 .jumbotron {
   display: flex;
@@ -23,4 +23,46 @@ main {
 }
 .jumbotron div h1 {
   font-size: 2em;
+}
+.sticky-top {
+  top: 1em;
+}
+.sign-out {
+  margin: -6em 1em 0 70vw;
+  outline: none;
+  border-radius: 2em;
+  background: var(--primary);
+  color: var(--secondary);
+  transition: 300ms;
+}
+.sign-out:hover,
+.sign-out:focus {
+  color: white;
+  border: 1px solid white;
+  transition: 300ms;
+  box-shadow: none;
+}
+.sign-out i-user-x {
+  height: 18px;
+  width: 18px;
+}
+@media (max-width: 280px) {
+  .sign-out {
+    margin-top: -8em;
+    font-size: 0.75em;
+  }
+  .sign-out i-user-x {
+    height: 16px;
+    width: 16px;
+  }
+}
+@media (min-width: 600px) {
+  .sign-out {
+    margin: -5em 0 0 80vw;
+    font-size: 1.25em;
+  }
+  .sign-out i-user-x {
+    height: 24px;
+    width: 24px;
+  }
 }

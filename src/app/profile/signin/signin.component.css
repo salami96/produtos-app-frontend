@@ -1,0 +1,95 @@
+main.mobile nav {
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+    background: var(--primary);
+    height: 3em;
+    align-items: center;
+    justify-items: center;
+    margin: 0 0 5em;
+}
+main.mobile nav div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+main.mobile nav span {
+    color: var(--secondary);
+    transition: 300ms;
+}
+main.mobile nav .isActive {
+    border-bottom: 5px solid white;
+}
+main.mobile nav .isActive span {
+    color: white;
+    transition: 300ms;
+    text-decoration: none;
+}
+main.mobile nav span:focus, main.mobile nav span:hover {
+    transition: 300ms;
+    color: white;
+    text-decoration: none;
+}
+main .form-signin div:not(.label-float) {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0.5em;
+}
+.form-signin {
+    width: 100%;
+    max-width: 420px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.label-float{
+  position: relative;
+  padding-top: 13px;
+}
+.label-float input{
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  outline: none;
+  width: 100%;
+  min-width: 250px;
+  padding: 15px 20px;
+  font-size: 16px;
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -webkit-appearance:none;
+}
+.label-float input:focus{
+  border: 2px solid var(--primary);
+}
+.label-float input::placeholder{
+  color: transparent;
+}
+.label-float label{
+  pointer-events: none;
+  position: absolute;
+  top: calc(50% - 8px);
+  left: 15px;
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  background-color: white;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.label-float input.invalid + label{
+  color: tomato;
+}
+.label-float input:focus.invalid{
+  border: 2px solid tomato;
+}
+.label-float input.invalid + label:before{
+  content: '*';
+}
+.label-float input:focus + label,
+.label-float input:not(:placeholder-shown) + label{
+  font-size: 13px;
+  top: 0.5em;
+  line-height: 0;
+  color: var(--primary);
+}

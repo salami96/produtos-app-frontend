@@ -178,7 +178,8 @@
       "prefix": "app"
     },
     "@schematics/angular:guard": {
-      "spec": false
+      "spec": false,
+      "project": "produtos-app"
     },
     "@schematics/angular:module": {
       "spec": false,

@@ -2,8 +2,12 @@
   <section class="jumbotron">
     <img src="assets/error.svg" class="rounded-circle" alt="Foto de Perfil do Usuário">
     <div>
-      <h1>Nome De Usuário</h1>
-      <a href="tel:+5551998446478">(51) 99844-6478</a>
+      <h4 *ngIf="user">{{user.name}}</h4>
+      <a href="tel:+55{{user.phone}}" *ngIf="user">{{user.phone}}</a>
     </div>
   </section>
+  <button class="sign-out btn sticky-top" (click)="signOut()">
+    <i-user-x></i-user-x>
+    <span class="ml-2">Sair</span>
+  </button>
 </main>
