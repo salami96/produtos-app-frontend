@@ -38,21 +38,16 @@ export class UserService {
   }
 
   public login(mail: string, password: string) {
-    return new Promise((resolve, reject) => {
-      this.afAuth.auth.signInWithEmailAndPassword(mail, password).then((user) => {
-        localStorage['token'] = user.uid;
-        if (user.uid === this.gabriel.uid) {
-          this.userData = this.gabriel;
-        }
-        this.router.navigate(['/perfil']);
-      })
-        .catch((error) => {
-          this.router.navigate(['/perfil/entrar']);
-        });
-    })
-      .catch((error) => {
-        this.router.navigate(['/perfil/entrar']);
-      });
+    return this.afAuth.auth.signInWithEmailAndPassword(mail, password).then((user) => {
+      localStorage['token'] = user.uid;
+      if (user.uid === this.gabriel.uid) {
+        this.userData = this.gabriel;
+      }
+    });
+    // })
+    //   .catch((error) => {
+    //     this.router.navigate(['/perfil/entrar']);
+    //   });
   }
   public logout() {
     localStorage['token'] = '';

@@ -78,13 +78,10 @@ main .form-signin div:not(.label-float) {
   box-sizing: border-box;
 }
 .label-float input.invalid + label{
-  color: tomato;
+  color: tomato !important;
 }
-.label-float input:focus.invalid{
+.label-float input.invalid {
   border: 2px solid tomato;
-}
-.label-float input.invalid + label:before{
-  content: '*';
 }
 .label-float input:focus + label,
 .label-float input:not(:placeholder-shown) + label{
@@ -92,4 +89,14 @@ main .form-signin div:not(.label-float) {
   top: 0.5em;
   line-height: 0;
   color: var(--primary);
+}
+.fade:not(.show) {
+  height: 0;
+  opacity: 0;
+  transition: 500ms;
+}
+.fade.show {
+  height: auto;
+  opacity: 1;
+  transition: 500ms;
 }

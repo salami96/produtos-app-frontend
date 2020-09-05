@@ -12,14 +12,17 @@
       <input type="email" [(ngModel)]="email" [class.invalid]="emailError" placeholder=" " />
       <label>Email</label>
     </div>
+    <div class="text-danger fade mt-1 text-right" [class.show]="emailError">Email inválido</div>
     <br/>
     <div class="label-float">
       <input type="password" [(ngModel)]="password" [class.invalid]="passwordError" placeholder=" " />
       <label>Senha</label>
     </div>
+    <div class="text-danger fade mt-1 text-right" [class.show]="passwordError">A senha deve possui 8 caracteres ou mais!</div>
     <div>
       <a routerLink="/perfil/resetar-senha" class="text-theme">Esqueceu a senha?</a>
     </div>
     <button type="button" class="btn btn-theme btn-block mt-5" (click)="signIn()">Entrar</button>
+    <div class="alert alert-danger fade mt-2" [class.show]="loginError">{{msgError}}</div>
   </div>
 </main>
