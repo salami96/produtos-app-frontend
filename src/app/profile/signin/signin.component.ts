@@ -16,11 +16,13 @@ export class SigninComponent implements OnInit {
   cadPassword: string;
   cadPassword2: string;
   phone: string;
+  name: string;
   emailError = false;
   passwordError = false;
   cadEmailError = false;
   cadPasswordError = false;
   cadPassword2Error = false;
+  nameError = false;
   phoneError = false;
 
   constructor(
@@ -33,35 +35,65 @@ export class SigninComponent implements OnInit {
     this.route.params.subscribe(res => {
       this.setTab(res.action);
     });
-    this.uService.user.subscribe(res => {
-      if (res) {
-        this.router.navigate(['/perfil']);
-      }
-    });
+    if (this.uService.user) {
+      this.uService.user.subscribe(res => {
+        if (res) {
+          this.router.navigate(['/perfil']);
+        }
+      });
+    }
   }
 
   setTab(tab: string) {
     this.tab = tab;
   }
 
-  validate(all = false) {
+  validate() {
     let valid = true;
-    if (this.validateEmail(this.email)) {
-      alert('oi');
+    if (!this.validateEmail(this.email)) {
+      this.emailError = true;
+      valid = false;
     }
+    if (this.password.length < 8) {
+      this.passwordError = true;
+      valid = false;
+    }
+    return valid;
   }
 
-  validateEmail(email) {
+  validateRegister() {
+    let valid = true;
+    if (!this.validateEmail(this.cadEmail)) {
+      this.cadEmailError = true;
+      valid = false;
+    }
+    if (this.cadPassword.length < 8) {
+      this.cadPasswordError = true;
+      valid = false;
+    }
+    if (this.cadPassword2 !== this.cadPassword) {
+      this.cadPasswordError = true;
+      valid = false;
+    }
+    if (this.name) {
+      this.nameError = true;
+      valid = false;
+    }
+    if (this.phone) {
+      this.phoneError = true;
+      valid = false;
+    }
+    return valid;
+  }
+
+  validateEmail(email: string) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
 
   signIn() {
-    if (this.email && this.password) {
+    if (this.validate()) {
       this.uService.login('gabriel.zanatto2@gmail.com', 'salami1996');
-    } else {
-      this.emailError = true;
-      this.passwordError = true;
     }
   }
   signOut() {

@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 })
 export class UserService {
   user: Observable<firebase.User>;
-  private _userObserver: Subscriber<User>;
   userData: User;
   gabriel: User = {
     uid: '16WdYqHnmgZAcVolL6AXxyZJAtn2',
@@ -31,6 +30,7 @@ export class UserService {
     public router: Router,
     public afAuth: AngularFireAuth,
   ) {
+    // this.user.subscribe();
     this.user = afAuth.authState;
     if (localStorage['token'] === this.gabriel.uid) {
       this.userData = this.gabriel;
