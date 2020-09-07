@@ -49,7 +49,8 @@ import {
   IconChevronRight,
   IconEdit2,
   IconChevronUp,
-  IconUserX
+  IconUserX,
+  IconLogIn
 } from 'angular-feather';
 import { IconWhatsappComponent } from './whatsapp-icon/whatsapp-icon.component';
 
@@ -72,7 +73,8 @@ const icons = [
   IconChevronDown,
   IconChevronUp,
   IconX,
-  IconUserX
+  IconUserX,
+  IconLogIn
 ];
 
 @NgModule({

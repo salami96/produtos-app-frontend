@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 .btn.btn-block {
+    display: grid;
+    grid-template-columns: 1fr 12fr;
     border-radius: 2em;
 }
 label.btn-outline-theme {

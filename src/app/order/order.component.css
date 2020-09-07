@@ -59,9 +59,3 @@ main.mobile {
     color: var(--dark);
     transition: 500ms;
 }
-
-.btn.btn-block {
-    display: grid;
-    grid-template-columns: 1fr 12fr;
-    border-radius: 2em;
-}

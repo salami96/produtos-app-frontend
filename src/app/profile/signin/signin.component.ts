@@ -64,14 +64,15 @@ export class SigninComponent implements OnInit {
     if (!this.validateEmail(this.email)) {
       this.emailError = true;
       valid = false;
-    } else {
-      this.emailError = false;
     }
-    if (this.password.length < 8) {
+    if (this.password) {
+      if (this.password.length < 8) {
+        this.passwordError = true;
+        valid = false;
+      }
+    } else {
       this.passwordError = true;
       valid = false;
-    } else {
-      this.passwordError = false;
     }
     return valid;
   }
@@ -81,32 +82,27 @@ export class SigninComponent implements OnInit {
     if (!this.validateEmail(this.cadEmail)) {
       this.cadEmailError = true;
       valid = false;
-    } else {
-      this.cadEmailError = false;
     }
-    if (this.cadPassword.length < 8) {
+    if (this.cadPassword) {
+      if (this.cadPassword.length < 8) {
+        this.cadPasswordError = true;
+        valid = false;
+      }
+    } else {
       this.cadPasswordError = true;
       valid = false;
-    } else {
-      this.cadPasswordError = false;
     }
     if (this.cadPassword2 !== this.cadPassword) {
       this.cadPasswordError = true;
       valid = false;
-    } else {
-      this.cadPasswordError = false;
     }
     if (this.name) {
       this.nameError = true;
       valid = false;
-    } else {
-      this.nameError = false;
     }
     if (this.phone) {
       this.phoneError = true;
       valid = false;
-    } else {
-      this.phoneError = false;
     }
     return valid;
   }
@@ -120,11 +116,29 @@ export class SigninComponent implements OnInit {
     if (this.validate()) {
       this.uService.login(this.email, this.password).then(resp => {
         this.router.navigate(['/' + this.page]);
+        this.clear();
       }).catch((e: any) => {
-        this.loginError = true;
         this.msgError = this.getMessage(e.code);
+        this.loginError = true;
+        setTimeout(() => {
+          this.clear();
+        }, 5000);
       });
     }
+  }
+
+  googleLogin() {
+    this.uService.providerLogin('google').then(resp => {
+      this.router.navigate(['/' + this.page]);
+      this.clear();
+    }).catch((e: any) => {
+      console.log(e);
+      this.msgError = this.getMessage(e.code);
+      this.loginError = true;
+      setTimeout(() => {
+        this.clear();
+      }, 5000);
+    });
   }
 
   signOut() {
@@ -143,7 +157,21 @@ export class SigninComponent implements OnInit {
         return 'Email inválido 😕';
       case 'auth/weak-password':
         return 'Senha muito fraca 😕';
+      case 'auth/popup-closed-by-user':
+        return 'O processo de Login foi cancelado pelo usuário😕';
     }
+  }
+
+  clear() {
+    this.emailError = false;
+    this.passwordError = false;
+    this.cadEmailError = false;
+    this.cadPasswordError = false;
+    this.cadPassword2Error = false;
+    this.nameError = false;
+    this.phoneError = false;
+    this.loginError = false;
+    this.msgError = '';
   }
 
 }

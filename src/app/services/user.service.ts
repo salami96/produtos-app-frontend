@@ -11,7 +11,7 @@ export class UserService {
   user: Observable<firebase.User>;
   userData: User;
   gabriel: User = {
-    uid: '16WdYqHnmgZAcVolL6AXxyZJAtn2',
+    uid: 'Fkj4HEnFfTP5TuWXJGmPkoWvkZh1',
     name: 'Gabriel Zanatto Salami',
     phone: '51999262182',
     email: 'gabriel.zanatto2@gmail.com',
@@ -25,6 +25,7 @@ export class UserService {
       zipCode: '96745000'
     }]
   };
+
 
   constructor(
     public router: Router,
@@ -44,14 +45,31 @@ export class UserService {
         this.userData = this.gabriel;
       }
     });
-    // })
-    //   .catch((error) => {
-    //     this.router.navigate(['/perfil/entrar']);
-    //   });
   }
+
+  public providerLogin(provider: string) {
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    const facebookProvider = new firebase.auth.FacebookAuthProvider();
+    let method;
+
+    if (provider === 'google') {
+      method = googleProvider;
+    } else if (provider === 'facebook') {
+      method = facebookProvider;
+    }
+
+    return this.afAuth.auth.signInWithPopup(method).then(user => {
+      localStorage['token'] = user.uid;
+      if (user.uid === this.gabriel.uid) {
+        this.userData = this.gabriel;
+      }
+    });
+  }
+
   public logout() {
     localStorage['token'] = '';
     this.userData = undefined;
     return this.afAuth.auth.signOut();
   }
+
 }

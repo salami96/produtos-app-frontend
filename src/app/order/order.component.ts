@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core
 import { isPlatformBrowser } from '@angular/common';
 import { CartService } from '../services/cart.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-order',
@@ -13,14 +14,17 @@ export class OrderComponent implements OnInit, OnDestroy {
   observer: any;
   isExpanded: boolean[] = [];
   safeHtml: SafeHtml[] = [];
+  user: User;
 
   constructor(
     private sanitizer: DomSanitizer,
     @Inject(PLATFORM_ID) private platformID: Object,
     private cService: CartService,
+    private uService: UserService,
   ) { }
 
   ngOnInit() {
+    this.uService.user.subscribe(u => this.user = this.uService.userData);
     if (isPlatformBrowser(this.platformID)) {
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.observer = this.cService.order().subscribe(resp => {
