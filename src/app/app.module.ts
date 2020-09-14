@@ -63,6 +63,8 @@ const firebaseConfig = {
 })
 export class AppModule {
   constructor() {
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
   }
 }
