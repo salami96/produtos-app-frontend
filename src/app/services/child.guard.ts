@@ -17,9 +17,12 @@ export class ChildGuard implements CanActivate {
   route: ActivatedRouteSnapshot;
 
   canActivate() {
-    if (this.uService.userData) {
+    console.log('tentou acessar login');
+    if (this.uService.isLogged) {
+      console.log('logged is true - child');
       this.router.navigate(['/perfil']);
     } else {
+      console.log('logged is false - child');
       return true;
     }
   }

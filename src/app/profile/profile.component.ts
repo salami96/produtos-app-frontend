@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.uService.user.subscribe(u => this.user = this.uService.userData);
+    this.user = this.uService.userData;
     if (isPlatformBrowser(this.platformID)) {
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
     }

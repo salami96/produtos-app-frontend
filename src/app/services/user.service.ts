@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subscriber } from 'rxjs';
-import * as firebase from 'firebase/app';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '@angular/router';
+import { auth } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  user: Observable<firebase.User>;
-  userData: User;
-  gabriel: User = {
-    uid: 'Fkj4HEnFfTP5TuWXJGmPkoWvkZh1',
+  isLogged: boolean;
+  private gabriel: User = {
+    uid: 'CdwOhW7bSkXImlu7kIlJLGq9MFz2',
     name: 'Gabriel Zanatto Salami',
     phone: '51999262182',
     email: 'gabriel.zanatto2@gmail.com',
@@ -23,34 +19,57 @@ export class UserService {
       city: 'Charqueadas',
       state: 'RS',
       zipCode: '96745000'
-    }]
+    }],
+    avatar: ''
   };
+  private copac: User = {
+    uid: '6KFeFgJeaMaddSBt2kmxRqRczPE3',
+    name: 'Supercopac',
+    phone: '5136584137',
+    email: 'supercopac@terra.com.br',
+    address: [{
+      name: 'Loja',
+      street: 'Av. Cruz de Malta',
+      number: '705',
+      district: 'Centro',
+      city: 'Charqueadas',
+      state: 'RS',
+      zipCode: '96745000'
+    }],
+    avatar: ''
+  };
+  private nick: User = {
+    uid: 'gWOYqR4oWYXAgkKwDaW3iQ3ua9c2',
+    name: 'Nicole Lopes',
+    phone: '51998446478',
+    email: 'nicolelopes7777@gmail.com',
+    address: [{
+      name: 'Casa',
+      street: 'Núcleo F-49',
+      number: '59',
+      district: 'Piratini',
+      city: 'Charqueadas',
+      state: 'RS',
+      zipCode: '96745000'
+    }],
+    avatar: ''
+  };
+  userData: User;
 
-
-  constructor(
-    public router: Router,
-    public afAuth: AngularFireAuth,
-  ) {
-    // this.user.subscribe();
-    this.user = afAuth.authState;
-    if (localStorage['token'] === this.gabriel.uid) {
-      this.userData = this.gabriel;
-    }
-  }
-
-  public login(mail: string, password: string) {
-    return this.afAuth.auth.signInWithEmailAndPassword(mail, password).then((user) => {
-      localStorage['token'] = user.uid;
-      if (user.uid === this.gabriel.uid) {
-        this.userData = this.gabriel;
-      }
+  constructor() {
+    auth().onAuthStateChanged(user => {
+      this.setUserData(user);
     });
   }
 
+  public login(mail: string, password: string) {
+    return auth().signInWithEmailAndPassword(mail, password);
+  }
+
   public providerLogin(provider: string) {
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
-    const facebookProvider = new firebase.auth.FacebookAuthProvider();
-    let method;
+    const googleProvider = new auth.GoogleAuthProvider();
+    const facebookProvider = new auth.FacebookAuthProvider();
+    let method: auth.AuthProvider;
 
     if (provider === 'google') {
       method = googleProvider;
@@ -58,18 +77,42 @@ export class UserService {
       method = facebookProvider;
     }
 
-    return this.afAuth.auth.signInWithPopup(method).then(user => {
-      localStorage['token'] = user.uid;
-      if (user.uid === this.gabriel.uid) {
-        this.userData = this.gabriel;
-      }
+    return auth().signInWithPopup(method).then(user => {
+      this.setUserData(user);
+    });
+  }
+
+  public save(name: string, phone: string, email: string, password: string) {
+    return auth().createUserWithEmailAndPassword(email, password).then(user => {
+      console.log(user);
     });
   }
 
   public logout() {
-    localStorage['token'] = '';
     this.userData = undefined;
-    return this.afAuth.auth.signOut();
+    return auth().signOut();
+  }
+
+  setUserData(user: any) {
+    if (user) {
+      this.isLogged = true;
+      switch (user.uid) {
+        case this.gabriel.uid:
+          this.userData = this.gabriel;
+          break;
+        case this.copac.uid:
+          this.userData = this.copac;
+          break;
+        case this.nick.uid:
+          this.userData = this.nick;
+          break;
+        default:
+          console.log('token invalido: ' + user.uid);
+          break;
+      }
+    } else {
+      this.isLogged = false;
+    }
   }
 
 }

@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { CartService } from '../services/cart.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/user.service';
+import { auth } from 'firebase';
 
 @Component({
   selector: 'app-order',
@@ -24,7 +25,9 @@ export class OrderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.uService.user.subscribe(u => this.user = this.uService.userData);
+    auth().onAuthStateChanged(user => {
+      this.user = this.uService.userData;
+    });
     if (isPlatformBrowser(this.platformID)) {
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.observer = this.cService.order().subscribe(resp => {

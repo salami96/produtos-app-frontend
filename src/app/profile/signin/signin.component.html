@@ -1,41 +1,72 @@
-<main class="mobile mb-5 pb-5">
+<main>
   <nav>
-    <div [class.isActive]="tab == 'entrar'" (click)="setTab('entrar')">
-      <span>Entrar</span>
-    </div>
-    <div [class.isActive]="tab == 'cadastrar'" (click)="setTab('cadastrar')">
-      <span>Cadastrar</span>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" data-toggle="tab" href="#entrar" role="tab" aria-controls="nav-entrar" aria-selected="true">Entrar</a>
+      <a class="nav-item nav-link" data-toggle="tab" href="#cadastrar" role="tab" aria-controls="nav-cadastrar" aria-selected="false">Cadastrar</a>
     </div>
   </nav>
-  <div class="my-3 form-signin">
-    <div class="label-float hide">
-      <input type="email" placeholder=" " />
-      <label>Email</label>
+  <div class="label-float hide">
+    <input type="email" placeholder=" " />
+    <label>Email</label>
+  </div>
+  <div class="label-float hide">
+    <input type="password" placeholder=" " />
+    <label>Senha</label>
+  </div>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="form-signin tab-pane fade show active" id="entrar" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="label-float">
+        <input type="email" [(ngModel)]="email" [class.invalid]="emailError" placeholder=" " (keyup.enter)="focus('senha')" autofocus />
+        <label>Email</label>
+      </div>
+      <div class="text-danger fade mt-1 text-right" [class.show]="emailError">Email inválido</div>
+      <div class="label-float">
+        <input type="password" [(ngModel)]="password" id="senha" [class.invalid]="passwordError" placeholder=" " (keyup.enter)="signIn()" />
+        <label>Senha</label>
+      </div>
+      <div class="text-danger fade mt-1 text-right" [class.show]="passwordError">A senha deve possui 8 caracteres ou mais!</div>
+      <div>
+        <a routerLink="/perfil/resetar-senha" class="text-theme">Esqueceu a senha?</a>
+      </div>
+      <button type="button" class="btn btn-theme btn-block mt-4" (click)="signIn()"><i-log-in></i-log-in>Entrar</button>
     </div>
-    <div class="label-float hide">
-      <input type="password" placeholder=" " />
-      <label>Senha</label>
+    <div class="tab-pane fade form-signin" id="cadastrar" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <div class="label-float">
+        <input type="text" [(ngModel)]="name" [class.invalid]="nameError" placeholder=" " (keyup.enter)="focus('phone')" autofocus />
+        <label>Nome Completo</label>
+      </div>
+      <div class="text-danger fade mt-1 text-right" [class.show]="nameError">É obrigatório informar seu nome</div>
+      <div class="label-float">
+        <input type="text" [(ngModel)]="phone" [class.invalid]="phoneError" id="phone" placeholder=" " (keyup.enter)="focus('email')" />
+        <label>Telefone</label>
+      </div>
+      <div class="text-danger fade mt-1 text-right" [class.show]="phoneError">Número de telefone inválido</div>
+      <div class="label-float">
+        <input id="email" type="email" [(ngModel)]="cadEmail" [class.invalid]="cadEmailError" placeholder=" " (keyup.enter)="focus('cad-senha')" />
+        <label>Email</label>
+      </div>
+      <div class="text-danger fade mt-1 text-right" [class.show]="cadEmailError">Email inválido</div>
+      <div class="label-float">
+        <input type="password" [(ngModel)]="cadPassword" id="cad-senha" [class.invalid]="cadPasswordError" placeholder=" " (keyup.enter)="focus('cad-senha2')" />
+        <label>Senha</label>
+      </div>
+      <div class="text-danger fade mt-1 text-right" [class.show]="cadPasswordError">A senha deve possui 8 caracteres ou mais!</div>
+      <div class="label-float">
+        <input type="password" [(ngModel)]="cadPassword2" id="cad-senha2" [class.invalid]="cadPassword2Error" placeholder=" " (keyup.enter)="save()" />
+        <label>Repetir senha</label>
+      </div>
+      <div class="text-danger fade mt-1 text-right" [class.show]="cadPassword2Error">A senha deve ser igual à primeira!</div>
+      <button type="button" class="btn btn-theme btn-block mt-4" (click)="save()"><i-save></i-save>Salvar</button>
+      <button type="button" class="btn btn-outline-danger btn-block" (click)="clear()"><i-slash></i-slash>Limpar</button>
     </div>
-    <div class="label-float">
-      <input type="email" [(ngModel)]="email" [class.invalid]="emailError" placeholder=" " />
-      <label>Email</label>
-    </div>
-    <div class="text-danger fade mt-1 text-right" [class.show]="emailError">Email inválido</div>
-    <div class="label-float">
-      <input type="password" [(ngModel)]="password" [class.invalid]="passwordError" placeholder=" " />
-      <label>Senha</label>
-    </div>
-    <div class="text-danger fade mt-1 text-right" [class.show]="passwordError">A senha deve possui 8 caracteres ou mais!</div>
-    <div>
-      <a routerLink="/perfil/resetar-senha" class="text-theme">Esqueceu a senha?</a>
-    </div>
-    <button type="button" class="btn btn-theme btn-block mt-5" (click)="signIn()"><i-log-in></i-log-in>Entrar</button>
+  </div>
+  <div class="form-signin">
     <div class="separator">
       ou
     </div>
-    <button class="btn btn-block btn-outline-theme" (click)="googleLogin()">
+    <button class="btn btn-block google" (click)="googleLogin()">
       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-         width="24px" height="24px" viewBox="0 0 510 510" style="enable-background:new 0 0 510 510; fill: currentColor;" xml:space="preserve">
+        width="24px" height="24px" viewBox="0 0 510 510" style="enable-background:new 0 0 510 510; fill: currentColor;" xml:space="preserve">
       <g>
         <g id="glass">
           <path d="M286.875,229.5v63.75h150.45c-15.3,89.25-86.7,153-175.95,153c-104.55,0-191.25-86.7-191.25-191.25
@@ -46,9 +77,8 @@
       </svg>
       Entrar com Google
     </button>
-    <button class="btn btn-block btn-outline-theme" (click)="signOut()"><i-facebook></i-facebook>Entrar com Facebook</button>
+    <button class="btn btn-block fb" (click)="signOut()"><i-facebook></i-facebook>Entrar com Facebook</button>
   </div>
-
 </main>
 <div class="alert alert-danger fade login-error" [class.show]="loginError">
   <p class="m-0">{{msgError}}</p>

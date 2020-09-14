@@ -12,9 +12,9 @@ import { LandingPageModule } from './landing-page/landing-page.module';
 import { AuthGuard } from './services/auth.guard';
 import { ChildGuard } from './services/child.guard';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import * as firebase from 'firebase';
+// import { AngularFireModule } from '@angular/fire';
+// import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCYIemjawWYApHGDQ1QpjheX4FArLLPDfo',
@@ -34,7 +34,8 @@ const firebaseConfig = {
     NavigationComponent,
   ],
   imports: [
-    AngularFireModule.initializeApp(firebaseConfig),
+    // AngularFireModule.initializeApp(firebaseConfig),
+    // AngularFireAuthModule,
     AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'produtos-app' }),
     IconsModule,
@@ -51,8 +52,8 @@ const firebaseConfig = {
     }), */
   ],
   providers: [
-    AngularFireAuth,
-    AngularFireModule,
+    // AngularFireAuth,
+    // AngularFireModule,
     AuthGuard,
     ChildGuard,
     IconsModule,
@@ -60,5 +61,8 @@ const firebaseConfig = {
   ],
   bootstrap: [ AppComponent ]
 })
-export class AppModule { }
-
+export class AppModule {
+  constructor() {
+    firebase.initializeApp(firebaseConfig);
+  }
+}

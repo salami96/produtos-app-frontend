@@ -14,11 +14,11 @@ export class SigninComponent implements OnInit {
   tab: string;
   email: string;
   password: string;
-  cadEmail: string;
-  cadPassword: string;
-  cadPassword2: string;
-  phone: string;
-  name: string;
+  cadEmail = '';
+  cadPassword = '';
+  cadPassword2 = '';
+  phone = '';
+  name = '';
   emailError = false;
   passwordError = false;
   cadEmailError = false;
@@ -28,6 +28,7 @@ export class SigninComponent implements OnInit {
   phoneError = false;
   msgError = '';
   loginError: boolean;
+
 
   constructor(
     private uService: UserService,
@@ -44,13 +45,6 @@ export class SigninComponent implements OnInit {
       this.page = this.route.snapshot.queryParamMap.get('origem');
       if (!this.page) {
         this.page = 'perfil';
-      }
-      if (this.uService.user) {
-        this.uService.user.subscribe(res => {
-          if (res) {
-            this.router.navigate(['/' + this.page]);
-          }
-        });
       }
     }
   }
@@ -92,15 +86,15 @@ export class SigninComponent implements OnInit {
       this.cadPasswordError = true;
       valid = false;
     }
-    if (this.cadPassword2 !== this.cadPassword) {
-      this.cadPasswordError = true;
+    if (this.cadPassword2 !== this.cadPassword || this.cadPassword2 === '') {
+      this.cadPassword2Error = true;
       valid = false;
     }
-    if (this.name) {
+    if (this.name === '') {
       this.nameError = true;
       valid = false;
     }
-    if (this.phone) {
+    if (this.phone === '') {
       this.phoneError = true;
       valid = false;
     }
@@ -115,6 +109,21 @@ export class SigninComponent implements OnInit {
   signIn() {
     if (this.validate()) {
       this.uService.login(this.email, this.password).then(resp => {
+        this.router.navigate(['/' + this.page]);
+        this.clear();
+      }).catch((e: any) => {
+        this.msgError = this.getMessage(e.code);
+        this.loginError = true;
+        setTimeout(() => {
+          this.clear();
+        }, 5000);
+      });
+    }
+  }
+
+  save() {
+    if (this.validateRegister()) {
+      this.uService.save(this.name, this.phone, this.cadEmail, this.cadPassword).then(resp => {
         this.router.navigate(['/' + this.page]);
         this.clear();
       }).catch((e: any) => {
@@ -158,8 +167,14 @@ export class SigninComponent implements OnInit {
       case 'auth/weak-password':
         return 'Senha muito fraca 😕';
       case 'auth/popup-closed-by-user':
-        return 'O processo de Login foi cancelado pelo usuário😕';
+        return 'O processo de entrada foi cancelado pelo usuário😕';
+      default:
+        return 'Não foi possível realizar a ação 😕';
     }
+  }
+
+  focus(field: string) {
+    document.getElementById(field).focus();
   }
 
   clear() {

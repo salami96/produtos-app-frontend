@@ -64,6 +64,7 @@ interface User {
     phone: string;
     email: string;
     address: Address[];
+    avatar: string;
 }
 interface Address {
     name: string;
