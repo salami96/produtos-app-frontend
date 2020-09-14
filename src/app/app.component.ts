@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
 
       switch (this.url) {
         case 'nick':
-          active = 'brow';
+          active = 'brown';
           break;
         case 'agroking':
           active = 'blue';
