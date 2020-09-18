@@ -34,6 +34,7 @@ export class SigninComponent implements OnInit {
     login: false,
     register: false
   };
+  emailSend = false;
 
 
   constructor(
@@ -54,7 +55,7 @@ export class SigninComponent implements OnInit {
             break;
         }
       });
-      this.page = this.route.snapshot.queryParamMap.get('origem');
+      this.page = this.route.snapshot.queryParamMap.get('pagina');
       if (!this.page) {
         this.page = 'perfil';
       }
@@ -152,13 +153,13 @@ export class SigninComponent implements OnInit {
     }
   }
 
-  googleLogin() {
-    this.loading.google = true;
-    this.uService.providerLogin('google', this.page).then(resp => {
-      this.loading.google = false;
+  socialLogin(method: string) {
+    method === 'google' ? this.loading.google = true : this.loading.facebook = true;
+    this.uService.providerLogin(method, this.page).then(resp => {
+      method === 'google' ? this.loading.google = false : this.loading.facebook = false;
       this.clear();
     }).catch((e: any) => {
-      this.loading.google = false;
+      method === 'google' ? this.loading.google = false : this.loading.facebook = false;
       console.log(e);
       this.msgError = this.getMessage(e.code);
       this.loginError = true;
@@ -168,13 +169,30 @@ export class SigninComponent implements OnInit {
     });
   }
 
-  signOut() {
-    this.loading.facebook = true;
-    setTimeout(() => {
-      this.loading.facebook = false;
-    }, 4000);
-
-    this.uService.logout();
+  resetPassword() {
+    if (this.validateEmail(this.email)) {
+      this.clear();
+      this.uService.resetPassword(this.email).then(() => {
+        this.emailSend = true;
+        setTimeout(() => {
+          this.emailSend = false;
+        }, 15000);
+      }).catch(e => {
+        console.log(e);
+        this.msgError = this.getMessage(e.code);
+        this.loginError = true;
+        setTimeout(() => {
+          this.clear();
+        }, 5000);
+      });
+    } else {
+      this.emailError = true;
+      this.msgError = 'Informe o email para resetar sua senha';
+      this.loginError = true;
+      setTimeout(() => {
+        this.clear();
+      }, 5000);
+    }
   }
 
   getMessage(code: string) {

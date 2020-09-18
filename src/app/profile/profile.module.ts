@@ -8,10 +8,11 @@ import { AuthGuard } from '../services/auth.guard';
 import { ChildGuard } from '../services/child.guard';
 import { IconsModule } from '../icons/icons.module';
 import { FormsModule } from '@angular/forms';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 
 @NgModule({
-  declarations: [ ProfileComponent, SigninComponent, AddressComponent ],
+  declarations: [ ProfileComponent, SigninComponent, AddressComponent, UpdateUserComponent ],
   imports: [
     CommonModule,
     IconsModule,

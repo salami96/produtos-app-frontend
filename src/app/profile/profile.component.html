@@ -1,6 +1,7 @@
 <main>
   <section class="jumbotron">
-    <img src="assets/error.svg" class="rounded-circle" alt="Foto de Perfil do Usuário">
+    <img src="{{user.avatar}}" *ngIf="user.avatar" class="rounded-circle" alt="Foto de Perfil do Usuário">
+    <img src="assets/avatar.svg" *ngIf="!user.avatar" class="rounded-circle" alt="Foto de Perfil do Usuário">
     <div>
       <h4 *ngIf="user">{{user.name}}</h4>
       <a href="tel:+55{{user.phone}}" *ngIf="user">{{user.phone}}</a>

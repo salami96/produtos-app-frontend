@@ -14,7 +14,6 @@ main {
   align-self: flex-end;
   width: 30vw;
   height: 30vw;
-  background-color: white;
 }
 .jumbotron div, .jumbotron div a {
   max-width: 60vw;

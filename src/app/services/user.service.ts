@@ -70,7 +70,7 @@ export class UserService {
     private http: HttpClient,
     private router: Router
   ) {
-    http.get(this.url, this.options).subscribe(resp => console.log(resp));
+    http.get(this.url, this.options);
     auth().onAuthStateChanged(user => {
       if (user) {
         this.isLogged = true;
@@ -87,18 +87,14 @@ export class UserService {
   }
 
   public providerLogin(provider: string, page: string) {
-    const googleProvider = new auth.GoogleAuthProvider();
-    googleProvider.setCustomParameters({
+    const google = new auth.GoogleAuthProvider()
+    .setCustomParameters({
       'prompt': 'select_account'
     });
-    const facebookProvider = new auth.FacebookAuthProvider();
+    const facebook = new auth.FacebookAuthProvider();
     let method: auth.AuthProvider;
 
-    if (provider === 'google') {
-      method = googleProvider;
-    } else if (provider === 'facebook') {
-      method = facebookProvider;
-    }
+    method = provider === 'google' ? google : facebook;
 
     return auth().signInWithPopup(method).then(resp => {
       if (resp.additionalUserInfo.isNewUser) {
@@ -131,14 +127,18 @@ export class UserService {
     });
   }
 
+  public resetPassword(email: string) {
+    return auth().sendPasswordResetEmail(email);
+  }
+
   public logout() {
     this.userData = undefined;
     return auth().signOut();
   }
 
   private getUser(uid: string, page: string) {
-    this.http.post<User>(
-      `${this.url}/user`, { uid }, this.options
+    this.http.get<User>(
+      `${this.url}/user/${uid}`, this.options
     ).subscribe(user => {
       this.userData = user;
       this.router.navigate(['/' + page]);
@@ -147,32 +147,19 @@ export class UserService {
 
   private saveUser(user: User, page: string) {
     this.http.post<User>(
-      `${this.url}/new-user`, user, this.options
+      `${this.url}/user`, user, this.options
     ).subscribe(resp => {
       this.userData = user;
       this.router.navigate(['/' + page]);
     });
   }
-/*   setUserData(user: any) {
-    if (user) {
-      this.isLogged = true;
-      switch (user.uid) {
-        case this.gabriel.uid:
-          this.userData = this.gabriel;
-          break;
-        case this.copac.uid:
-          this.userData = this.copac;
-          break;
-        case this.nick.uid:
-          this.userData = this.nick;
-          break;
-        default:
-          console.log('token invalido: ' + user.uid);
-          break;
-      }
-    } else {
-      this.isLogged = false;
-    }
+
+  private editUser(user: User) {
+    this.http.post<User>(
+      `${this.url}/user`, user, this.options
+    ).subscribe(resp => {
+      this.userData = user;
+      this.router.navigate(['/perfil']);
+    });
   }
- */
 }

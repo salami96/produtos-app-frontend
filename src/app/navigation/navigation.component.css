@@ -18,13 +18,14 @@ nav.navbar {
     color: white !important;
 }
 .fixed-bottom {
-    display: flex;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr 1fr 1fr;
     justify-content: space-around;
     border-top-left-radius: 1.5em;
     border-top-right-radius: 1.5em;
 }
 div.nav-item {
-    margin: 0.5em 0;
+    margin: 0.5em;
     padding: 0.5em;
     border-radius: 0.5em;
     line-height: normal;
@@ -46,7 +47,8 @@ div.nav-item {
         2px 2px 0px 0px rgba(0, 0, 0, 0.5);
     transition: 500ms;
 }
-.isActive .tab, .isActive .nav-link {
+.isActive .tab, .isActive .nav-link,
+.isActive .tab *, .isActive .nav-link * {
     color: white;
     text-decoration: none;
 }
