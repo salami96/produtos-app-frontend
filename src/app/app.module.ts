@@ -13,6 +13,7 @@ import { AuthGuard } from './services/auth.guard';
 import { ChildGuard } from './services/child.guard';
 
 import * as firebase from 'firebase';
+import { HttpClientModule } from '@angular/common/http';
 // import { AngularFireModule } from '@angular/fire';
 // import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
 
@@ -38,6 +39,7 @@ const firebaseConfig = {
     // AngularFireAuthModule,
     AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'produtos-app' }),
+    HttpClientModule,
     IconsModule,
     LandingPageModule,
     /* RouterModule.forRoot([

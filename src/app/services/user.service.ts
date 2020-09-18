@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { auth } from 'firebase';
 
 @Injectable({
@@ -55,19 +57,40 @@ export class UserService {
     avatar: ''
   };
   userData: User;
+  // url = 'https://produtos-server.herokuapp.com';
+  url = 'http://localhost:9000';
+  options = {
+    headers: {
+      'authorization': 't5b3b9a5',
+      'Access-Control-Allow-Origin': '*'
+    }
+  };
 
-  constructor() {
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {
+    http.get(this.url, this.options).subscribe(resp => console.log(resp));
     auth().onAuthStateChanged(user => {
-      this.setUserData(user);
+      if (user) {
+        this.isLogged = true;
+      } else {
+        this.isLogged = false;
+      }
     });
   }
 
-  public login(mail: string, password: string) {
-    return auth().signInWithEmailAndPassword(mail, password);
+  public login(mail: string, password: string, page: string) {
+    return auth().signInWithEmailAndPassword(mail, password).then(user => {
+      this.getUser(auth().currentUser.uid, page);
+    });
   }
 
-  public providerLogin(provider: string) {
+  public providerLogin(provider: string, page: string) {
     const googleProvider = new auth.GoogleAuthProvider();
+    googleProvider.setCustomParameters({
+      'prompt': 'select_account'
+    });
     const facebookProvider = new auth.FacebookAuthProvider();
     let method: auth.AuthProvider;
 
@@ -77,14 +100,34 @@ export class UserService {
       method = facebookProvider;
     }
 
-    return auth().signInWithPopup(method).then(user => {
-      this.setUserData(user);
+    return auth().signInWithPopup(method).then(resp => {
+      if (resp.additionalUserInfo.isNewUser) {
+        const user: User = {
+          name: resp.user.displayName,
+          avatar: resp.user.photoURL,
+          email: resp.user.email,
+          uid: resp.user.uid,
+          phone: resp.user.phoneNumber,
+          address: []
+        };
+        this.saveUser(user, page);
+      } else {
+        this.getUser(resp.user.uid, page);
+      }
     });
   }
 
-  public save(name: string, phone: string, email: string, password: string) {
-    return auth().createUserWithEmailAndPassword(email, password).then(user => {
-      console.log(user);
+  public save(name: string, phone: string, email: string, password: string, page: string) {
+    return auth().createUserWithEmailAndPassword(email, password).then(resp => {
+      const user: User = {
+        name,
+        avatar: '',
+        email,
+        uid: resp.user.uid,
+        phone,
+        address: []
+      };
+      this.saveUser(user, page);
     });
   }
 
@@ -93,7 +136,24 @@ export class UserService {
     return auth().signOut();
   }
 
-  setUserData(user: any) {
+  private getUser(uid: string, page: string) {
+    this.http.post<User>(
+      `${this.url}/user`, { uid }, this.options
+    ).subscribe(user => {
+      this.userData = user;
+      this.router.navigate(['/' + page]);
+    });
+  }
+
+  private saveUser(user: User, page: string) {
+    this.http.post<User>(
+      `${this.url}/new-user`, user, this.options
+    ).subscribe(resp => {
+      this.userData = user;
+      this.router.navigate(['/' + page]);
+    });
+  }
+/*   setUserData(user: any) {
     if (user) {
       this.isLogged = true;
       switch (user.uid) {
@@ -114,5 +174,5 @@ export class UserService {
       this.isLogged = false;
     }
   }
-
+ */
 }

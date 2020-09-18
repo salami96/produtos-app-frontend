@@ -11,7 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class SigninComponent implements OnInit {
   page: string;
-  tab: string;
+  atLogin = true;
   email: string;
   password: string;
   cadEmail = '';
@@ -28,29 +28,37 @@ export class SigninComponent implements OnInit {
   phoneError = false;
   msgError = '';
   loginError: boolean;
+  loading = {
+    facebook: false,
+    google: false,
+    login: false,
+    register: false
+  };
 
 
   constructor(
     private uService: UserService,
     private route: ActivatedRoute,
-    private router: Router,
     @Inject(PLATFORM_ID) private platformID: Object,
   ) { }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
       this.route.params.subscribe(res => {
-        this.setTab(res.action);
+        switch (res.action.toLowerCase()) {
+          case 'cadastrar':
+            this.atLogin = false;
+            break;
+          default:
+            this.atLogin = true;
+            break;
+        }
       });
       this.page = this.route.snapshot.queryParamMap.get('origem');
       if (!this.page) {
         this.page = 'perfil';
       }
     }
-  }
-
-  setTab(tab: string) {
-    this.tab = tab;
   }
 
   validate() {
@@ -107,40 +115,50 @@ export class SigninComponent implements OnInit {
   }
 
   signIn() {
+    this.loading.login = true;
     if (this.validate()) {
-      this.uService.login(this.email, this.password).then(resp => {
-        this.router.navigate(['/' + this.page]);
+      this.uService.login(this.email, this.password, this.page).then(resp => {
+        this.loading.login = false;
         this.clear();
       }).catch((e: any) => {
+        this.loading.login = false;
         this.msgError = this.getMessage(e.code);
         this.loginError = true;
         setTimeout(() => {
           this.clear();
         }, 5000);
       });
+    } else {
+      this.loading.login = false;
     }
   }
 
   save() {
+    this.loading.register = true;
     if (this.validateRegister()) {
-      this.uService.save(this.name, this.phone, this.cadEmail, this.cadPassword).then(resp => {
-        this.router.navigate(['/' + this.page]);
-        this.clear();
-      }).catch((e: any) => {
+      this.uService.save(this.name, this.phone, this.cadEmail, this.cadPassword, this.page).then(resp => {
+      this.loading.register = false;
+      this.clear();
+    }).catch((e: any) => {
+        this.loading.register = false;
         this.msgError = this.getMessage(e.code);
         this.loginError = true;
         setTimeout(() => {
           this.clear();
         }, 5000);
       });
+    } else {
+      this.loading.register = false;
     }
   }
 
   googleLogin() {
-    this.uService.providerLogin('google').then(resp => {
-      this.router.navigate(['/' + this.page]);
+    this.loading.google = true;
+    this.uService.providerLogin('google', this.page).then(resp => {
+      this.loading.google = false;
       this.clear();
     }).catch((e: any) => {
+      this.loading.google = false;
       console.log(e);
       this.msgError = this.getMessage(e.code);
       this.loginError = true;
@@ -151,6 +169,11 @@ export class SigninComponent implements OnInit {
   }
 
   signOut() {
+    this.loading.facebook = true;
+    setTimeout(() => {
+      this.loading.facebook = false;
+    }, 4000);
+
     this.uService.logout();
   }
 
@@ -167,7 +190,7 @@ export class SigninComponent implements OnInit {
       case 'auth/weak-password':
         return 'Senha muito fraca 😕';
       case 'auth/popup-closed-by-user':
-        return 'O processo de entrada foi cancelado pelo usuário😕';
+        return 'O processo de entrada foi cancelado pelo usuário 😕';
       default:
         return 'Não foi possível realizar a ação 😕';
     }

@@ -1,8 +1,10 @@
 <main>
   <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" data-toggle="tab" href="#entrar" role="tab" aria-controls="nav-entrar" aria-selected="true">Entrar</a>
-      <a class="nav-item nav-link" data-toggle="tab" href="#cadastrar" role="tab" aria-controls="nav-cadastrar" aria-selected="false">Cadastrar</a>
+      <a class="nav-item nav-link" [class.active]="atLogin" [attr.aria-selected]="atLogin"
+      data-toggle="tab" href="#entrar" role="tab" aria-controls="nav-entrar">Entrar</a>
+      <a class="nav-item nav-link" [class.active]="!atLogin" [attr.aria-selected]="!atLogin"
+      data-toggle="tab" href="#cadastrar" role="tab" aria-controls="nav-cadastrar">Cadastrar</a>
     </div>
   </nav>
   <div class="label-float hide">
@@ -28,7 +30,13 @@
       <div>
         <a routerLink="/perfil/resetar-senha" class="text-theme">Esqueceu a senha?</a>
       </div>
-      <button type="button" class="btn btn-theme btn-block mt-4" (click)="signIn()"><i-log-in></i-log-in>Entrar</button>
+      <button type="button" class="btn btn-theme btn-block mt-4" (click)="signIn()">
+        <div>
+          <i-log-in class="fade" [class.show]="!loading.login"></i-log-in>
+          <i-loading class="fade" [class.show]="loading.login"></i-loading>
+        </div>
+        Entrar
+      </button>
     </div>
     <div class="tab-pane fade form-signin" id="cadastrar" role="tabpanel" aria-labelledby="nav-profile-tab">
       <div class="label-float">
@@ -56,7 +64,13 @@
         <label>Repetir senha</label>
       </div>
       <div class="text-danger fade mt-1 text-right" [class.show]="cadPassword2Error">A senha deve ser igual à primeira!</div>
-      <button type="button" class="btn btn-theme btn-block mt-4" (click)="save()"><i-save></i-save>Salvar</button>
+      <button type="button" class="btn btn-theme btn-block mt-4" (click)="save()">
+        <div>
+          <i-save class="fade" [class.show]="!loading.register"></i-save>
+          <i-loading class="fade" [class.show]="loading.register"></i-loading>
+        </div>
+        Salvar
+      </button>
       <button type="button" class="btn btn-outline-danger btn-block" (click)="clear()"><i-slash></i-slash>Limpar</button>
     </div>
   </div>
@@ -65,21 +79,31 @@
       ou
     </div>
     <button class="btn btn-block google" (click)="googleLogin()">
-      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-        width="24px" height="24px" viewBox="0 0 510 510" style="enable-background:new 0 0 510 510; fill: currentColor;" xml:space="preserve">
-      <g>
-        <g id="glass">
-          <path d="M286.875,229.5v63.75h150.45c-15.3,89.25-86.7,153-175.95,153c-104.55,0-191.25-86.7-191.25-191.25
-            s86.7-191.25,191.25-191.25c53.55,0,99.45,22.95,132.6,58.65l45.9-45.9c-45.9-45.9-107.1-76.5-178.5-76.5
-            c-140.25,0-255,114.75-255,255s114.75,255,255,255s242.25-114.75,242.25-255v-25.5H286.875z"/>
-        </g>
-      </g>
-      </svg>
+      <div>
+        <svg class="fade" [class.show]="!loading.google" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="24px" height="24px" viewBox="0 0 510 510" style="enable-background:new 0 0 510 510; fill: currentColor;" xml:space="preserve">
+          <g>
+            <g id="glass">
+              <path d="M286.875,229.5v63.75h150.45c-15.3,89.25-86.7,153-175.95,153c-104.55,0-191.25-86.7-191.25-191.25
+                s86.7-191.25,191.25-191.25c53.55,0,99.45,22.95,132.6,58.65l45.9-45.9c-45.9-45.9-107.1-76.5-178.5-76.5
+                c-140.25,0-255,114.75-255,255s114.75,255,255,255s242.25-114.75,242.25-255v-25.5H286.875z"/>
+            </g>
+          </g>
+        </svg>
+        <i-loading class="fade mx-auto" [class.show]="loading.google"></i-loading>
+      </div>
       Entrar com Google
     </button>
-    <button class="btn btn-block fb" (click)="signOut()"><i-facebook></i-facebook>Entrar com Facebook</button>
+    <button class="btn btn-block fb" (click)="signOut()">
+      <div>
+        <i-facebook class="fade" [class.show]="!loading.facebook"></i-facebook>
+        <i-loading class="fade" [class.show]="loading.facebook"></i-loading>
+      </div>
+      Entrar com Facebook
+    </button>
   </div>
 </main>
-<div class="alert alert-danger fade login-error" [class.show]="loginError">
-  <p class="m-0">{{msgError}}</p>
+<div class="alert alert-danger fade login-error text-center" [class.show]="loginError">
+  <i-alert-circle></i-alert-circle>
+  <span class="mx-3">{{msgError}}</span>
 </div>

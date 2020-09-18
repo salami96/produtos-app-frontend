@@ -1,6 +1,8 @@
 @media (min-width: 1200px) {
-  .login-error {
-    margin: 5em 40vw;
+  .login-error, .login-loading {
+    left: 15vw !important;
+    right: 15vw !important;
+    width: 70vw !important;
   }
 }
 @media (min-width: 949px) {
@@ -19,13 +21,14 @@
   main nav div a {
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
-    box-shadow: 1px rgba(0, 0, 0, 0.1);
   }
   .login-error {
-    font-size: 1.5em;
+    font-size: 1.1em;
+    bottom: 1em !important;
   }
   .nav-item.nav-link.active {
     border-bottom-width: 10px !important;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.25);
   }
 }
 .nav-item.nav-link {
@@ -123,6 +126,7 @@ main .form-signin div:not(.label-float) {
 }
 .fade:not(.show) {
   height: 0;
+  width: 0;
   opacity: 0;
   transition: 500ms;
 }
@@ -153,8 +157,9 @@ main .form-signin div:not(.label-float) {
   position: fixed;
   z-index: 1040;
   bottom: 5em;
-  right: 1em;
-  max-width: 90vw;
+  right: 5vw;
+  left: 5vw;
+  width: 90vw;
   background: var(--accent);
   color: var(--primary);
   border-color: var(--primary);

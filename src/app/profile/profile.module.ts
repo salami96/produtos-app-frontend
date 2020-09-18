@@ -3,7 +3,6 @@ import { ProfileComponent } from './profile.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SigninComponent } from './signin/signin.component';
-import { SignupComponent } from './signup/signup.component';
 import { AddressComponent } from './address/address.component';
 import { AuthGuard } from '../services/auth.guard';
 import { ChildGuard } from '../services/child.guard';
@@ -12,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [ ProfileComponent, SigninComponent, SignupComponent, AddressComponent ],
+  declarations: [ ProfileComponent, SigninComponent, AddressComponent ],
   imports: [
     CommonModule,
     IconsModule,

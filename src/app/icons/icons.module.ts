@@ -53,6 +53,7 @@ import {
   IconLogIn, IconSave
 } from 'angular-feather';
 import { IconWhatsappComponent } from './whatsapp-icon/whatsapp-icon.component';
+import { IconLoadingComponent } from './loading-icon/loading-icon.component';
 
 const icons = [
   IconBriefcase,
@@ -76,11 +77,13 @@ const icons = [
   IconUserX,
   IconLogIn,
   IconSave,
-  IconSlash
+  IconSlash,
+  IconLoadingComponent,
+  IconAlertCircle
 ];
 
 @NgModule({
   exports: icons,
-  declarations: [ IconWhatsappComponent ]
+  declarations: [ IconWhatsappComponent, IconLoadingComponent ]
 })
 export class IconsModule { }

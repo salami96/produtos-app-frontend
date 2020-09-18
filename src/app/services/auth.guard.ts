@@ -17,12 +17,9 @@ export class AuthGuard implements CanActivate {
   route: ActivatedRouteSnapshot;
 
   canActivate() {
-    console.log('tentou acessar perfil/');
     if (this.uService.isLogged) {
-      console.log('logged is true');
       return true;
     } else {
-      console.log('logged is false');
       this.router.navigate(['/perfil/entrar']);
     }
   }
