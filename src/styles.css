@@ -69,3 +69,6 @@ a.badge-theme:hover {
 .text-theme {
     color: var(--primary);
 }
+.pointer {
+    cursor: pointer;
+}

@@ -1,7 +1,7 @@
-<main>
+<main class="mobile">
   <section class="jumbotron">
     <img src="{{user.avatar}}" *ngIf="user.avatar" class="rounded-circle" alt="Foto de Perfil do Usuário">
-    <img src="assets/avatar.svg" *ngIf="!user.avatar" class="rounded-circle" alt="Foto de Perfil do Usuário">
+    <undraw-avatar *ngIf="!user.avatar" class="rounded-circle"></undraw-avatar>
     <div>
       <h4 *ngIf="user">{{user.name}}</h4>
       <a href="tel:+55{{user.phone}}" *ngIf="user">{{user.phone}}</a>
@@ -11,4 +11,140 @@
     <i-user-x></i-user-x>
     <span class="ml-2">Sair</span>
   </button>
+  <section class="cards">
+    <div class="card pt-3 m-3">
+      <h5 class="card-title text-theme">Endereços</h5>
+      <div class="card-empty" *ngIf="address.length == 0">
+        <undraw-no-data></undraw-no-data>
+        <h6 class="text-theme">Nenhum endereço salvo</h6>
+      </div>
+      <div class="card-body" *ngFor="let ad of address">
+        <div class="content">
+          <span>{{read(ad)}}</span>
+        </div>
+        <div class="actions">
+          <i-edit></i-edit>
+          <i-trash-2 style="stroke: tomato"></i-trash-2>
+        </div>
+      </div>
+      <button class="btn btn-theme btn-block">
+        <i-plus-circle></i-plus-circle>
+        Adicionar endereço
+      </button>
+    </div>
+    <div class="card pt-3 m-3">
+      <h5 class="card-title text-theme">Pedidos</h5>
+      <div class="card-empty" *ngIf="orders.length == 0">
+        <undraw-no-data></undraw-no-data>
+        <h6 class="text-theme">Nenhum pedido ainda</h6>
+      </div>
+      <div class="card-body" *ngFor="let order of orders">
+        <div class="content">
+          <p class="m-0">pedido #{{order.number}}</p>
+          <p class="m-0">data: {{order.date}}</p>
+        </div>
+        <div class="actions">
+          <i-search style="stroke: var(--dark);"></i-search>
+          <i-copy></i-copy>
+        </div>
+      </div>
+      <button class="btn btn-theme btn-block" routerLink="/produtos">
+        <i-tag></i-tag>
+        Começar novo pedido
+      </button>
+    </div>
+    <div class="card pt-3 m-3">
+      <h5 class="card-title text-theme">Dados</h5>
+      <div class="card-body">
+        <p>Nome: {{user.name}}</p>
+        <i-edit data-toggle="modal" data-target="#edit-name"></i-edit>
+      </div>
+      <div class="card-body">
+        <p>Telefone: {{user.phone}}</p>
+        <i-edit data-toggle="modal" data-target="#edit-phone"></i-edit>
+      </div>
+      <div class="card-body shadow-0">
+        <p>Senha: ********</p>
+        <i-edit data-toggle="modal" data-target="#edit-password"></i-edit>
+      </div>
+    </div>
+  </section>
 </main>
+<div class="modal fade" id="edit-name" tabindex="-1" role="dialog" aria-labelledby="edit-name" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Editar nome</h5>
+        <button type="button" class="close" data-dismiss="modal" id="name-success" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="label-float">
+          <input type="text" [(ngModel)]="name" [class.invalid]="error['name']" placeholder=" " (keyup.enter)="focus('phone')" autofocus />
+          <label>Nome Completo</label>
+        </div>
+        <div class="text-danger fade mt-1 text-right" [class.show]="error['name']">O nome não pode ficar em branco!</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-theme" (click)="saveChanges('name')">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="edit-phone" tabindex="-1" role="dialog" aria-labelledby="edit-phone" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Editar nome</h5>
+        <button type="button" class="close" data-dismiss="modal" id="phone-success" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="label-float">
+          <input type="text" [(ngModel)]="phone" [class.invalid]="error['phone']" placeholder=" " autofocus />
+          <label>Telefone</label>
+        </div>
+        <div class="text-danger fade mt-1 text-right" [class.show]="error['phone']">O telefone não poder ficar em branco</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-theme" (click)="saveChanges('phone')">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="edit-password" tabindex="-1" role="dialog" aria-labelledby="edit-password" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Editar senha</h5>
+        <button type="button" class="close" data-dismiss="modal" id="senha-success" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="label-float">
+          <input type="password" [(ngModel)]="password" [class.invalid]="error['senha']" placeholder=" " autofocus />
+          <label>Nova Senha</label>
+        </div>
+        <div class="text-danger fade mt-1 text-right" [class.show]="error['senha']">A nova senha deve ter no mínimo 8 dígitos</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-theme" (click)="saveChanges('senha')">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert alert-success alert-dismissible fade" id="success" role="alert">
+  <i-check></i-check>
+  <strong> Perfeito!</strong>
+  <hr>
+  <p>Seus dados foram alterados com sucesso!</p>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>

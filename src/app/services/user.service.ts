@@ -8,57 +8,9 @@ import { auth } from 'firebase';
 })
 export class UserService {
   isLogged: boolean;
-  private gabriel: User = {
-    uid: 'CdwOhW7bSkXImlu7kIlJLGq9MFz2',
-    name: 'Gabriel Zanatto Salami',
-    phone: '51999262182',
-    email: 'gabriel.zanatto2@gmail.com',
-    address: [{
-      name: 'Casa',
-      street: 'Rua São Carlos',
-      number: '10',
-      district: 'Interior',
-      city: 'Charqueadas',
-      state: 'RS',
-      zipCode: '96745000'
-    }],
-    avatar: ''
-  };
-  private copac: User = {
-    uid: '6KFeFgJeaMaddSBt2kmxRqRczPE3',
-    name: 'Supercopac',
-    phone: '5136584137',
-    email: 'supercopac@terra.com.br',
-    address: [{
-      name: 'Loja',
-      street: 'Av. Cruz de Malta',
-      number: '705',
-      district: 'Centro',
-      city: 'Charqueadas',
-      state: 'RS',
-      zipCode: '96745000'
-    }],
-    avatar: ''
-  };
-  private nick: User = {
-    uid: 'gWOYqR4oWYXAgkKwDaW3iQ3ua9c2',
-    name: 'Nicole Lopes',
-    phone: '51998446478',
-    email: 'nicolelopes7777@gmail.com',
-    address: [{
-      name: 'Casa',
-      street: 'Núcleo F-49',
-      number: '59',
-      district: 'Piratini',
-      city: 'Charqueadas',
-      state: 'RS',
-      zipCode: '96745000'
-    }],
-    avatar: ''
-  };
   userData: User;
   // url = 'https://produtos-server.herokuapp.com';
-  url = 'http://localhost:9000';
+  url = 'http://10.1.1.114:9000';
   options = {
     headers: {
       'authorization': 't5b3b9a5',
@@ -71,10 +23,15 @@ export class UserService {
     private router: Router
   ) {
     http.get(this.url, this.options);
+    if (localStorage['token']) {
+      this.getUser(localStorage['token'], 'perfil');
+    }
     auth().onAuthStateChanged(user => {
       if (user) {
+        localStorage['token'] = user.uid;
         this.isLogged = true;
       } else {
+        localStorage.removeItem('token');
         this.isLogged = false;
       }
     });
@@ -87,6 +44,8 @@ export class UserService {
   }
 
   public providerLogin(provider: string, page: string) {
+    auth().languageCode = 'pt';
+
     const google = new auth.GoogleAuthProvider()
     .setCustomParameters({
       'prompt': 'select_account'
@@ -139,7 +98,8 @@ export class UserService {
   private getUser(uid: string, page: string) {
     this.http.get<User>(
       `${this.url}/user/${uid}`, this.options
-    ).subscribe(user => {
+      ).subscribe(user => {
+      this.isLogged = true;
       this.userData = user;
       this.router.navigate(['/' + page]);
     });
@@ -154,12 +114,28 @@ export class UserService {
     });
   }
 
-  private editUser(user: User) {
-    this.http.post<User>(
+  public changePassword(pass: string) {
+    return auth().currentUser.updatePassword(pass);
+  }
+
+  public async editUser(user: User) {
+    const response = this.http.put<User>(
       `${this.url}/user`, user, this.options
-    ).subscribe(resp => {
-      this.userData = user;
-      this.router.navigate(['/perfil']);
+    );
+
+    response.subscribe(resp => {
+      this.userData = resp;
+      if (auth().currentUser.displayName !== resp.name ||
+      auth().currentUser.photoURL !== resp.avatar) {
+        auth().currentUser.updateProfile({
+          displayName: resp.name,
+          photoURL: resp.avatar
+        });
+      }
+    }, error => {
+      console.log(error);
     });
+
+    return response;
   }
 }

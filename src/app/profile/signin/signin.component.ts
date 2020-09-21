@@ -45,6 +45,7 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
+      document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.route.params.subscribe(res => {
         switch (res.action.toLowerCase()) {
           case 'cadastrar':

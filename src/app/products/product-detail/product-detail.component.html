@@ -8,9 +8,9 @@
     <a routerLink="/produtos" [queryParams]="{categoria: product?.category}" class="badge badge-pill badge-theme-light">{{product?.category}}</a>
   </nav>
   <main *ngIf="!product" class="text-center">
-    <img src="assets/confused.svg" alt="Imagem de erro" class="product-img" *ngIf="product == undefined">
-    <h6 *ngIf="!product" class="my-5">Produto não encontrado</h6>
-    <a class="btn btn-theme mx-auto w-100" *ngIf="!product" routerLink="/produtos">
+    <undraw-confused class="product-img"></undraw-confused>
+    <h6 class="my-5">Produto não encontrado</h6>
+    <a class="btn btn-theme mx-auto w-100" routerLink="/produtos">
       Continuar Comprando
     </a>
   </main>
@@ -74,11 +74,10 @@
           <i-chevron-left></i-chevron-left>
           voltar
         </a>
-        <span>{{product?.name}}</span>
+        <span>{{product.name}}</span>
         <a routerLink="/produtos" [queryParams]="{categoria: product.category}" class="badge badge-pill badge-theme">{{product.category}}</a>
       </div>
-      <img src="assets/error.svg" alt="" class="product-img" *ngIf="product == undefined">
-      <img src="{{product.imgs[0]}}" alt="" class="product-img" *ngIf="product != undefined">
+      <img src="{{product.imgs[0]}}" alt="" class="product-img">
     </div>
     <div class="buy-options">
       <div *ngIf="product.sizes.length > 1">
@@ -89,14 +88,14 @@
           <label for="{{size.name}}-desktop" class="badge-pill badge badge-theme">{{formatPrice(size.value)}}</label>
         </div>
       </div>
-      <div *ngIf="product && product.optional.length != 0">
+      <div *ngIf="product.optional.length != 0">
         <h5>Quero retirar</h5>
         <div class="chk" *ngFor="let option of product.optional; let i=index">
           <input type="checkbox" id="{{option}}-desktop" [(ngModel)]="optional[option]">
           <label for="{{option}}-desktop">{{option}}</label>
         </div>
       </div>
-      <div *ngIf="product && product.extras.length != 0">
+      <div *ngIf="product.extras.length != 0">
         <h5>Quero adicionar</h5>
         <div class="chk" *ngFor="let extra of extras">
           <input type="checkbox" id="{{extra.name}}-desktop" [(ngModel)]="extra.checked">
@@ -133,7 +132,7 @@
   </main>
   <main class="card" *ngIf="!product">
     <div class="back-and-img">
-      <img src="assets/confused.svg" alt="" class="product-img">
+      <undraw-confused></undraw-confused>
     </div>
     <div class="buy-options text-center my-auto">
       <div>

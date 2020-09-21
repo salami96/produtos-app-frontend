@@ -14,6 +14,7 @@ import { ChildGuard } from './services/child.guard';
 
 import * as firebase from 'firebase';
 import { HttpClientModule } from '@angular/common/http';
+import { DrawModule } from './draw/draw.module';
 // import { AngularFireModule } from '@angular/fire';
 // import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
 
@@ -39,6 +40,7 @@ const firebaseConfig = {
     // AngularFireAuthModule,
     AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'produtos-app' }),
+    DrawModule,
     HttpClientModule,
     IconsModule,
     LandingPageModule,
@@ -58,6 +60,7 @@ const firebaseConfig = {
     // AngularFireModule,
     AuthGuard,
     ChildGuard,
+    DrawModule,
     IconsModule,
     LandingPageModule,
   ],

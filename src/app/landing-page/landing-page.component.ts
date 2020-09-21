@@ -1,5 +1,5 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { blue, green, red, brown, pink } from '../theme/themes';
+import { blue, green, red, brown, pink, purple, orange } from '../theme/themes';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -14,7 +14,9 @@ export class LandingPageComponent implements OnInit {
     green,
     red,
     brown,
-    pink
+    pink,
+    purple,
+    orange
   };
 
 

@@ -1,19 +1,22 @@
 main {
-  min-height: 1000vh;
+  min-height: 100vh;
 }
 .jumbotron {
-  display: flex;
+  display: grid;
+  grid-template-columns: 2fr 4fr;
   border-radius: 0;
   border-bottom-left-radius: 4em;
-  justify-content: space-evenly;
   background: var(--dark);
   padding-bottom: 1em;
   align-items: center;
+  justify-content: center;
+  gap: 0.5em
 }
-.jumbotron img {
-  align-self: flex-end;
+.jumbotron .rounded-circle {
+  justify-self: center;
   width: 30vw;
-  height: 30vw;
+  height: auto;
+  max-width: 150px;
 }
 .jumbotron div, .jumbotron div a {
   max-width: 60vw;
@@ -32,6 +35,7 @@ main {
   border-radius: 2em;
   background: var(--primary);
   color: var(--secondary);
+  border-color: var(--secondary);
   transition: 300ms;
 }
 .sign-out:hover,
@@ -63,5 +67,129 @@ main {
   .sign-out i-user-x {
     height: 24px;
     width: 24px;
+  }
+}
+.cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+.card {
+  text-align: center;
+  border-radius: 1.5em;
+  background: var(--primary);
+  max-width: 500px;
+  flex-grow: 1;
+}
+.card .btn-block {
+  height: 2.5em;
+}
+.card-title {
+  color: var(--secondary);
+}
+.card .card-empty {
+  padding: 15% !important;
+  margin: auto;
+  background: var(--secondary);
+  box-shadow: 0 1.5em var(--secondary);
+  border-top-left-radius: 1.5em;
+  border-top-right-radius: 1.5em;
+}
+.card .card-body {
+  padding: 1em;
+  box-shadow: 0 -0.5px rgba(0, 0, 0, 0.25), 0 1.5em white;
+  display: grid;
+  grid-template-columns: 6fr 1fr;
+  text-align: left;
+  vertical-align: middle;
+  color: var(--primary);
+  gap: 0.5em;
+  border-top-left-radius: 1.5em;
+  border-top-right-radius: 1.5em;
+  background: white;
+}
+.card .card-body .actions {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.5em;
+}
+.card .card-body .actions svg {
+  height: 5em;
+}
+.shadow-0 {
+  box-shadow: 0 -0.5px rgba(0, 0, 0, 0.25) !important;
+  border-radius: 1.5em;
+}
+.label-float{
+  position: relative;
+  padding-top: 13px;
+}
+.label-float input{
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  outline: none;
+  width: 100%;
+  min-width: 200px;
+  padding: 15px 20px;
+  font-size: 16px;
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -webkit-appearance:none;
+}
+.label-float input:focus{
+  border: 2px solid var(--primary);
+}
+.label-float input::placeholder{
+  color: transparent;
+}
+.label-float label{
+  pointer-events: none;
+  position: absolute;
+  top: calc(50% - 8px);
+  left: 15px;
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  background-color: white;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.label-float input.invalid + label, .text-danger {
+  color: tomato !important;
+}
+.label-float input.invalid {
+  border: 2px solid tomato;
+}
+.label-float input:focus + label,
+.label-float input:not(:placeholder-shown) + label{
+  font-size: 13px;
+  top: 0.5em;
+  line-height: 0;
+  color: var(--primary);
+}
+.alert-success {
+  position: fixed;
+  z-index: 1040;
+  bottom: 5em;
+  right: 5vw;
+  left: 5vw;
+  width: 90vw;
+  background: var(--secondary);
+  color: var(--dark);
+  border-color: var(--dark);
+  box-shadow: 1px 1px 2px var(--accent);
+}
+@media (min-width: 1200px) {
+  .alert-success {
+    left: 15vw !important;
+    right: 15vw !important;
+    width: 70vw !important;
+  }
+}
+@media (min-width: 949px) {
+  .alert-success {
+    font-size: 1.1em;
+    bottom: 1em !important;
   }
 }

@@ -1,0 +1,7 @@
+.accent {
+    fill: var(--accent);
+}
+svg {
+    width: 100%;
+    height: auto;
+}

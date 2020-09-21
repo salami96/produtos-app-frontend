@@ -6,11 +6,13 @@ import { ProductsComponent } from './products.component';
 import { RouterModule } from '@angular/router';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CategoryButtonComponent } from './category-button/category-button.component';
+import { DrawModule } from '../draw/draw.module';
 
 @NgModule({
   declarations: [ProductsComponent, ProductDetailComponent, CategoryButtonComponent],
   imports: [
     CommonModule,
+    DrawModule,
     FormsModule,
     IconsModule,
     RouterModule.forChild([

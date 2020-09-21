@@ -53,3 +53,23 @@ export const pink: Theme = {
         '--accent': '#9CE8D0',
     }
 };
+export const purple: Theme = {
+    name: 'purple',
+    properties: {
+        '--background': '#E6EBF2',
+        '--dark': '#43067F',
+        '--primary': '#850CFD',
+        '--secondary': '#D9B4FE',
+        '--accent': '#0CFD85'
+    }
+};
+export const orange: Theme = {
+    name: 'orange',
+    properties: {
+        '--background': '#E6EBF2',
+        '--dark': '#7D381B',
+        '--primary': '#F97035',
+        '--secondary': '#FFDBCC',
+        '--accent': '#4EAE6B'
+    }
+};

@@ -1,5 +1,5 @@
 @media (min-width: 1200px) {
-  .login-error, .login-loading {
+  .login-error {
     left: 15vw !important;
     right: 15vw !important;
     width: 70vw !important;
@@ -160,9 +160,10 @@ main .form-signin div:not(.label-float) {
   right: 5vw;
   left: 5vw;
   width: 90vw;
-  background: var(--accent);
-  color: var(--primary);
-  border-color: var(--primary);
+  background: var(--secondary);
+  color: var(--dark);
+  border-color: var(--dark);
+  box-shadow: 1px 1px 2px var(--accent);
 }
 .hide {
   position: fixed;
