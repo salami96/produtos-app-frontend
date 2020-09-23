@@ -27,7 +27,7 @@
           <i-trash-2 style="stroke: tomato"></i-trash-2>
         </div>
       </div>
-      <button class="btn btn-theme btn-block">
+      <button class="btn btn-theme btn-block" routerLink="/perfil/endereco">
         <i-plus-circle></i-plus-circle>
         Adicionar endereço
       </button>
@@ -81,7 +81,7 @@
       </div>
       <div class="modal-body">
         <div class="label-float">
-          <input type="text" [(ngModel)]="name" [class.invalid]="error['name']" placeholder=" " (keyup.enter)="focus('phone')" autofocus />
+          <input type="text" [(ngModel)]="name" [class.invalid]="error['name']" placeholder=" " (keyup.enter)="saveChanges('name')" autofocus />
           <label>Nome Completo</label>
         </div>
         <div class="text-danger fade mt-1 text-right" [class.show]="error['name']">O nome não pode ficar em branco!</div>
@@ -97,14 +97,14 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Editar nome</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Editar Telefone</h5>
         <button type="button" class="close" data-dismiss="modal" id="phone-success" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="label-float">
-          <input type="text" [(ngModel)]="phone" [class.invalid]="error['phone']" placeholder=" " autofocus />
+          <input type="text" [(ngModel)]="phone" [class.invalid]="error['phone']" placeholder=" " (keyup.enter)="saveChanges('phone')" autofocus />
           <label>Telefone</label>
         </div>
         <div class="text-danger fade mt-1 text-right" [class.show]="error['phone']">O telefone não poder ficar em branco</div>
@@ -127,7 +127,7 @@
       </div>
       <div class="modal-body">
         <div class="label-float">
-          <input type="password" [(ngModel)]="password" [class.invalid]="error['senha']" placeholder=" " autofocus />
+          <input type="password" [(ngModel)]="password" [class.invalid]="error['senha']" placeholder=" " (keyup.enter)="saveChanges('senha')" autofocus />
           <label>Nova Senha</label>
         </div>
         <div class="text-danger fade mt-1 text-right" [class.show]="error['senha']">A nova senha deve ter no mínimo 8 dígitos</div>

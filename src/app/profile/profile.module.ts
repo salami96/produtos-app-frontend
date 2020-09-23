@@ -20,6 +20,7 @@ import { DrawModule } from '../draw/draw.module';
     FormsModule,
     RouterModule.forChild([
       { path: '', component: ProfileComponent, pathMatch: 'full', canActivate: [ AuthGuard ]},
+      { path: 'endereco', component: AddressComponent, pathMatch: 'full', canActivate: [ ChildGuard ]},
       { path: ':action', component: SigninComponent, pathMatch: 'full', canActivate: [ ChildGuard ]},
       // { path: 'cadastro', component: SignupComponent, pathMatch: 'full', canActivate: [ ChildGuard ]},
     ]),

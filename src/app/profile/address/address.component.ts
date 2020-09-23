@@ -19,6 +19,7 @@ export class AddressComponent implements OnInit {
     reference: false,
     zipCode: false
   };
+  loading = false;
 
   constructor(
     private uService: UserService,
@@ -30,5 +31,14 @@ export class AddressComponent implements OnInit {
   focus(field: string) {
     document.getElementById(field).focus();
   }
+
+  save() {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 5000);
+  }
+
+  clear() {}
 
 }
