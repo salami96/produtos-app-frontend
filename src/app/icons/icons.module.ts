@@ -82,7 +82,8 @@ const icons = [
   IconAlertCircle,
   IconCheck,
   IconPlusCircle,
-  IconCopy
+  IconCopy,
+  IconInfo
 ];
 
 @NgModule({

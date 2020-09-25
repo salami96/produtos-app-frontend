@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   user: User;
   orders = [];
-  address: Address[] = [];
   error: boolean[] = [];
   password = '';
   name = '';
@@ -31,34 +30,6 @@ export class ProfileComponent implements OnInit {
     this.error['senha'] = false;
     this.phone = this.user.phone;
     this.name = this.user.name;
-    /* this.address.push({
-      name: 'Casa',
-      street: 'Rua são carlos',
-      number: '10',
-      district: 'Interior',
-      city: 'Charqueadas',
-      state: 'RS',
-      reference: '',
-      complement: '',
-      zipCode: '96745000'
-    }, {
-      name: 'Casa',
-      street: 'Núcleo F-49',
-      number: '59',
-      district: 'Vila Piratini',
-      city: 'Charqueadas',
-      state: 'RS',
-      reference: '',
-      complement: '',
-      zipCode: '96745000'
-    });
-    this.orders.push({
-      number: 1,
-      date: '21/09/2020'
-    }, {
-      number: 2,
-      date: '20/09/2020'
-    }); */
     if (isPlatformBrowser(this.platformID)) {
       document.querySelector('nav').style.setProperty('box-shadow', '0 0 0 1em var(--dark)');
     }
@@ -72,6 +43,17 @@ export class ProfileComponent implements OnInit {
 
   read(ad: Address) {
     return `${ad.name}: ${ad.street}, ${ad.number}, ${ad.district}, ${ad.city} - ${ad.state}`;
+  }
+
+  editAddress(adress: Address) {
+    localStorage[adress.name] = JSON.stringify(adress);
+    this.router.navigate(['/perfil/endereco'], { queryParams: { id: adress.name } });
+  }
+
+  deleteAddress(address: Address) {
+    this.uService.address(address, 'perfil', true).then(user => {
+      user.subscribe(u => this.user = u);
+    });
   }
 
   saveChanges(field: string) {

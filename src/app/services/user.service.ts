@@ -10,7 +10,7 @@ export class UserService {
   isLogged: boolean;
   userData: User;
   // url = 'https://produtos-server.herokuapp.com';
-  url = 'http://localhost:9000';
+  url = 'http://10.1.1.119:9000';
   options = {
     headers: {
       'authorization': 't5b3b9a5',
@@ -137,5 +137,31 @@ export class UserService {
     });
 
     return response;
+  }
+
+  public async address(address: Address, page: string, del = false) {
+    if (del) {
+      return this.http.delete<User>(
+        `${this.url}/address/${this.userData.uid}/${address.name}`,
+        this.options
+      );
+    }
+
+    const response = this.http.put<User>(
+      `${this.url}/address`, { uid: this.userData.uid, address }, this.options
+    );
+
+    response.subscribe(resp => {
+      this.userData = resp;
+      this.router.navigate(['/' + page]);
+    }, error => {
+      console.log(error);
+    });
+
+    return response;
+  }
+
+  public zipRequest(zipCode: string) {
+    return this.http.get(`https://viacep.com.br/ws/${zipCode}/json/`);
   }
 }

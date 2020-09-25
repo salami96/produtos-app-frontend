@@ -1,25 +1,65 @@
 <main>
-  <div class="form-signin">
-    <div class="label-float">
-      <input type="text" [(ngModel)]="address.street" [class.invalid]="error.street" id="street" placeholder=" " (keyup.enter)="focus('number')" autofocus />
-      <label>Rua, Avenida, Núcleo, etc.</label>
+  <nav class="navbar sticky-top">
+    <a routerLink="/perfil">
+      <i-chevron-left></i-chevron-left>
+      voltar
+    </a>
+    <span>{{action}} Endereço</span>
+  </nav>
+  <div class="form-signin mt-2">
+    <div class="fade text-center" [class.show]="loadingZipCode">
+      <i-loading></i-loading>
+      Verificando CEP...
     </div>
-    <div class="text-danger fade mt-1 text-right" [class.show]="error.street">É obrigatório o nome da rua!</div>
     <div class="label-float">
-      <input id="number" type="text" [(ngModel)]="address.number" [class.invalid]="error.number" placeholder=" " (keyup.enter)="focus('district')" />
-      <label>Número da residência</label>
+      <input type="text" pattern="[0-9]*" minlength="8" maxlength="8" [(ngModel)]="address.zipCode" id="zipCode" [class.invalid]="error.zipCode" placeholder=" " (keyup.enter)="zipCodeApi()" autofocus />
+        <label>
+          CEP
+        </label>
     </div>
-    <div class="text-danger fade mt-1 text-right" [class.show]="error.number">É obrigatório informa o número, caso não tenha digite S/N</div>
+    <div class="text-danger fade mt-1 text-right" [class.show]="error.zipCode">É obrigatório informar um CEP com 8 dígitos!</div>
+    <div class="row">
+      <div class="col-8">
+        <div class="label-float">
+          <input type="text" [(ngModel)]="address.street" [class.invalid]="error.street" id="street" placeholder=" " (keyup.enter)="focus('number')" />
+          <label>Rua, Avenida, etc.</label>
+        </div>
+        <div class="text-danger fade mt-1 text-right" [class.show]="error.street">É obrigatório informar o nome da rua!</div>
+      </div>
+      <div class="col-4">
+        <div class="label-float">
+          <input id="number" type="text" pattern="[0-9]*" minlength="1" [(ngModel)]="address.number" [class.invalid]="error.number" placeholder=" " (keyup.enter)="focus('district')" />
+          <label>Nº</label>
+        </div>
+        <div class="text-danger fade mt-1 text-right" [class.show]="error.number">É obrigatório informar o número!</div>
+      </div>
+      <div class="text-muted fade mt-1 mx-auto" [class.show]="!error.number && address.number.length == 0"><i-info></i-info> Caso não possua nº, Informe 0.</div>
+    </div>
     <div class="label-float">
-      <input type="text" [(ngModel)]="address.district" id="district" [class.invalid]="error.district" placeholder=" " (keyup.enter)="focus('complement')" />
+      <input type="text" [(ngModel)]="address.district" id="district" [class.invalid]="error.district" placeholder=" " (keyup.enter)="focus('city')" />
       <label>Bairro</label>
     </div>
     <div class="text-danger fade mt-1 text-right" [class.show]="error.district">É obrigatório informar o Bairro</div>
-    <div class="label-float">
-      <input type="text" [(ngModel)]="address.complement" id="complement" placeholder=" " (keyup.enter)="focus('reference')" />
+    <h5 class="text-center text-theme mt-3">Opcionais</h5>
+    <div class="row">
+      <div class="col-6">
+        <div class="chk">
+          <input type="checkbox" id="show-complement" [(ngModel)]="complement" (keyup.enter)="focus('city')" >
+          <label for="show-complement">Complemento</label>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="chk">
+          <input type="checkbox" id="show-reference" [(ngModel)]="reference" (keyup.enter)="focus('city')" >
+          <label for="show-reference">Ponto de referência</label>
+        </div>
+      </div>
+    </div>
+    <div class="label-float fade" [class.show]="complement">
+      <input type="text" [(ngModel)]="address.complement" id="complement" placeholder=" " (keyup.enter)="focus('city')" />
       <label>Complemento (opcional)</label>
     </div>
-    <div class="label-float">
+    <div class="label-float fade" [class.show]="reference">
       <input type="text" [(ngModel)]="address.reference" placeholder=" " id="reference" (keyup.enter)="focus('city')" />
       <label>Ponto de referência (opcional)</label>
     </div>
@@ -29,27 +69,22 @@
     </div>
     <div class="text-danger fade mt-1 text-right" [class.show]="error.city">É obrigatório informar uma cidade!</div>
     <div class="label-float">
-      <input type="text" [(ngModel)]="address.state" id="state" [class.invalid]="error.state" placeholder=" " (keyup.enter)="focus('zipCode')" />
+      <input type="text" [(ngModel)]="address.state" id="state" [class.invalid]="error.state" placeholder=" " (keyup.enter)="save()" />
       <label>Estado</label>
     </div>
     <div class="text-danger fade mt-1 text-right" [class.show]="error.state">É obrigatório informar um estado!</div>
     <div class="label-float">
-      <input type="number" [(ngModel)]="address.zipCode" id="zipCode" [class.invalid]="error.zipCode" placeholder=" " (keyup.enter)="focus('name')" />
-      <label>CEP</label>
-    </div>
-    <div class="text-danger fade mt-1 text-right" [class.show]="error.zipCode">É obrigatório informar um CEP!</div>
-    <div class="label-float">
-      <input type="text" [(ngModel)]="address.name" id="name" [class.invalid]="error.name" placeholder=" " (keyup.enter)="save()" />
+      <input type="text" [(ngModel)]="address.name" id="name" [class.invalid]="error.name" placeholder=" " (keyup.enter)="save()" [readonly]="action == 'Editar'" />
       <label>Identifique esse endereço</label>
     </div>
     <div class="text-danger fade mt-1 text-right" [class.show]="error.name">É obrigatório informar um nome para este endereço!</div>
     <button type="button" class="btn btn-theme btn-block mt-4" (click)="save()">
       <div>
-        <i-save class="fade" [class.show]="!loading"></i-save>
-        <i-loading class="fade" [class.show]="loading"></i-loading>
+        <i-loading class="fade" [class.show]="loading" *ngIf="loading"></i-loading>
+        <i-save class="fade" [class.show]="!loading" *ngIf="!loading"></i-save>
       </div>
-      Salvar
+      Salvar mudanças
     </button>
-    <button type="button" class="btn btn-outline-danger btn-block" (click)="clear()"><i-slash></i-slash>Limpar</button>
+    <button type="button" class="btn btn-outline-danger btn-block" (click)="init()"><i-slash></i-slash>Reverter mudanças</button>
   </div>
 </main>

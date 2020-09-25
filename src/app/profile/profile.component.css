@@ -12,11 +12,17 @@ main {
   justify-content: center;
   gap: 0.5em
 }
+@media (min-width: 576px) {
+  .jumbotron {
+    padding: 2rem 1rem;
+  }
+}
 .jumbotron .rounded-circle {
   justify-self: center;
   width: 30vw;
   height: auto;
   max-width: 150px;
+  border: 2px solid white;
 }
 .jumbotron div, .jumbotron div a {
   max-width: 60vw;
@@ -88,12 +94,15 @@ main {
   color: var(--secondary);
 }
 .card .card-empty {
-  padding: 15% !important;
+  padding: 0 15% !important;
   margin: auto;
-  background: var(--secondary);
-  box-shadow: 0 1.5em var(--secondary);
+  background: linear-gradient(var(--secondary), white);
+  box-shadow: 0 1.5em white;
   border-top-left-radius: 1.5em;
   border-top-right-radius: 1.5em;
+}
+.card-empty * {
+  max-height: 10em;
 }
 .card .card-body {
   padding: 1em;
@@ -106,7 +115,7 @@ main {
   gap: 0.5em;
   border-top-left-radius: 1.5em;
   border-top-right-radius: 1.5em;
-  background: white;
+  background: linear-gradient(var(--secondary), white);
 }
 .card .card-body .actions {
   display: grid;
@@ -168,7 +177,12 @@ main {
   line-height: 0;
   color: var(--primary);
 }
-.alert-success {
+.alert-success:not(.show) {
+  height: 0;
+  width: 0;
+  z-index: 0;
+}
+.alert-success.show {
   position: fixed;
   z-index: 1040;
   bottom: 5em;

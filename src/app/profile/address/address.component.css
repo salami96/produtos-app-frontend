@@ -1,3 +1,22 @@
+.navbar.sticky-top {
+  background: var(--primary);
+  color: white !important;
+  margin: 0 auto;
+  border-bottom-left-radius: 2em;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+.navbar span {
+  margin-left: 10%;
+}
+.navbar a {
+  color: white;
+}
+.navbar a:hover,
+.navbar a:focus {
+  text-shadow: 1px 1px 4px white;
+  text-decoration: none;
+}
 @media (min-width: 1200px) {
   .login-error {
     left: 15vw !important;
@@ -19,6 +38,11 @@
     font-size: 1.1em;
     bottom: 1em !important;
   }
+  .navbar.sticky-top {
+    border-radius: 1em;
+    height: 3em;
+    position: relative;
+  }
 }
 .form-signin {
   width: 100%;
@@ -35,13 +59,15 @@
   border-radius: 10px;
   outline: none;
   width: 100%;
-  min-width: 200px;
   padding: 15px 20px;
   font-size: 16px;
   transition: all 0.1s linear;
   -webkit-transition: all 0.1s linear;
   -moz-transition: all 0.1s linear;
   -webkit-appearance: none;
+}
+.row *:nth-child(1) {
+  padding-right: 0;
 }
 .label-float input:focus {
   border: 2px solid var(--primary);
@@ -75,17 +101,6 @@
   line-height: 0;
   color: var(--primary);
 }
-.fade:not(.show) {
-  height: 0;
-  width: 0;
-  opacity: 0;
-  transition: 500ms;
-}
-.fade.show {
-  height: auto;
-  opacity: 1;
-  transition: 500ms;
-}
 .login-error {
   position: fixed;
   z-index: 1040;
@@ -97,4 +112,44 @@
   color: var(--dark);
   border-color: var(--dark);
   box-shadow: 1px 1px 2px var(--accent);
+}
+.chk input {
+  display: none;
+}
+.chk label {
+  cursor: pointer;
+  font-size: 0.75em;
+  margin-right: 0.5em;
+}
+.chk input[type="radio"] + label:before, .chk input[type="checkbox"] + label:before {
+  border: 1px solid #5D5C5C;
+  content: "\00a0";
+  display: inline-block;
+  font: 16px/1em sans-serif;
+  height: 20px;
+  margin: 0 .25em 0 0;
+  padding:0;
+  vertical-align: top;
+  width: 20px;
+  border-radius: 4px;
+}
+.chk input[type="radio"]:checked + label:before, .chk input[type="checkbox"]:checked + label:before {
+  border: 1px solid var(--primary);
+  background: var(--secondary);
+  color: var(--primary);
+  content: "\2713";
+  text-align: center;
+  font-weight: bold;
+  font-size: large;
+}
+.fade:not(.show) {
+  height: 0;
+  width: 0;
+  opacity: 0;
+  transition: 500ms;
+}
+.fade.show {
+  height: auto;
+  opacity: 1;
+  transition: 500ms;
 }
