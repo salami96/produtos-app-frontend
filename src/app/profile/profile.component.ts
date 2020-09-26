@@ -53,6 +53,10 @@ export class ProfileComponent implements OnInit {
   deleteAddress(address: Address) {
     this.uService.address(address, 'perfil', true).then(user => {
       user.subscribe(u => this.user = u);
+      document.getElementById('success').className += 'show';
+      setTimeout(() => {
+        document.getElementById('success').className = 'alert alert-success alert-dismissible fade';
+      }, 5000);
     });
   }
 

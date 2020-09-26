@@ -4,6 +4,7 @@ import { CartService } from '../services/cart.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/user.service';
 import { auth } from 'firebase';
+import { StoreService } from '../services/store.service';
 
 @Component({
   selector: 'app-order',
@@ -16,12 +17,14 @@ export class OrderComponent implements OnInit, OnDestroy {
   isExpanded: boolean[] = [];
   safeHtml: SafeHtml[] = [];
   user: User;
+  selectedAdress: string;
 
   constructor(
     private sanitizer: DomSanitizer,
     @Inject(PLATFORM_ID) private platformID: Object,
     private cService: CartService,
     private uService: UserService,
+    private sService: StoreService
   ) { }
 
   ngOnInit() {
@@ -83,5 +86,11 @@ export class OrderComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  read(ad: Address) {
+    return `${ad.name}: ${ad.street}, ${ad.number}, ${ad.district}, ${ad.city} - ${ad.state}`;
+  }
+
+
 
 }

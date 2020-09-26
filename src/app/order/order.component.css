@@ -59,3 +59,59 @@ main.mobile {
     color: var(--dark);
     transition: 500ms;
 }
+.cards {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+.card-logged {
+    text-align: center;
+    display: flex;
+    border-radius: 1.5em;
+    background: var(--primary);
+    max-width: 500px;
+    flex-grow: 1;
+}
+.card-logged .btn-block {
+    height: 2.5em;
+}
+.card-logged .card-title {
+    color: var(--secondary);
+}
+.card-empty {
+    padding: 0 15% !important;
+    margin: auto;
+    background: linear-gradient(var(--secondary), white);
+    box-shadow: 0 1.5em white;
+    border-top-left-radius: 1.5em;
+    border-top-right-radius: 1.5em;
+}
+.card-empty * {
+    max-height: 10em;
+}
+.card-logged .card-body {
+    padding: 1em;
+    box-shadow: 0 -0.5px rgba(0, 0, 0, 0.25), 0 1.5em white;
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+    text-align: left;
+    vertical-align: middle;
+    color: var(--primary);
+    gap: 0.5em;
+    border-top-left-radius: 1.5em;
+    border-top-right-radius: 1.5em;
+    background: linear-gradient(var(--secondary), white);
+}
+.card-logged .card-body .actions {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5em;
+    text-align: center;
+}
+.card-logged .card-body .actions svg {
+    height: 5em;
+}
+.shadow-0 {
+    box-shadow: 0 -0.5px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 1.5em;
+}

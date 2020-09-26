@@ -50,7 +50,7 @@ import {
   IconEdit2,
   IconChevronUp,
   IconUserX,
-  IconLogIn, IconSave, IconTag, IconPlusCircle, IconCopy
+  IconLogIn, IconSave, IconTag, IconPlusCircle, IconCopy, IconToggleLeft, IconToggleRight, IconCircle, IconCheckCircle
 } from 'angular-feather';
 import { IconWhatsappComponent } from './whatsapp-icon/whatsapp-icon.component';
 import { IconLoadingComponent } from './loading-icon/loading-icon.component';
@@ -83,7 +83,9 @@ const icons = [
   IconCheck,
   IconPlusCircle,
   IconCopy,
-  IconInfo
+  IconInfo,
+  IconCircle,
+  IconCheckCircle
 ];
 
 @NgModule({

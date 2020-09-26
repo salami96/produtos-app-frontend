@@ -1,37 +1,74 @@
 <main class="mobile">
-    <div class="items">
-        <div class="card" *ngFor="let item of items; index as i">
-            <img src="{{item.img}}" alt="Miniatura do Produto">
-            <div class="card-body">
-                <h6 class="card-title">{{item.name}}</h6>
-                <p>{{item.size}}</p>
-                <p>Quantidade: {{item.quantity}}</p>
-                <p>Total: {{formatPrice(item.total)}}</p>
-                <div class="collapse" [id]="'more-' + i" [innerHtml]="safeHtml[i]"></div>
-            </div>
-            <div class="card-actions">
-                <span class="edit"><i-edit></i-edit></span>
-                <span class="delete"><i-trash-2></i-trash-2></span>
-                <span data-toggle="collapse" [attr.data-target]="'#more-' + i" role="button" aria-expanded="false" [attr.aria-controls]="'more-' + i" (click)="isExpanded[i] = !isExpanded[i]">
-                    <i-chevron-down [hidden]="isExpanded[i]"></i-chevron-down>
-                    <i-chevron-up [hidden]="!isExpanded[i]"></i-chevron-up>
-                </span>
-            </div>
-        </div>
-        <div class="card empty-cart p-3" *ngIf="items == undefined || items.length == 0">
-            <undraw-empty></undraw-empty>
-            <h6 class="card-title">Carrinho vazio...</h6>
-        </div>
+  <div class="items">
+    <div class="card" *ngFor="let item of items; index as i">
+      <img src="{{item.img}}" alt="Miniatura do Produto">
+      <div class="card-body">
+        <h6 class="card-title">{{item.name}}</h6>
+        <p>{{item.size}}</p>
+        <p>Quantidade: {{item.quantity}}</p>
+        <p>Total: {{formatPrice(item.total)}}</p>
+        <div class="collapse" [id]="'more-' + i" [innerHtml]="safeHtml[i]"></div>
+      </div>
+      <div class="card-actions">
+        <span class="edit">
+          <i-edit></i-edit>
+        </span>
+        <span class="delete">
+          <i-trash-2></i-trash-2>
+        </span>
+        <span data-toggle="collapse" [attr.data-target]="'#more-' + i" role="button" aria-expanded="false"
+          [attr.aria-controls]="'more-' + i" (click)="isExpanded[i] = !isExpanded[i]">
+          <i-chevron-down [hidden]="isExpanded[i]"></i-chevron-down>
+          <i-chevron-up [hidden]="!isExpanded[i]"></i-chevron-up>
+        </span>
+      </div>
     </div>
-    <a routerLink="/produtos" class="btn btn-block btn-theme"  *ngIf="items == undefined || items.length == 0">
-        <i-tag></i-tag>Ver Produtos
+    <div class="card empty-cart p-3" *ngIf="items == undefined || items.length == 0">
+      <undraw-empty></undraw-empty>
+      <h6 class="card-title">Carrinho vazio...</h6>
+    </div>
+  </div>
+  <a routerLink="/produtos" class="btn btn-block btn-theme" *ngIf="items == undefined || items.length == 0">
+    <i-tag></i-tag>Ver Produtos
+  </a>
+  <div *ngIf="items !== undefined && items.length !== 0">
+    <a routerLink="/produtos" class="btn btn-block btn-outline-theme">
+      <i-shopping-bag></i-shopping-bag>Continuar Comprando
     </a>
-    <div *ngIf="items !== undefined && items.length !== 0">
-        <a routerLink="/produtos" class="btn btn-block btn-outline-theme"><i-shopping-bag></i-shopping-bag>Continuar Comprando</a>
-        <button class="btn btn-block btn-outline-danger" (click)="clear()"><i-trash-2></i-trash-2>Esvaziar</button>
-        <a routerLink="/perfil/entrar" [queryParams]="{pagina: 'pedido'}" class="btn btn-block btn-theme" *ngIf="!user"><i-user></i-user>Entrar para continuar</a>
+    <button class="btn btn-block btn-outline-danger" (click)="clear()">
+      <i-trash-2></i-trash-2>Esvaziar
+    </button>
+    <a routerLink="/perfil/entrar" [queryParams]="{pagina: 'pedido'}" class="btn btn-block btn-theme" *ngIf="!user">
+      <i-user></i-user>Entrar para continuar
+    </a>
+  </div>
+  <div *ngIf="user">
+    <div class="card card-logged pt-3 mt-4 mx-auto">
+      <h5 class="card-title text-theme">Entrega</h5>
+      <div class="card-body">
+        <div class="content">
+          <span><b>Retirar na loja:</b> <br>{{sService.store.address}}</span>
+        </div>
+        <div class="actions">
+          Grátis
+          <i-circle *ngIf="selectedAddress !== 'retirar-na-loja'" (click)="selectedAddress = 'retirar-na-loja'" class="mx-auto"></i-circle>
+          <i-check-circle *ngIf="selectedAddress === 'retirar-na-loja'" style="stroke: var(--dark)" class="mx-auto"></i-check-circle>
+        </div>
+      </div>
+      <div class="card-body" *ngFor="let ad of user.address">
+        <div class="content">
+          <span><b>Receber em:</b> <br>{{read(ad)}}</span>
+        </div>
+        <div class="actions">
+          formatPrice(sService.store.ship)}}
+          <i-circle *ngIf="selectedAddress !== ad.name" (click)="selectedAddress = ad.name" class="mx-auto"></i-circle>
+          <i-check-circle *ngIf="selectedAddress === ad.name" style="stroke: var(--dark)" class="mx-auto"></i-check-circle>
+        </div>
+      </div>
+      <button class="btn btn-theme btn-block" routerLink="/perfil/endereco" [queryParams]="{origem: 'pedido'}">
+        <i-plus-circle></i-plus-circle>
+        Adicionar endereço
+      </button>
     </div>
-    <div *ngIf="user">
-        <h4>Endereços</h4>
-    </div>
+  </div>
 </main>
