@@ -85,7 +85,10 @@ const icons = [
   IconCopy,
   IconInfo,
   IconCircle,
-  IconCheckCircle
+  IconCheckCircle,
+  IconShare,
+  IconDollarSign,
+  IconCreditCard
 ];
 
 @NgModule({

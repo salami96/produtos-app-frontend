@@ -24,7 +24,7 @@ export class UserService {
   ) {
     http.get(this.url, this.options);
     if (localStorage['token']) {
-      this.getUser(localStorage['token'], 'perfil');
+      this.getUser(localStorage['token'], 'pedido');
     }
     auth().onAuthStateChanged(user => {
       if (user) {

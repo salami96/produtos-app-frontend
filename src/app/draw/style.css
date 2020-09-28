@@ -5,3 +5,11 @@ svg {
     width: 100%;
     height: auto;
 }
+.w-75 {
+    width: 50% !important;
+}
+@media (max-width: 350px) {
+    .w-75 {
+        width: 75% !important;
+    }   
+}

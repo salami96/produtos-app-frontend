@@ -18,7 +18,7 @@ export class ChildGuard implements CanActivate {
 
   canActivate() {
     if (this.uService.isLogged) {
-      this.router.navigate(['/perfil']);
+      return false;
     } else {
       return true;
     }

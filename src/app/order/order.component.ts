@@ -18,6 +18,17 @@ export class OrderComponent implements OnInit, OnDestroy {
   safeHtml: SafeHtml[] = [];
   user: User;
   selectedAdress: string;
+  formaPgto: string;
+  selectedItem: OrderItem;
+  baseProduct: Product;
+  selectedSize: any;
+  optional: boolean[] = [];
+  extras: {
+    name: string,
+    value: number,
+    checked: boolean,
+  }[];
+
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -32,11 +43,35 @@ export class OrderComponent implements OnInit, OnDestroy {
       this.user = this.uService.userData;
     });
     if (isPlatformBrowser(this.platformID)) {
+      this.isExpanded['itens'] = true;
+      this.formaPgto = 'Selecione Abaixo';
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.observer = this.cService.order().subscribe(resp => {
         this.items = resp;
         this.showBadges(resp);
       });
+    }
+  }
+
+  rmItem(item: OrderItem, i: number) {
+    this.cService.rmFromCart(item, i);
+  }
+
+  async editItem(i: number, item: OrderItem) {
+    // document.getElementById('edit-item').className += ' show';
+    this.selectedItem = item;
+    this.baseProduct = await this.sService.getProduct(item.cod);
+    this.selectedSize = this.baseProduct.sizes.find(s => s.name === item.size);
+    this.baseProduct.optional.forEach(op => {
+      this.optional[op] = item.removed.includes(op);
+    });
+    this.extras = [];
+    console.log(item.extras);
+    
+    for (let index = 0; index < this.baseProduct.extras.length; index++) {
+      const element: any = this.baseProduct.extras[index];
+      element.checked = item.extras.includes(element);
+      this.extras.push(element);
     }
   }
 

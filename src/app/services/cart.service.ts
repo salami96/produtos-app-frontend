@@ -38,6 +38,15 @@ export class CartService {
     this._quantity += item.quantity;
     this._orderItems.push(item);
     this._qttObserver.next(this._quantity);
+    this._orderObserver.next(this._orderItems);
+    this._saveLocal();
+  }
+
+  rmFromCart(item: OrderItem, i: number) {
+    this._quantity -= item.quantity;
+    this._orderItems.splice(i, 1);
+    this._qttObserver.next(this._quantity);
+    this._orderObserver.next(this._orderItems);
     this._saveLocal();
   }
 
