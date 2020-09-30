@@ -24,7 +24,7 @@ export class UserService {
   ) {
     http.get(this.url, this.options);
     if (localStorage['token']) {
-      this.getUser(localStorage['token'], 'pedido');
+      this.getUser(localStorage['token']);
     }
     auth().onAuthStateChanged(user => {
       if (user) {
@@ -95,13 +95,15 @@ export class UserService {
     return auth().signOut();
   }
 
-  private getUser(uid: string, page: string) {
+  private getUser(uid: string, page?: string) {
     this.http.get<User>(
       `${this.url}/user/${uid}`, this.options
       ).subscribe(user => {
       this.isLogged = true;
       this.userData = user;
-      this.router.navigate(['/' + page]);
+      if (page) {
+        this.router.navigate(['/' + page]);
+      }
     });
   }
 

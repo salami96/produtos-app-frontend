@@ -20,6 +20,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   selectedAdress: string;
   formaPgto: string;
   selectedItem: OrderItem;
+  selectedItemPosition: number;
   baseProduct: Product;
   selectedSize: any;
   optional: boolean[] = [];
@@ -28,6 +29,10 @@ export class OrderComponent implements OnInit, OnDestroy {
     value: number,
     checked: boolean,
   }[];
+  observations: string;
+  itemQuantity: number;
+  itemTotal: number;
+  selectedExtras: { name: string; value: number; checked: boolean; }[];
 
 
   constructor(
@@ -55,10 +60,12 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   rmItem(item: OrderItem, i: number) {
     this.cService.rmFromCart(item, i);
+    this.clearSelected();
   }
 
   async editItem(i: number, item: OrderItem) {
     // document.getElementById('edit-item').className += ' show';
+    this.selectedItemPosition = i;
     this.selectedItem = item;
     this.baseProduct = await this.sService.getProduct(item.cod);
     this.selectedSize = this.baseProduct.sizes.find(s => s.name === item.size);
@@ -66,18 +73,67 @@ export class OrderComponent implements OnInit, OnDestroy {
       this.optional[op] = item.removed.includes(op);
     });
     this.extras = [];
-    console.log(item.extras);
-    
     for (let index = 0; index < this.baseProduct.extras.length; index++) {
       const element: any = this.baseProduct.extras[index];
-      element.checked = item.extras.includes(element);
+      item.extras.forEach((extra: any) => {
+        if (extra.name === element.name) {
+          element.checked = extra.checked;
+        }
+      });
       this.extras.push(element);
     }
+    this.observations = item.observations;
+    this.itemQuantity = item.quantity;
+    this.itemTotal = item.total;
+  }
+
+  changeQuantity(op?: string) {
+    if (op === 'add') {
+      this.itemQuantity++;
+    } else if (op === 'minus') {
+      this.itemQuantity--;
+    }
+    if (this.itemQuantity < 1) {
+      this.itemQuantity = 1;
+    }
+  }
+
+  getPrice() {
+    let total = 0;
+    if (this.selectedItem && this.baseProduct) {
+      if (this.extras.length > 0) {
+        this.selectedExtras = this.extras.filter(extra => extra.checked);
+        this.selectedExtras.forEach(ext => {
+          total += ext.value;
+        });
+      }
+      if (this.baseProduct.sizes.length > 1) {
+        total += this.selectedSize.value;
+      } else {
+        total += this.baseProduct.sizes[0].value;
+      }
+      total *= this.itemQuantity;
+    }
+    return this.formatPrice(total);
   }
 
   clear() {
     this.items = [];
     this.cService.clear();
+  }
+
+  clearSelected() {
+    this.selectedItem = undefined;
+    this.selectedItemPosition = undefined;
+    this.baseProduct = undefined;
+    this.selectedSize = undefined;
+    this.optional = [];
+    this.extras = [];
+    this.observations = undefined;
+    this.itemQuantity = undefined;
+    this.itemTotal = undefined;
+    this.selectedExtras = [];
+    document.getElementById('edit-item-success').click();
   }
 
   ngOnDestroy() {
@@ -126,6 +182,44 @@ export class OrderComponent implements OnInit, OnDestroy {
     return `${ad.name}: ${ad.street}, ${ad.number}, ${ad.district}, ${ad.city} - ${ad.state}`;
   }
 
+  saveChanges() {
+    if (this.baseProduct) {
+      let total = 0;
+      let removed: string[];
+      removed = [];
+      this.baseProduct.optional.forEach(op => {
+        if (this.optional[op]) {
+          removed.push(op);
+        }
+      });
+      if (this.extras.length > 0) {
+        this.selectedExtras = this.extras.filter(extra => extra.checked);
+        this.selectedExtras.forEach(ext => {
+          total += ext.value;
+        });
+      }
+      if (this.baseProduct.sizes.length > 1) {
+        total += this.selectedSize.value;
+      } else {
+        total += this.baseProduct.sizes[0].value;
+      }
+      total *= this.itemQuantity;
 
+      const orderItem: OrderItem = {
+        cod: this.baseProduct.cod,
+        img: this.baseProduct.imgs[0],
+        name: this.baseProduct.name,
+        size: this.selectedSize.name,
+        total,
+        value: this.selectedSize.value,
+        extras: this.selectedExtras,
+        removed,
+        quantity: this.itemQuantity,
+        observations: this.observations,
+      };
+      this.cService.updateCart(orderItem, this.selectedItemPosition);
+      this.clearSelected();
+    }
+  }
 
 }

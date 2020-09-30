@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { isPlatformBrowser } from '@angular/common';
+import { auth } from 'firebase';
 
 
 @Component({
@@ -40,11 +41,17 @@ export class SigninComponent implements OnInit {
   constructor(
     private uService: UserService,
     private route: ActivatedRoute,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformID: Object,
   ) { }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
+      auth().onAuthStateChanged(user => {
+        if (user) {
+          this.router.navigate(['/perfil']);
+        }
+      });
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.route.params.subscribe(res => {
         switch (res.action.toLowerCase()) {

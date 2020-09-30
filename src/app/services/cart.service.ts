@@ -37,16 +37,19 @@ export class CartService {
   add2Cart(item: OrderItem) {
     this._quantity += item.quantity;
     this._orderItems.push(item);
-    this._qttObserver.next(this._quantity);
-    this._orderObserver.next(this._orderItems);
     this._saveLocal();
   }
 
   rmFromCart(item: OrderItem, i: number) {
     this._quantity -= item.quantity;
     this._orderItems.splice(i, 1);
-    this._qttObserver.next(this._quantity);
-    this._orderObserver.next(this._orderItems);
+    this._saveLocal();
+  }
+
+  updateCart(item: OrderItem, i: number) {
+    this._quantity -= this._orderItems[i].quantity;
+    this._quantity += item.quantity;
+    this._orderItems[i] = item;
     this._saveLocal();
   }
 
@@ -62,6 +65,8 @@ export class CartService {
   }
 
   private async _saveLocal() {
+    this._qttObserver.next(this._quantity);
+    this._orderObserver.next(this._orderItems);
     localStorage.setItem('cartItems', JSON.stringify(this._orderItems));
     // await this._cryptoStore.set('cartItems', JSON.stringify(this._orderItems));
     // await this._cryptoStore.set('quantity', JSON.stringify(this._quantity));

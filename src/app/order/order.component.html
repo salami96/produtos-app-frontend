@@ -126,6 +126,7 @@
             <label for="{{size.name}}">{{size.name}}</label>
             <label for="{{size.name}}" class="badge-pill badge badge-theme">{{formatPrice(size.value)}}</label>
           </div>
+          <hr>
         </div>
         <div *ngIf="baseProduct.optional.length != 0">
           <h5>Quero retirar</h5>
@@ -133,6 +134,7 @@
             <input type="checkbox" id="{{option}}" [(ngModel)]="optional[option]">
             <label for="{{option}}">{{option}}</label>
           </div>
+          <hr>
         </div>
         <div *ngIf="baseProduct.extras.length != 0">
           <h5>Quero adicionar</h5>
@@ -141,9 +143,8 @@
             <label for="{{extra.name}}">{{extra.name}}</label>
             <label for="{{extra.name}}" class="badge-pill badge badge-theme">{{formatPrice(extra.value)}}</label>
           </div>
+          <hr>
         </div>
-      </div>
-      <div class="modal-body" *ngIf="false">
         <div>
           <h5>Observações</h5>
           <textarea [(ngModel)]="observations" id="" cols="30" rows="3"></textarea>
@@ -155,7 +156,7 @@
               <div class="input-group-prepend">
                 <button class="btn btn-sm btn-theme" (click)="changeQuantity('minus')">-</button>
               </div>
-              <input type="number" class="form-control" [(ngModel)]="quantity" (change)="changeQuantity()" min="0">
+              <input type="number" class="form-control" [(ngModel)]="itemQuantity" (change)="changeQuantity()" min="0">
               <div class="input-group-append">
                 <button class="btn btn-sm btn-theme" (click)="changeQuantity('add')">+</button>
               </div>
@@ -167,8 +168,11 @@
           </div>
         </div>
       </div>
+      <div class="modal-body" *ngIf="false">
+      </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-theme" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-outline-danger" (click)="rmItem(selectedItem, selectedItemPosition)">Excluir</button>
+        <button type="button" class="btn btn-outline-theme" (click)="clearSelected()">Fechar</button>
         <button type="button" class="btn btn-theme" (click)="saveChanges('name')">Salvar</button>
       </div>
     </div>
