@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { blue, green, red, brown } from './theme/themes';
 import { isPlatformBrowser } from '@angular/common';
+import { StoreService } from './services/store.service';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -8,45 +10,54 @@ import { isPlatformBrowser } from '@angular/common';
   styles: []
 })
 export class AppComponent implements OnInit {
-  title = 'produtos.app';
   url: string;
   landing = false;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformID: Object
+    @Inject(PLATFORM_ID) private platformID: Object,
+    private sService: StoreService,
+    private title: Title,
+    private meta: Meta,
   ) { }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
-      const obj = {
-        blue,
-        green,
-        red,
-        brown
-      };
-      let active: string;
 
       this.url = window.location.host.split('.')[0];
 
-      switch (this.url) {
-        case 'nick':
-          active = 'brown';
-          break;
-        case 'agroking':
-          active = 'blue';
-          break;
-        default:
-          active = 'green';
-          // this.landing = true;
-          break;
-      }
+      const code = this.url.includes('localhost') ? 'copac' : this.url;
 
+      this.sService.loadStore(code);
 
-      // tslint:disable-next-line:forin
-      for (const key in obj[active].properties) {
-        document.querySelector('body').style.setProperty(key, obj[active].properties[key]);
-      }
-      document.querySelector('body').style.setProperty('background-color', obj[active].properties['--background']);
+      this.sService.getStore().subscribe(resp => this.setStoreData(resp));
     }
+  }
+
+  setStoreData(store: Store) {
+    const obj = {
+      blue,
+      green,
+      red,
+      brown
+    };
+    let active: string;
+
+    active = store.color;
+    // tslint:disable-next-line:forin
+    for (const key in obj[active].properties) {
+      document.querySelector('body').style.setProperty(key, obj[active].properties[key]);
+    }
+    document.querySelector('body').style.setProperty('background-color', obj[active].properties['--background']);
+
+    console.log(this);
+
+    this.title.setTitle(store.title);
+    this.meta.updateTag({ name: 'keywords', content: store.code });
+    this.meta.updateTag({ name: 'description', content: store.slogan });
+    this.meta.updateTag({ property: 'og:url', content: store.code + '.produtos.app' });
+    this.meta.updateTag({ property: 'og:type', content: 'product.item' });
+    this.meta.updateTag({ property: 'og:title', content: store.title });
+    this.meta.updateTag({ property: 'og:description', content: store.slogan });
+    this.meta.updateTag({ property: 'og:image', content: store.logo, itemprop: 'image' });
   }
 }

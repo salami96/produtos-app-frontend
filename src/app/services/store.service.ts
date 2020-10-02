@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { strictEqual } from 'assert';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +11,19 @@ export class StoreService {
   store: Store;
   products: Product[];
   categories: Category[];
+  url = 'http://localhost:9000/';
+  options = {
+    headers: {
+      'authorization': 't5b3b9a5',
+      'Access-Control-Allow-Origin': '*'
+    }
+  };
+  private _storeObserver: any;
+  private _store: Store;
 
-  constructor() {
+  constructor(
+    private http: HttpClient,
+  ) {
 /*     this.store = {
       title: 'Doçuras da Nick',
       logo: 'https://scontent.fpoa11-1.fna.fbcdn.net/v/t1.0-9/104841876_102569048186490_8577872177362638693_o.jpg?_nc_cat=109&_nc_sid=09cbfe&_nc_ohc=rR6KLcp4v_oAX9EJhvH&_nc_ht=scontent.fpoa11-1.fna&oh=744f98c3e95717945ba9ad2ad404ad1b&oe=5F5942C2',
@@ -29,6 +43,9 @@ export class StoreService {
       ship: 0,
     }; */
     this.store = {
+      color: 'pink',
+      ownerUid: '',
+      code: 'copac',
       title: 'Supermercado Copac',
       logo: 'https://www.supercopac.com.br/assets/logo.png',
       favicon: 'https://www.supercopac.com.br/favicon.ico',
@@ -194,6 +211,18 @@ export class StoreService {
 
   async getProduct(cod: string): Promise<Product> {
     return await this.getProducts().find(prod => prod.cod === cod);
+  }
+
+  getStore(): Observable<Store> {
+    return new Observable<Store>(observer => {
+      this._storeObserver = observer;
+    });
+  }
+
+  loadStore(code: string) {
+    this.http.get<Store>(this.url + 'store/' + code, this.options).subscribe(resp => {
+      this._storeObserver.next(resp);
+    }, error => window.location.href = 'www.produtos.app');
   }
 
 }

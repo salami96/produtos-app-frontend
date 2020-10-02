@@ -1,4 +1,6 @@
 interface Store {
+    code: string;
+    ownerUid: string;
     title: string;
     logo: string;
     favicon: string;
@@ -14,6 +16,7 @@ interface Store {
     payments: Payment[];
     categories: Category[];
     ship: number;
+    color: string;
 }
 interface Payment {
     name: string;
