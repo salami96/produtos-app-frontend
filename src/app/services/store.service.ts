@@ -11,7 +11,7 @@ export class StoreService {
   store: Store;
   products: Product[];
   categories: Category[];
-  url = 'http://produtos-server.herokuapp.com/';
+  url = 'https://produtos-server.herokuapp.com/';
   // url = 'http://localhost:9000/';
   options = {
     headers: {
