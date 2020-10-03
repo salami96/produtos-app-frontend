@@ -24,8 +24,15 @@ export class AppComponent implements OnInit {
     if (isPlatformBrowser(this.platformID)) {
 
       this.url = window.location.host.split('.')[0];
+      let code;
 
-      const code = this.url.includes('localhost') ? 'copac' : this.url;
+      if (this.url.includes('localhost') ||
+        this.url.includes('www') ||
+        this.url.includes('localhost')) {
+          code = 'copac';
+      } else {
+        code = this.url;
+      }
 
       this.sService.loadStore(code);
 
