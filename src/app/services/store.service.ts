@@ -223,7 +223,7 @@ export class StoreService {
   loadStore(code: string) {
     this.http.get<Store>(this.url + 'store/' + code, this.options).subscribe(resp => {
       this._storeObserver.next(resp);
-    }, error => window.location.href = 'www.produtos.app');
+    }, error => window.location.href = 'https://copac.produtos.app');
   }
 
 }
