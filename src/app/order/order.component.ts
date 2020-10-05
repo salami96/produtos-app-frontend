@@ -5,6 +5,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/user.service';
 import { auth } from 'firebase';
 import { StoreService } from '../services/store.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-order',
@@ -13,7 +14,7 @@ import { StoreService } from '../services/store.service';
 })
 export class OrderComponent implements OnInit, OnDestroy {
   items: OrderItem[] = [];
-  observer: any;
+  observer: Subscription[] = [];
   isExpanded: boolean[] = [];
   safeHtml: SafeHtml[] = [];
   user: User;
@@ -33,6 +34,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   itemQuantity: number;
   itemTotal: number;
   selectedExtras: { name: string; value: number; checked: boolean; }[];
+  store: Store;
 
 
   constructor(
@@ -51,10 +53,15 @@ export class OrderComponent implements OnInit, OnDestroy {
       this.isExpanded['itens'] = true;
       this.formaPgto = 'Selecione Abaixo';
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
-      this.observer = this.cService.order().subscribe(resp => {
-        this.items = resp;
-        this.showBadges(resp);
-      });
+      this.observer.push(
+        this.cService.order().subscribe(resp => {
+          this.items = resp;
+          this.showBadges(resp);
+        }),
+        this.sService.getStore().subscribe(store => {
+          this.store = store;
+        })
+      );
     }
   }
 
@@ -138,7 +145,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.observer) {
-      this.observer.unsubscribe();
+      this.observer.forEach(o => o.unsubscribe());
     }
   }
 

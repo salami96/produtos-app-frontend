@@ -1,19 +1,21 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { StoreService } from '../services/store.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   canLoad = false;
   store: Store;
   map: SafeUrl;
   public innerWidth: any;
+  observer: Subscription[];
 
   constructor(
     // private uService: UserService,
@@ -21,16 +23,22 @@ export class HomeComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformID: Object,
     private service: StoreService,
     private sanitizer: DomSanitizer
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.service.getStore().subscribe(store => this.store = store);
     // this.uService.ping().subscribe(resp => console.log(resp));
+    this.observer = [];
+    this.observer.push(
+      this.service.getStore().subscribe(resp => {
+        console.log('onInit');
+        this.store = resp;
+        this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');
+      })
+    );
     if (isPlatformBrowser(this.platformID)) {
       this.innerWidth = window.innerWidth;
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.canLoad = true;
-      this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');
       window.onresize = () => {
         this.innerWidth = window.innerWidth;
       };
@@ -57,4 +65,9 @@ export class HomeComponent implements OnInit {
       node.classList.remove('animated', animationName);
     }
   } */
+  ngOnDestroy() {
+    if (this.observer) {
+      this.observer.forEach(o => o.unsubscribe());
+    }
+  }
 }

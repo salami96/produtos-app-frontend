@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { isPlatformBrowser } from '@angular/common';
 import { auth } from 'firebase';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { auth } from 'firebase';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css'],
 })
-export class SigninComponent implements OnInit {
+export class SigninComponent implements OnInit, OnDestroy {
   page: string;
   atLogin = true;
   email: string;
@@ -36,6 +37,7 @@ export class SigninComponent implements OnInit {
     register: false
   };
   emailSend = false;
+  observer: Subscription[] = [];
 
 
   constructor(
@@ -53,16 +55,18 @@ export class SigninComponent implements OnInit {
         }
       });
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
-      this.route.params.subscribe(res => {
-        switch (res.action.toLowerCase()) {
-          case 'cadastrar':
-            this.atLogin = false;
-            break;
-          default:
-            this.atLogin = true;
-            break;
-        }
-      });
+      this.observer.push(
+        this.route.params.subscribe(res => {
+          switch (res.action.toLowerCase()) {
+            case 'cadastrar':
+              this.atLogin = false;
+              break;
+            default:
+              this.atLogin = true;
+              break;
+          }
+        })
+      );
       this.page = this.route.snapshot.queryParamMap.get('pagina');
       if (!this.page) {
         this.page = 'perfil';
@@ -236,6 +240,12 @@ export class SigninComponent implements OnInit {
     this.phoneError = false;
     this.loginError = false;
     this.msgError = '';
+  }
+
+  ngOnDestroy(): void {
+    if (this.observer) {
+      this.observer.forEach(o => o.unsubscribe);
+    }
   }
 
 }

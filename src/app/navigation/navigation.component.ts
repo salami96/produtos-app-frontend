@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core
 import { isPlatformBrowser } from '@angular/common';
 import { StoreService } from '../services/store.service';
 import { CartService } from '../services/cart.service';
-import { animate } from '@angular/animations';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -14,7 +14,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   qtt = 0;
   cartTop = false;
   cartBottom = false;
-  observer;
+  observer: Subscription[] = [];
+  store: Store;
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
@@ -25,20 +26,23 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
       this.canLoad = true;
-      this.observer = this.cartService.quantity().subscribe(
-        value => {
-          this.cartTop = true;
-          this.cartBottom = true;
-          setTimeout(() => {
-            this.cartTop = false;
-            this.cartBottom = false;
-          }, 1000);
-          this.qtt = value;
-        }, erro => {
-          console.log(erro);
-        }, () => {
-          this.qtt = 0;
-        }
+      this.observer.push(
+        this.cartService.quantity().subscribe(
+          value => {
+            this.cartTop = true;
+            this.cartBottom = true;
+            setTimeout(() => {
+              this.cartTop = false;
+              this.cartBottom = false;
+            }, 1000);
+            this.qtt = value;
+          }, erro => {
+            console.log(erro);
+          }, () => {
+            this.qtt = 0;
+          }
+        ),
+        this.service.getStore().subscribe(resp => this.store = resp)
       );
     }
   }

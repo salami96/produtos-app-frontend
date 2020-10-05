@@ -58,11 +58,11 @@
       <i-user></i-user>Entrar para continuar
     </a>
     <div *ngIf="user">
-      <div class="card card-logged pt-3 mx-auto">
+      <div class="card card-logged pt-3 mx-auto" *ngIf="store">
         <h5 class="card-title text-theme">Entrega</h5>
-        <div class="card-body">
+        <div class="card-body" *ngFor="let ad of store.address">
           <div class="content">
-            <span><b>Retirar na loja:</b> <br>{{sService.store.address}}</span>
+            <span><b>Retirar na loja:</b> <br>{{read(ad)}}</span>
           </div>
           <div class="actions">
             Grátis
@@ -75,7 +75,7 @@
             <span><b>Receber em:</b> <br>{{read(ad)}}</span>
           </div>
           <div class="actions">
-            {{formatPrice(sService.store.ship)}}
+            {{formatPrice(store.ship[0].value)}}
             <i-circle *ngIf="selectedAddress !== ad.name" (click)="selectedAddress = ad.name" class="mx-auto"></i-circle>
             <i-check-circle *ngIf="selectedAddress === ad.name" style="stroke: var(--dark)" class="mx-auto"></i-check-circle>
           </div>

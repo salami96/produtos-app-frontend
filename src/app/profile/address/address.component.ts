@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.css']
 })
-export class AddressComponent implements OnInit {
+export class AddressComponent implements OnInit, OnDestroy {
   address: Address;
   error = {
     name: false,
@@ -25,6 +26,7 @@ export class AddressComponent implements OnInit {
   action: string;
   loadingZipCode = false;
   page: string;
+  observer: Subscription[] = [];
 
   constructor(
     private uService: UserService,
@@ -90,17 +92,19 @@ export class AddressComponent implements OnInit {
     const aux = this.address.zipCode;
     if (aux.length === 8) {
       this.loadingZipCode = true;
-      this.uService.zipRequest(aux).subscribe((resp: any) => {
-        this.loadingZipCode = false;
-        this.address.city = resp.localidade;
-        this.address.state = resp.uf;
-        if (resp.logradouro) {
-          this.address.street = resp.logradouro;
-        }
-        if (resp.bairro) {
-          this.address.district = resp.bairro;
-        }
-      }, error => console.log(error));
+      this.observer.push(
+        this.uService.zipRequest(aux).subscribe((resp: any) => {
+          this.loadingZipCode = false;
+          this.address.city = resp.localidade;
+          this.address.state = resp.uf;
+          if (resp.logradouro) {
+            this.address.street = resp.logradouro;
+          }
+          if (resp.bairro) {
+            this.address.district = resp.bairro;
+          }
+        }, error => console.log(error))
+      );
       this.error.zipCode = false;
     } else {
       this.error.zipCode = true;
@@ -146,5 +150,11 @@ export class AddressComponent implements OnInit {
     };
     this.loading = false;
     this.loadingZipCode = false;
+  }
+
+  ngOnDestroy(): void {
+    if (this.observer) {
+      this.observer.forEach(o => o.unsubscribe);
+    }
   }
 }

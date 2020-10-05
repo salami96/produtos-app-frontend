@@ -10,12 +10,15 @@ interface Store {
     fb: string;
     insta: string;
     email: string;
-    address: string;
+    address: Address[];
     map: string;
     directions: string;
     payments: Payment[];
     categories: Category[];
-    ship: number;
+    ship: {
+        zipCode: string;
+        value: number;
+    }[];
     color: string;
 }
 interface Payment {

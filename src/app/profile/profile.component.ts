@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -9,19 +10,26 @@ import { Router } from '@angular/router';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   user: User;
   orders = [];
   error: boolean[] = [];
   password = '';
   name = '';
   phone = '';
+  observer: Subscription[] = [];
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
     private uService: UserService,
     private router: Router
   ) { }
+
+  ngOnDestroy(): void {
+    if (this.observer) {
+      this.observer.forEach(o => o.unsubscribe);
+    }
+  }
 
   ngOnInit() {
     this.user = this.uService.userData;
@@ -52,7 +60,9 @@ export class ProfileComponent implements OnInit {
 
   deleteAddress(address: Address) {
     this.uService.address(address, 'perfil', true).then(user => {
-      user.subscribe(u => this.user = u);
+      this.observer.push(
+        user.subscribe(u => this.user = u)
+      );
       document.getElementById('success').className += 'show';
       setTimeout(() => {
         document.getElementById('success').className = 'alert alert-success alert-dismissible fade';

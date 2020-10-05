@@ -1,15 +1,16 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StoreService } from '../../services/store.service';
 import { isPlatformBrowser } from '@angular/common';
 import { CartService } from '../../services/cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
 
   cod: string;
   product: Product;
@@ -23,6 +24,7 @@ export class ProductDetailComponent implements OnInit {
   }[] = [];
   selectedExtras: any[] = [];
   optional: boolean[] = [];
+  observer: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +38,7 @@ export class ProductDetailComponent implements OnInit {
     // this.uService.ping().subscribe(resp => console.log(resp));
     document.querySelector('nav').style.setProperty('box-shadow', 'none');
     if (isPlatformBrowser(this.platformID)) {
-      this.route.params.subscribe(async res => {
+      this.observer.push(this.route.params.subscribe(async res => {
         this.cod = res.cod;
         this.service.getProduct(res.cod).then(response => {
           if (response) {
@@ -52,7 +54,7 @@ export class ProductDetailComponent implements OnInit {
             }
           }
         }).catch(e => console.log(e));
-      });
+      }));
     }
   }
 
@@ -131,5 +133,11 @@ export class ProductDetailComponent implements OnInit {
       observations: this.observations,
     };
     this.cService.add2Cart(orderItem);
+  }
+
+  ngOnDestroy() {
+    if(this.observer) {
+      this.observer.forEach(o => o.unsubscribe);
+    }
   }
 }

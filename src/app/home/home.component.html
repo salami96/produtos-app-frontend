@@ -1,4 +1,4 @@
-<main>
+<main *ngIf="store">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
   <div class="mobile" *ngIf="innerWidth < 950px">
     <section class="jumbotron">
@@ -19,7 +19,7 @@
       <div class="card clean-card">
         <iframe [src]="map" frameborder="0"
         allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-        <a href="{{store.directions}}" target="_blank" rel="nofollow external noopener noreferrer" class="card-action"><i-map></i-map>Como Chegar</a>
+        <a href="{{store?.directions}}" target="_blank" rel="nofollow external noopener noreferrer" class="card-action"><i-map></i-map>Como Chegar</a>
       </div>
     </section>
     <section class="social">
@@ -55,7 +55,7 @@
       269ba228bc30f!2sN%C3%BAcleo%20F-49%2C%2059%20-%20Vila%20Acos%20Finos%20Piratini%2C%20Charqueadas%20-
       %20RS%2C%2096745-000!5e0!3m2!1sen!2sbr!4v1596135888316!5m2!1sen!2sbr" frameborder="0"
         allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
-        <a href="{{store.directions}}" class="card-action" target="_blank" rel="nofollow external noopener noreferrer"><i-map></i-map>Como Chegar</a>
+        <a href="{{store?.directions}}" class="card-action" target="_blank" rel="nofollow external noopener noreferrer"><i-map></i-map>Como Chegar</a>
       </div>
     </section>
   </div>

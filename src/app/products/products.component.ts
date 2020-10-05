@@ -1,16 +1,17 @@
-import { Component, OnInit, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, AfterViewInit, OnDestroy } from '@angular/core';
 import { StoreService } from '../services/store.service';
 import { isPlatformBrowser } from '@angular/common';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { element } from '@angular/core/src/render3';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
 
   safeHtml: SafeHtml;
   categories: Category[];
@@ -20,6 +21,7 @@ export class ProductsComponent implements OnInit {
   products: Product[];
   filteredProducts: Product[];
   filterTitle: string;
+  observer: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +31,9 @@ export class ProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.categories = this.store.store.categories;
+    this.observer.push(
+      this.store.getStore().subscribe(resp => this.categories = resp.categories)
+    );
     this.products = this.store.getProducts();
     this.filteredProducts = this.store.getProducts();
     if (isPlatformBrowser(this.platformID)) {
@@ -153,6 +157,12 @@ export class ProductsComponent implements OnInit {
       r = r.replace(new RegExp(non_asciis[i], 'g'), i);
     }
     return r;
+  }
+
+  ngOnDestroy() {
+    if (this.observer) {
+      this.observer.forEach(o => o.unsubscribe());
+    }
   }
 
 
