@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store = this.service.store;
+    this.service.getStore().subscribe(store => this.store = store);
     // this.uService.ping().subscribe(resp => console.log(resp));
     if (isPlatformBrowser(this.platformID)) {
       this.innerWidth = window.innerWidth;

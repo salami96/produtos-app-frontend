@@ -95,7 +95,6 @@ main {
 }
 .card .card-empty {
   padding: 0 15% !important;
-  margin: auto;
   background: linear-gradient(var(--secondary), white);
   box-shadow: 0 1.5em white;
   border-top-left-radius: 1.5em;

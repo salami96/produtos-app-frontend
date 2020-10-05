@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     if (isPlatformBrowser(this.platformID)) {
 
       this.url = window.location.host.split('.')[0];
-      let code;
+      let code: string;
 
       if (this.url.includes('localhost') ||
         this.url.includes('www') ||
