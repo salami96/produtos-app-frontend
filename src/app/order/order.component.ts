@@ -156,6 +156,8 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.itemTotal = undefined;
     this.selectedExtras = [];
     document.getElementById('edit-item-success').click();
+    this.shipmentError = false;
+    this.paymentError = false;
   }
 
   ngOnDestroy() {
@@ -277,6 +279,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   finish() {
+    this.clearSelected();
     if (this.selectedAddress === undefined) {
       this.shipmentError = true;
     }

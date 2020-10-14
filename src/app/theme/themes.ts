@@ -93,6 +93,16 @@ const orange: Theme = {
         '--accent': '#4EAE6B'
     }
 };
+const gray: Theme = {
+    name: 'gray',
+    properties: {
+        '--background': '#E6EBF2',
+        '--dark': '#343a40',
+        '--primary': '#6C757B',
+        '--secondary': '#eef3f6',
+        '--accent': '#ff7575'
+    }
+};
 export const colors = {
     'blue': blue,
     'cyan': cyan,
@@ -102,5 +112,6 @@ export const colors = {
     'violet': violet,
     'pink': pink,
     'purple': purple,
-    'orange': orange
+    'orange': orange,
+    'gray': gray
 };

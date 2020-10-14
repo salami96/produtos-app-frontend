@@ -66,7 +66,7 @@
             <i-chevron-down [hidden]="isExpanded['shipment']"></i-chevron-down>
             <i-chevron-up [hidden]="!isExpanded['shipment']"></i-chevron-up>
           </span>
-          <!-- <div class="alert alert-danger fade">Você precisa escolher um endereço!</div> -->
+          <div class="text-danger fade" [class.show]="shipmentError">Você precisa escolher a forma de entrega!</div>
         </h5>
         <div class="collapse show" id="shipment">
           <div class="card-body" *ngFor="let ad of store.address; index as i">
@@ -113,8 +113,10 @@
             <span>Total</span> <span><b>{{formatPrice(total)}}</b></span>
           </div>
           <div class="card-body" *ngIf="store" [class.invalid]="paymentError" [class.shadow-0]="quantity === 0">
-            <div class="text-danger fade" [class.show]="paymentError">Você precisa escolher uma forma de pagamento!</div>
-            <span>Forma de Pagamento</span>
+            <div>
+              <span>Forma de Pagamento</span>
+              <div class="text-danger fade" [class.show]="paymentError">Você precisa escolher uma forma de pagamento!</div>
+            </div>
             <div class="payments">
               <div [class.selected]="formaPgto == p.name" (click)="formaPgto = p.name" *ngFor="let p of store.payments">
                 <app-insert-icon icon="{{p.icon}}"></app-insert-icon>

@@ -1,6 +1,8 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { colors } from '../theme/themes';
 import { isPlatformBrowser } from '@angular/common';
+import { StoreService } from '../services/store.service';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-landing-page',
@@ -11,7 +13,10 @@ export class LandingPageComponent implements OnInit {
   active: string;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformID: Object
+    private sService: StoreService,
+    @Inject(PLATFORM_ID) private platformID: Object,
+    private title: Title,
+    private meta: Meta,
   ) { }
 
   ngOnInit() {
@@ -28,5 +33,23 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
+  setStore(code: string){
+    this.sService.loadStore(code, this.cb);
+  }
+
+  cb = (store: Store) => {
+    this.setActive(store.color);
+    this.title.setTitle(store.title);
+    this.meta.updateTag({ name: 'keywords', content: store.code });
+    this.meta.updateTag({ name: 'description', content: store.slogan });
+    // this.meta.updateTag({ name: 'theme-color', content: this.setColor(store.color) });
+    this.meta.updateTag({ name: 'apple-mobile-web-app-capable', content: 'yes' });
+    this.meta.updateTag({ name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' });
+    this.meta.updateTag({ property: 'og:url', content: `https://${store.code}.produtos.app` });
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ property: 'og:title', content: store.title });
+    this.meta.updateTag({ property: 'og:description', content: store.slogan });
+    this.meta.updateTag({ property: 'og:image', content: store.logo, itemprop: 'image' });
+  }
 
 }
