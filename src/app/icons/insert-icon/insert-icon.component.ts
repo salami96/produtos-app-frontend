@@ -3,11 +3,11 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
-  selector: 'app-category-button',
-  templateUrl: './category-button.component.html',
-  styleUrls: ['./category-button.component.css']
+  selector: 'app-insert-icon',
+  templateUrl: './insert-icon.component.html',
+  styleUrls: ['./insert-icon.component.css']
 })
-export class CategoryButtonComponent implements OnInit {
+export class InsertIconComponent implements OnInit {
   @Input() icon: string;
   safeHtml: SafeHtml;
   constructor(

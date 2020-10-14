@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
-import { blue, green, red, brown, orange, pink, purple } from './theme/themes';
+import { colors } from './theme/themes';
 import { isPlatformBrowser } from '@angular/common';
 import { StoreService } from './services/store.service';
 import { Title, Meta } from '@angular/platform-browser';
@@ -29,23 +29,26 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.setColor('green');
     if (isPlatformBrowser(this.platformID)) {
-
       this.url = window.location.host.split('.')[0];
       let code: string;
 
-      if (this.url.includes('localhost') ||
-      this.url.includes('www') ) {
-        code = 'exemplo';
-      } else {
-        code = this.url;
+      code = this.url;
+
+      if (
+        this.url.includes('localhost') ||
+        this.url.includes('www') ||
+        this.url.includes('1')
+      ) {
+        code = 'copac';
       }
 
-      this.observer.push(
-        this.sService.loadStore(code).subscribe(store => {
+      // this.observer.push(
+      this.sService.loadStore(code, this.cb); /* store => {
           this.setStoreData(store);
-        })
-      );
+        });*/
+      // );
 
       // this.sService.getStore().then(store => {
       //   this.setStoreData(store);
@@ -54,33 +57,25 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  setStoreData(store: Store) {
-
-    const obj = {
-      blue,
-      green,
-      red,
-      brown,
-      purple,
-      orange,
-      pink
-    };
-    let active: string;
-
-
-    active = store.color;
-
+  setColor(active: string) {
     // tslint:disable-next-line:forin
-    for (const key in obj[active].properties) {
-      document.querySelector('body').style.setProperty(key, obj[active].properties[key]);
+    for (const key in colors[active].properties) {
+      document.querySelector('body').style.setProperty(key, colors[active].properties[key]);
     }
-    document.querySelector('body').style.setProperty('background-color', obj[active].properties['--background']);
+    document.querySelector('body').style.setProperty('background-color', colors[active].properties['--background']);
 
+    return colors[active].properties['--dark'];
+  }
+
+  cb = (store: Store) => {
     this.title.setTitle(store.title);
     this.meta.updateTag({ name: 'keywords', content: store.code });
     this.meta.updateTag({ name: 'description', content: store.slogan });
-    this.meta.updateTag({ property: 'og:url', content: store.code + '.produtos.app' });
-    this.meta.updateTag({ property: 'og:type', content: 'product.item' });
+    // this.meta.updateTag({ name: 'theme-color', content: this.setColor(store.color) });
+    this.meta.updateTag({ name: 'apple-mobile-web-app-capable', content: 'yes' });
+    this.meta.updateTag({ name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' });
+    this.meta.updateTag({ property: 'og:url', content: `https://${store.code}.produtos.app` });
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
     this.meta.updateTag({ property: 'og:title', content: store.title });
     this.meta.updateTag({ property: 'og:description', content: store.slogan });
     this.meta.updateTag({ property: 'og:image', content: store.logo, itemprop: 'image' });

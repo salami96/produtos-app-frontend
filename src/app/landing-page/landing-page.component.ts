@@ -1,5 +1,5 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { blue, green, red, brown, pink, purple, orange } from '../theme/themes';
+import { colors } from '../theme/themes';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -9,16 +9,6 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class LandingPageComponent implements OnInit {
   active: string;
-  obj = {
-    blue,
-    green,
-    red,
-    brown,
-    pink,
-    purple,
-    orange
-  };
-
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object
@@ -33,8 +23,8 @@ export class LandingPageComponent implements OnInit {
   setActive(color: string) {
     this.active = color;
     // tslint:disable-next-line:forin
-    for (const key in this.obj[this.active].properties) {
-      document.querySelector('body').style.setProperty(key, this.obj[this.active].properties[key]);
+    for (const key in colors[this.active].properties) {
+      document.querySelector('body').style.setProperty(key, colors[this.active].properties[key]);
     }
   }
 

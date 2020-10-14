@@ -73,7 +73,7 @@
 textarea {
     font-size: 0.75em;
     border-color: var(--dark);
-    border-radius: 1em;
+    border-radius: 0.25em;
     width: 100%;
 }
 textarea:focus {
@@ -96,7 +96,7 @@ input[type=number] {
     max-width: 35px;
     text-align: center;
     font-size: small;
-  }
+}
 .qtt-and-value .input-group {
     justify-content: center;
 }

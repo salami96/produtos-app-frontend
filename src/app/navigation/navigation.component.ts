@@ -9,12 +9,11 @@ import { Observable, Subject, Subscription } from 'rxjs';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent implements OnInit, OnDestroy {
+export class NavigationComponent implements OnInit {
   canLoad = false;
   qtt = 0;
   cartTop = false;
   cartBottom = false;
-  observer: Subscription[] = [];
   store: Store;
 
   constructor(
@@ -24,33 +23,22 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    if (this.service.selectedStore) {
+      this.store = this.service.selectedStore;
+    } else {
+      this.service.store.subscribe(resp => this.store = resp);
+    }
     if (isPlatformBrowser(this.platformID)) {
       this.canLoad = true;
-      this.observer.push(
-        this.cartService.quantity().subscribe(
-          value => {
-            this.cartTop = true;
-            this.cartBottom = true;
-            setTimeout(() => {
-              this.cartTop = false;
-              this.cartBottom = false;
-            }, 1000);
-            this.qtt = value;
-          }, erro => {
-            console.log(erro);
-          }, () => {
-            this.qtt = 0;
-          }
-        ),
-        this.service.getStore().subscribe(resp => this.store = resp)
-      );
+      this.cartService.quantity().subscribe(value => {
+        this.cartTop = true;
+        this.cartBottom = true;
+        setTimeout(() => {
+          this.cartTop = false;
+          this.cartBottom = false;
+        }, 1000);
+        this.qtt = value;
+      });
     }
   }
-
-  ngOnDestroy() {
-    if (this.observer) {
-      this.observer.forEach(obs => obs.unsubscribe());
-    }
-  }
-
 }

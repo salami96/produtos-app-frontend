@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { StoreService } from '../services/store.service';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   user: User;
+  store: Store;
   orders = [];
   error: boolean[] = [];
   password = '';
@@ -21,6 +23,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
+    private sService: StoreService,
     private uService: UserService,
     private router: Router
   ) { }
@@ -32,6 +35,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (this.sService.selectedStore) {
+      this.store = this.sService.selectedStore;
+    } else {
+      this.observer.push(
+        this.sService.store.subscribe(resp => this.store = resp)
+      );
+    }
     this.user = this.uService.userData;
     this.error['name'] = false;
     this.error['phone'] = false;

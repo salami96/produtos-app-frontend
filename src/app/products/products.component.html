@@ -7,10 +7,10 @@
   </div>
   <div id="category-selector">
     <!-- <span (click)="slide(true)"><i-chevron-left></i-chevron-left></span> -->
-    <div class="btn-toolbar btn-group-toggle btn-group btn-group-theme" id="categorias">
-      <label class="btn btn-outline-theme" *ngFor="let el of categories; let i = index" (click)="setCategory(el.name)" [class.active]="isActive(i)">
+    <div class="btn-toolbar btn-group-toggle btn-group btn-group-theme" id="categorias" *ngIf="store">
+      <label class="btn btn-outline-theme" *ngFor="let el of store.categories; let i = index" (click)="setCategory(el.name)" [class.active]="isActive(i)">
         <input type="radio">
-        <app-category-button icon="{{el.icon}}"></app-category-button>
+        <app-insert-icon icon="{{el.icon}}"></app-insert-icon>
         {{el.name}}
       </label>
     <!-- <div class="btn-toolbar btn-group-toggle btn-group btn-group-theme" [innerHtml]="safeHtml" id="categorias"> -->
@@ -40,7 +40,7 @@
   </div>
 </nav>
 <h3 class="text-theme text-center" *ngIf="filterTitle">{{filterTitle}}</h3>
-<main>
+<main *ngIf="store && products">
   <div class="card" *ngFor="let product of filteredProducts">
     <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
     <div class="card-body">

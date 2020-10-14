@@ -7,7 +7,7 @@ import { DrawModule } from '../draw/draw.module';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [OrderComponent],
+  declarations: [ OrderComponent ],
   imports: [
     CommonModule,
     DrawModule,

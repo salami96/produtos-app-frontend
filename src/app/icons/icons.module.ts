@@ -54,6 +54,7 @@ import {
 } from 'angular-feather';
 import { IconWhatsappComponent } from './whatsapp-icon/whatsapp-icon.component';
 import { IconLoadingComponent } from './loading-icon/loading-icon.component';
+import { InsertIconComponent } from './insert-icon/insert-icon.component';
 
 const icons = [
   IconBriefcase,
@@ -88,11 +89,12 @@ const icons = [
   IconCheckCircle,
   IconShare,
   IconDollarSign,
-  IconCreditCard
+  IconCreditCard,
+  InsertIconComponent
 ];
 
 @NgModule({
   exports: icons,
-  declarations: [ IconWhatsappComponent, IconLoadingComponent ]
+  declarations: [ IconWhatsappComponent, IconLoadingComponent, InsertIconComponent ]
 })
 export class IconsModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { StoreService } from '../services/store.service';
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   store: Store;
   map: SafeUrl;
   public innerWidth: any;
-  observer: Subscription[];
+  observer: Subscription[] = [];
 
   constructor(
     // private uService: UserService,
@@ -25,16 +25,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer
   ) { }
 
-  ngOnInit() {
-    // this.uService.ping().subscribe(resp => console.log(resp));
-    this.observer = [];
-    this.observer.push(
-      this.service.getStore().subscribe(resp => {
-        console.log('onInit');
-        this.store = resp;
-        this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');
-      })
-    );
+  async ngOnInit() {
+    if (this.service.selectedStore) {
+      this.store = this.service.selectedStore;
+      this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');
+      console.log(this.store);
+    } else {
+      this.observer.push(
+        this.service.store.subscribe(resp => {
+          this.store = resp;
+          this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');
+        })
+      );
+    }
     if (isPlatformBrowser(this.platformID)) {
       this.innerWidth = window.innerWidth;
       document.querySelector('nav').style.setProperty('box-shadow', 'none');

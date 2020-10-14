@@ -22,20 +22,29 @@ export class ProductsComponent implements OnInit, OnDestroy {
   filteredProducts: Product[];
   filterTitle: string;
   observer: Subscription[] = [];
+  store: Store;
 
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private store: StoreService,
+    private sService: StoreService,
     @Inject(PLATFORM_ID) private platformID: Object,
   ) { }
 
   ngOnInit() {
-    this.observer.push(
-      this.store.getStore().subscribe(resp => this.categories = resp.categories)
-    );
-    this.products = this.store.getProducts();
-    this.filteredProducts = this.store.getProducts();
+    if (this.sService.selectedStore) {
+      this.store = this.sService.selectedStore;
+      this.categories = this.sService.selectedStore.categories;
+    } else {
+      this.observer.push(
+        this.sService.store.subscribe(resp => {
+          this.store = resp;
+          this.categories = resp.categories;
+        })
+      );
+    }
+    this.products = this.sService.getProducts();
+    this.filteredProducts = this.sService.getProducts();
     if (isPlatformBrowser(this.platformID)) {
       document.querySelector('nav').style.setProperty('box-shadow', '0 0 0 1em var(--dark)');
       this.selectedCategory = this.route.snapshot.queryParamMap.get('categoria');

@@ -3,7 +3,7 @@ interface Theme {
     properties: any;
 }
 
-export const blue: Theme = {
+const blue: Theme = {
     name: 'blue',
     properties: {
         '--background': '#E6EBF2',
@@ -13,7 +13,17 @@ export const blue: Theme = {
         '--accent': '#61E786',
     }
 };
-export const green: Theme = {
+const cyan: Theme = {
+    name: 'cyan',
+    properties: {
+        '--background': '#E6EBF2',
+        '--dark': '#0c515c',
+        '--primary': '#17a2b8',
+        '--secondary': '#d9eff2',
+        '--accent': '#ff7a66',
+    }
+};
+const green: Theme = {
     name: 'green',
     properties: {
         '--background': '#E6EBF2',
@@ -23,7 +33,7 @@ export const green: Theme = {
         '--accent': '#EEC6CA',
     }
 };
-export const brown: Theme = {
+const brown: Theme = {
     name: 'brown',
     properties: {
         '--background': '#E6EBF2',
@@ -33,7 +43,7 @@ export const brown: Theme = {
         '--accent': '#77BFA3',
     }
 };
-export const red: Theme = {
+const red: Theme = {
     name: 'red',
     properties: {
         '--background': '#E6EBF2',
@@ -43,8 +53,8 @@ export const red: Theme = {
         '--accent': '#FFF05A',
     }
 };
-export const pink: Theme = {
-    name: 'pink',
+const violet: Theme = {
+    name: 'violet',
     properties: {
         '--background': '#E6EBF2',
         '--dark': '#744E6D',
@@ -53,7 +63,17 @@ export const pink: Theme = {
         '--accent': '#9CE8D0',
     }
 };
-export const purple: Theme = {
+const pink: Theme = {
+    name: 'pink',
+    properties: {
+        '--background': '#E6EBF2',
+        '--dark': '#741F46',
+        '--primary': '#E83E8C',
+        '--secondary': '#FEE6F1',
+        '--accent': '#3EE89A',
+    }
+};
+const purple: Theme = {
     name: 'purple',
     properties: {
         '--background': '#E6EBF2',
@@ -63,7 +83,7 @@ export const purple: Theme = {
         '--accent': '#0CFD85'
     }
 };
-export const orange: Theme = {
+const orange: Theme = {
     name: 'orange',
     properties: {
         '--background': '#E6EBF2',
@@ -72,4 +92,15 @@ export const orange: Theme = {
         '--secondary': '#FFDBCC',
         '--accent': '#4EAE6B'
     }
+};
+export const colors = {
+    'blue': blue,
+    'cyan': cyan,
+    'green': green,
+    'brown': brown,
+    'red': red,
+    'violet': violet,
+    'pink': pink,
+    'purple': purple,
+    'orange': orange
 };

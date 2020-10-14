@@ -18,7 +18,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   isExpanded: boolean[] = [];
   safeHtml: SafeHtml[] = [];
   user: User;
-  selectedAdress: string;
+  selectedAddress: string;
   formaPgto: string;
   selectedItem: OrderItem;
   selectedItemPosition: number;
@@ -35,6 +35,11 @@ export class OrderComponent implements OnInit, OnDestroy {
   itemTotal: number;
   selectedExtras: { name: string; value: number; checked: boolean; }[];
   store: Store;
+  quantity: number;
+  total = 0;
+  shipment = 0;
+  paymentError = false;
+  shipmentError = false;
 
 
   constructor(
@@ -49,24 +54,33 @@ export class OrderComponent implements OnInit, OnDestroy {
     auth().onAuthStateChanged(user => {
       this.user = this.uService.userData;
     });
+    if (this.sService.selectedStore) {
+      this.store = this.sService.selectedStore;
+    } else {
+      this.observer.push(
+        this.sService.store.subscribe(resp => this.store = resp)
+      );
+    }
+
+
     if (isPlatformBrowser(this.platformID)) {
       this.isExpanded['itens'] = true;
-      this.formaPgto = 'Selecione Abaixo';
+      this.isExpanded['shipment'] = true;
+      this.isExpanded['resume'] = true;
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.observer.push(
         this.cService.order().subscribe(resp => {
           this.items = resp;
           this.showBadges(resp);
-        }),
-        this.sService.getStore().subscribe(store => {
-          this.store = store;
         })
       );
     }
+    this.recalculate();
   }
 
   rmItem(item: OrderItem, i: number) {
     this.cService.rmFromCart(item, i);
+    this.recalculate();
     this.clearSelected();
   }
 
@@ -127,6 +141,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   clear() {
     this.items = [];
     this.cService.clear();
+    this.recalculate();
   }
 
   clearSelected() {
@@ -147,6 +162,14 @@ export class OrderComponent implements OnInit, OnDestroy {
     if (this.observer) {
       this.observer.forEach(o => o.unsubscribe());
     }
+  }
+
+  calcShip(z: string) {
+    const found = this.store.ship.find(s => s.zipCode === z);
+    if (found) {
+      return found.value;
+    }
+    return -1;
   }
 
   formatPrice(price: number) {
@@ -225,8 +248,40 @@ export class OrderComponent implements OnInit, OnDestroy {
         observations: this.observations,
       };
       this.cService.updateCart(orderItem, this.selectedItemPosition);
+      this.recalculate();
       this.clearSelected();
     }
   }
 
+  setShipment(ad: Address, isPickUp = false) {
+    if (this.calcShip(ad.zipCode) < 0 || isPickUp) {
+      this.shipment = 0;
+    } else {
+      this.shipment = this.calcShip(ad.zipCode);
+    }
+    if (isPickUp) {
+      this.selectedAddress = 'loja-' + ad.name;
+    } else {
+      this.selectedAddress = ad.name;
+    }
+    this.recalculate();
+  }
+
+  recalculate() {
+    this.quantity = this.cService._quantity;
+    let sum = 0;
+    this.items.forEach(item => {
+      sum += item.total;
+    });
+    this.total = (this.shipment + sum);
+  }
+
+  finish() {
+    if (this.selectedAddress === undefined) {
+      this.shipmentError = true;
+    }
+    if (this.formaPgto === undefined) {
+      this.paymentError = true;
+    }
+  }
 }
