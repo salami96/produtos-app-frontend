@@ -1,5 +1,6 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { auth } from 'firebase';
 
@@ -10,7 +11,7 @@ export class UserService {
   isLogged: boolean;
   userData: User;
   // url = 'https://produtos-server.herokuapp.com';
-  url = 'http://localhost:9000';
+  url = 'http://10.1.1.119:9000';
   options = {
     headers: {
       'authorization': 't5b3b9a5',
@@ -19,22 +20,25 @@ export class UserService {
   };
 
   constructor(
+    @Inject(PLATFORM_ID) private platformID: Object,
     private http: HttpClient,
     private router: Router
   ) {
-    http.get(this.url, this.options);
-    if (localStorage['token']) {
-      this.getUser(localStorage['token']);
-    }
-    auth().onAuthStateChanged(user => {
-      if (user) {
-        localStorage['token'] = user.uid;
-        this.isLogged = true;
-      } else {
-        localStorage.removeItem('token');
-        this.isLogged = false;
+    if (isPlatformBrowser(this.platformID)) {
+      http.get(this.url, this.options);
+      if (localStorage['token']) {
+        this.getUser(localStorage['token']);
       }
-    });
+      auth().onAuthStateChanged(user => {
+        if (user) {
+          localStorage['token'] = user.uid;
+          this.isLogged = true;
+        } else {
+          localStorage.removeItem('token');
+          this.isLogged = false;
+        }
+      });
+    }
   }
 
   public login(mail: string, password: string, page: string) {

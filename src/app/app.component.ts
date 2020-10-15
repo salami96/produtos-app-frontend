@@ -29,8 +29,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.setColor('green');
     if (isPlatformBrowser(this.platformID)) {
+      this.setColor('gray');
       this.url = window.location.host.split('.')[0];
       let code: string;
 
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.title.setTitle(store.title);
     this.meta.updateTag({ name: 'keywords', content: store.code });
     this.meta.updateTag({ name: 'description', content: store.slogan });
-    // this.meta.updateTag({ name: 'theme-color', content: this.setColor(store.color) });
+    this.meta.updateTag({ name: 'theme-color', content: this.setColor(store.color) });
     this.meta.updateTag({ name: 'apple-mobile-web-app-capable', content: 'yes' });
     this.meta.updateTag({ name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' });
     this.meta.updateTag({ property: 'og:url', content: `https://${store.code}.produtos.app` });

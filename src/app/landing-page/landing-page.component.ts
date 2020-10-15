@@ -33,7 +33,7 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
-  setStore(code: string){
+  setStore(code: string) {
     this.sService.loadStore(code, this.cb);
   }
 

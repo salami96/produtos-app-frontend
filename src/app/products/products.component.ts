@@ -1,9 +1,8 @@
-import { Component, OnInit, Inject, PLATFORM_ID, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { StoreService } from '../services/store.service';
 import { isPlatformBrowser } from '@angular/common';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { element } from '@angular/core/src/render3';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -117,9 +116,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.filterTitle = 'Todos os produtos';
     } else {
       this.filterTitle = text;
-      this.filteredProducts = this.products.filter(prod =>
-        prod.category.toLowerCase() === text.toLowerCase()
-      );
+      if (this.products) {
+        this.filteredProducts = this.products.filter(prod =>
+          prod.category.toLowerCase() === text.toLowerCase()
+        );
+      } else {
+        this.filteredProducts = [];
+      }
     }
     // console.log(this.query);
     // this.loading = true;
