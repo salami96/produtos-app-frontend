@@ -39,7 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
       if (
         this.url.includes('localhost') ||
         this.url.includes('www') ||
-        this.url.includes('1')
+        this.url.includes('1') ||
+        this.url.includes('produtos-app')
       ) {
         code = 'copac';
       }
