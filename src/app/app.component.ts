@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   url: string;
   landing = false;
   observer: Subscription[] = [];
+  img: string;
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
+      this.img = 'https://www.supercopac.com.br/assets/logo.png';
       this.setColor('gray');
       this.url = window.location.host.split('.')[0];
       let code: string;
