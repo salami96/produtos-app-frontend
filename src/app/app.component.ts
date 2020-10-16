@@ -31,8 +31,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
-      this.img = 'https://www.supercopac.com.br/assets/logo.png';
-      this.setColor('gray');
+      this.img = 'assets/banner.png';
+      this.setColor('orange');
       this.url = window.location.host.split('.')[0];
       let code: string;
 
