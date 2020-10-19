@@ -26,6 +26,7 @@ export class StoreService {
     private http: HttpClient,
   ) {
     this.store.next({
+      _id: '',
       color: 'blue',
       ownerUid: '',
       code: 'exemplo',

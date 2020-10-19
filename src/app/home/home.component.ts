@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.service.selectedStore) {
       this.store = this.service.selectedStore;
       this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');
-      console.log(this.store);
     } else {
       this.observer.push(
         this.service.store.subscribe(resp => {

@@ -13,8 +13,7 @@ import { StoreService } from '../services/store.service';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   user: User;
-  store: Store;
-  orders = [];
+  orders: Order[] = [];
   error: boolean[] = [];
   password = '';
   name = '';
@@ -34,15 +33,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
+  setOrder = (o: Order[]) => {
+    this.orders = o;
+  }
+
   ngOnInit() {
+    this.user = this.uService.userData;
     if (this.sService.selectedStore) {
-      this.store = this.sService.selectedStore;
+      const store = this.sService.selectedStore;
+      this.uService.getOrders(store._id).subscribe(this.setOrder);
     } else {
       this.observer.push(
-        this.sService.store.subscribe(resp => this.store = resp)
+        this.sService.store.subscribe(resp => this.uService.getOrders(resp._id).subscribe(this.setOrder))
       );
     }
-    this.user = this.uService.userData;
     this.error['name'] = false;
     this.error['phone'] = false;
     this.error['senha'] = false;

@@ -1,4 +1,5 @@
 interface Store {
+    _id?: string;
     code: string;
     ownerUid: string;
     title: string;
@@ -47,7 +48,16 @@ interface Product {
     optional: string[];
 }
 interface Order {
+    _id: string;
+    cod: number;
     products: OrderItem[];
+    client: string;
+    store: string;
+    date: Date;
+    payment: Payment;
+    address: Address;
+    status: number;
+    total: number;
 }
 interface OrderItem {
     cod: string;
@@ -65,6 +75,7 @@ interface OrderItem {
     observations: string;
 }
 interface User {
+    _id: string;
     uid: string;
     name: string;
     phone: string;

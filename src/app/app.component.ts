@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
       this.img = 'assets/banner.png';
-      this.setColor('orange');
+      this.setColor('blue');
       this.url = window.location.host.split('.')[0];
       let code: string;
 
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.url.includes('1') ||
         this.url.includes('produtos-app')
       ) {
-        code = 'copac';
+        code = 'nick';
       }
 
       // this.observer.push(

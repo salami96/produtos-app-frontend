@@ -34,8 +34,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.store = this.service.store;
-    // this.uService.ping().subscribe(resp => console.log(resp));
     document.querySelector('nav').style.setProperty('box-shadow', 'none');
     if (isPlatformBrowser(this.platformID)) {
       this.observer.push(this.route.params.subscribe(async res => {

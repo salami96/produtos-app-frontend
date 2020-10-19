@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { auth } from 'firebase';
+import { StoreService } from './store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +19,22 @@ export class UserService {
       'Access-Control-Allow-Origin': '*'
     }
   };
+  store: any;
+  orders: Order[] = [];
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private sService: StoreService
   ) {
+    if (this.sService.selectedStore) {
+      this.store = this.sService.selectedStore;
+    } else {
+      this.sService.store.subscribe(resp => {
+        this.store = resp;
+      });
+    }
     if (isPlatformBrowser(this.platformID)) {
       http.get(this.url, this.options);
       if (localStorage['token']) {
@@ -170,4 +181,9 @@ export class UserService {
   public zipRequest(zipCode: string) {
     return this.http.get(`https://viacep.com.br/ws/${zipCode}/json/`);
   }
+
+  public getOrders(s: string) {
+    return this.http.get<Order[]>(`${this.url}/orders-by-client/${s}/${this.userData._id}`, this.options);
+  }
+
 }
