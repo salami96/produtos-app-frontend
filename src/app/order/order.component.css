@@ -19,6 +19,7 @@ main {
     margin-bottom: 2em;
     border-radius: 1.5em;
     border-color: var(--dark);
+    box-shadow: inset 0px 5px var(--primary);
 }
 /* .items.card .card-header.body-expanded {
     height: 3em;
@@ -265,7 +266,10 @@ h5 .text-danger.show {
     border-radius: 0.5em;
     font-weight: 500;
 }
+i-loading:not(.show),
+i-check-circle.fade:not(.show),
 .text-danger:not(.show) {
     width: 0;
     height: 0;
+    display: none;
 }

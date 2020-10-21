@@ -18,8 +18,8 @@ export class OrderComponent implements OnInit, OnDestroy {
   isExpanded: boolean[] = [];
   safeHtml: SafeHtml[] = [];
   user: User;
-  selectedAddress: string;
-  formaPgto: string;
+  selectedAddress: Address;
+  formaPgto: Payment;
   selectedItem: OrderItem;
   selectedItemPosition: number;
   baseProduct: Product;
@@ -40,6 +40,8 @@ export class OrderComponent implements OnInit, OnDestroy {
   shipment = 0;
   paymentError = false;
   shipmentError = false;
+  pickUp: boolean;
+  loading: boolean;
 
 
   constructor(
@@ -256,15 +258,16 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   setShipment(ad: Address, isPickUp = false) {
+    this.pickUp = isPickUp;
     if (this.calcShip(ad.zipCode) < 0 || isPickUp) {
       this.shipment = 0;
     } else {
       this.shipment = this.calcShip(ad.zipCode);
     }
     if (isPickUp) {
-      this.selectedAddress = 'loja-' + ad.name;
+      this.selectedAddress = ad;
     } else {
-      this.selectedAddress = ad.name;
+      this.selectedAddress = ad;
     }
     this.recalculate();
   }
@@ -280,11 +283,35 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   finish() {
     this.clearSelected();
+    let valid = true;
     if (this.selectedAddress === undefined) {
       this.shipmentError = true;
+      valid = false;
     }
     if (this.formaPgto === undefined) {
       this.paymentError = true;
+      valid = false;
     }
+    if (valid) {
+      this.loading = true;
+        this.cService.buy(
+        this.store._id,
+        this.user._id,
+        this.selectedAddress,
+        this.formaPgto._id,
+        this.pickUp,
+        this.total
+      ).toPromise().then(resp => {
+        if (resp) {
+          this.clear();
+          this.loading = false;
+          console.log(resp);
+        }
+      }).catch(e => {
+        console.log(e);
+        this.loading = false;
+      });
+    }
+
   }
 }

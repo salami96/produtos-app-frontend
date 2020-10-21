@@ -23,6 +23,7 @@ interface Store {
     color: string;
 }
 interface Payment {
+    _id: string;
     name: string;
     icon: string;
 }
@@ -75,7 +76,7 @@ interface OrderItem {
     observations: string;
 }
 interface User {
-    _id: string;
+    _id?: string;
     uid: string;
     name: string;
     phone: string;

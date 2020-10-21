@@ -1,6 +1,7 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Observable, Subject, Subscriber } from 'rxjs';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 // import { CryptoStorage } from '@webcrypto/storage/';
 
 @Injectable({
@@ -14,6 +15,7 @@ export class CartService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
+    private http: HttpClient
   ) {
     this.quantity().subscribe();
     this.order().subscribe();
@@ -95,5 +97,29 @@ export class CartService {
   private _setOrderItems(items: OrderItem[]) {
     this._orderItems = items;
     this._orderObserver.next(items);
+  }
+
+  buy(store: string, client: string, address: Address, payment: string, pickup: boolean, total: number) {
+    return this.http.post<Order>(
+      `https://produtos-server.herokuapp.com/order`,
+      {
+        cod: 0,
+        products: this._orderItems,
+        client,
+        store,
+        date: new Date(),
+        payment,
+        pickup,
+        address,
+        status: 0,
+        total
+      },
+      {
+        headers: {
+          'authorization': 't5b3b9a5',
+          'Access-Control-Allow-Origin': '*'
+        }
+      }
+    );
   }
 }
