@@ -22,12 +22,16 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./server/main');
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-app.engine('html', ngExpressEngine({
-  bootstrap: AppServerModuleNgFactory,
-  providers: [
-    provideModuleMap(LAZY_MODULE_MAP)
-  ]
-}));
+app.engine('html', (_, options, callback) => {
+  const engine = ngExpressEngine({
+      bootstrap: AppServerModuleNgFactory,
+      providers: [
+          { provide: 'request', useFactory: () => options.req, deps: [] },
+          provideModuleMap(LAZY_MODULE_MAP)
+      ]
+  });
+  engine(_, options, callback);
+});
 
 app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, 'browser'));

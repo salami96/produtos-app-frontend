@@ -24,39 +24,7 @@ export class StoreService {
 
   constructor(
     private http: HttpClient,
-  ) {
-    this.store.next({
-      _id: '',
-      color: 'blue',
-      ownerUid: '',
-      code: 'exemplo',
-      title: 'Sua Loja',
-      logo: 'https://180solucoes.com.br/wp-content/uploads/2020/08/sua-logo-aqui.png',
-      favicon: 'https://www.supercopac.com.br/favicon.ico',
-      slogan: 'Seu slogan ou lema aqui...',
-      phone: '00 00000000',
-      whatsapp: 'https://wa.me/',
-      fb: 'https://www.facebook.com/',
-      insta: 'https://www.instagram.com/',
-      email: 'sualoja@email.com',
-      address: [{
-        street: 'Rua exemplo',
-        number: '0',
-        district: 'Bairro',
-        city: 'Porto Alegre',
-        state: 'RS',
-        name: 'Filial 1',
-        zipCode: '90030-000',
-        reference: '',
-        complement: ''
-      }],
-      map: 'https://www.google.com/maps/embed?',
-      directions: 'https://www.google.com/maps/dir/',
-      payments: [],
-      ship: [],
-      categories: []
-    });
-  }
+  ) { }
 
   getProducts() {
     return this.products;
@@ -67,11 +35,11 @@ export class StoreService {
   }
 
   loadStore(code: string, cb: any) {
-    this.http.get<Product[]>(this.url + 'products/' + code, this.options).subscribe(resp2 => this.products = resp2);
     this.http.get<Store>(this.url + 'store/' + code, this.options).subscribe(resp => {
       cb(resp);
       this.store.next(resp);
       this.selectedStore = resp;
     });
+    this.http.get<Product[]>(this.url + 'products/' + code, this.options).subscribe(resp2 => this.products = resp2);
   }
 }
