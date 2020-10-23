@@ -14,11 +14,10 @@ main {
 .jumbotron {
   display: flex;
   border-radius: 0;
-  border-bottom-left-radius: 4em;
   justify-content: space-evenly;
   align-items: center;
-  background: var(--primary);
   padding-bottom: 1em;
+  background: var(--primary);
 }
 .jumbotron img {
   align-self: flex-end;
@@ -43,9 +42,6 @@ main {
 }
 .jumbotron .logo-and-number a:hover {
   background: var(--dark);
-  border-radius: 1.5em;
-  text-decoration: none;
-  transition: 300ms;
 }
 .jumbotron .logo-and-number * {
   color: var(--secondary);
@@ -74,6 +70,7 @@ main {
   justify-content: center;
   align-items: center;
   margin: 2em 0;
+  background: var(--background);
 }
 .actions .btn {
   width: 80%;
@@ -97,11 +94,11 @@ main {
 }
 .map .card {
   padding: 1em;
-  border-radius: 1em;
+  border-radius: 0.5em;
 }
 .map iframe {
   width: 100%;
-  border-radius: 1em;
+  border-radius: 0.5em;
   margin-bottom: 1em;
 }
 .desktop .map iframe {
@@ -138,30 +135,6 @@ main {
 .social a * {
   width: 36px;
   height: 36px;
-}
-footer {
-  display: flex;
-  justify-content: center;
-  margin: 0 3em 10em 3em;
-}
-footer .card {
-  border-radius: 1em;
-}
-footer a {
-  background: white;
-  color: var(--primary);
-  transition: 300ms;
-  padding: 1.5em;
-  border-radius: 1em;
-}
-footer a:hover {
-  transition: 300ms;
-  text-decoration: none;
-  box-shadow: 3px 3px 2px 2px rgba(100, 100, 100, 0.25);
-}
-.fill {
-  fill: var(--primary);
-  stroke: var(--secondary);
 }
 .desktop {
   padding: 5em;

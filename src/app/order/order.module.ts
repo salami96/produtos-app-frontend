@@ -5,16 +5,18 @@ import { CommonModule } from '@angular/common';
 import { IconsModule } from '../icons/icons.module';
 import { DrawModule } from '../draw/draw.module';
 import { FormsModule } from '@angular/forms';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 @NgModule({
-  declarations: [ OrderComponent ],
+  declarations: [ OrderComponent, OrderDetailComponent ],
   imports: [
     CommonModule,
     DrawModule,
     FormsModule,
     IconsModule,
     RouterModule.forChild([
-      { path: '', component: OrderComponent, pathMatch: 'full'}
+      { path: '', component: OrderComponent, pathMatch: 'full' },
+      { path: ':cod', component: OrderDetailComponent }
     ])
 
   ]

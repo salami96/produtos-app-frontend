@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
   url: string;
   landing = false;
+  loading = true;
   observer: Subscription[] = [];
   img: string;
 
@@ -31,8 +32,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
-      this.img = 'assets/banner.png';
-      this.setColor('blue');
       this.url = window.location.host.split('.')[0];
       let code: string;
 
@@ -82,5 +81,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.meta.updateTag({ property: 'og:title', content: store.title });
     this.meta.updateTag({ property: 'og:description', content: store.slogan });
     this.meta.updateTag({ property: 'og:image', content: store.logo, itemprop: 'image' });
+    this.loading = false;
   }
 }

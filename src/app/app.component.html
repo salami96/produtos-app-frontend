@@ -1,10 +1,51 @@
-<div *ngIf="url && !landing">
+<style>
+    .fade:not(.show) {
+        display: none;
+    }
+    .blue {
+        color: #215C96;
+    }
+    footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 10em 2em;
+    }
+    footer .card {
+        border-radius: 0.5em;
+    }
+    footer a {
+        background: white;
+        color: #215c96;
+        transition: 300ms;
+        padding: 1.5em;
+        border-radius: 0.5em;
+    }
+    footer a:hover {
+        transition: 300ms;
+        text-decoration: none;
+        box-shadow: 3px 3px 2px 2px rgba(100, 100, 100, 0.25);
+    }
+    .fill {
+        fill: #215C96;
+        stroke: #CCE5FF;
+    }
+</style>
+<div class="fade" [class.show]="!loading && !landing">
     <app-navigation></app-navigation>
     <router-outlet></router-outlet>
 </div>
-<div *ngIf="!url || true" class="mt-5 py-5 mx-auto text-center">
-    <!-- <img src="{{img}}" class="w-100" alt="Logotipo da empresa"> -->
-    <img src="assets/logo.svg" style="width: 50%; max-width: 300px;" alt="Logotipo do portal produtos.app">
-    <div style="height: 200px;"></div>
-</div>
+<footer>
+    <div class="card text-center">
+        <a href="https://www.produtos.app">
+            Desenvolvido com <i-heart class="fill"></i-heart> por: <br>
+            <img src="assets/logo.svg" style="width: 80%; max-width: 300px; margin-top: 2em;" alt="Logotipo do portal produtos.app">
+        </a>
+    </div>
+    <div class="blue fade my-3" [class.show]="loading">
+        <i-loading></i-loading>
+        Carregando...
+    </div>
+</footer>
 <!-- <app-landing-page *ngIf="!landing && url"></app-landing-page> -->

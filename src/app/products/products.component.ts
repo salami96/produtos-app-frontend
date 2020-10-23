@@ -32,18 +32,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.sService.selectedStore) {
-      this.store = this.sService.selectedStore;
-      this.categories = this.sService.selectedStore.categories;
+      this.init(this.sService.selectedStore);
     } else {
       this.observer.push(
-        this.sService.store.subscribe(resp => {
-          this.store = resp;
-          this.categories = resp.categories;
-        })
+        this.sService.store.subscribe(this.init)
       );
     }
-    this.products = this.sService.getProducts();
-    this.filteredProducts = this.sService.getProducts();
     if (isPlatformBrowser(this.platformID)) {
       document.querySelector('nav').style.setProperty('box-shadow', '0 0 0 1em var(--dark)');
       this.selectedCategory = this.route.snapshot.queryParamMap.get('categoria');
@@ -65,6 +59,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
       //   // ).catch(e => console.log(e));
       // });
     }
+  }
+
+  init = (store: Store) => {
+    this.store = store;
+    this.categories = store.categories;
+    this.products = this.sService.getProducts();
+    this.filteredProducts = this.sService.getProducts();
   }
 
   isActive(i: number) {

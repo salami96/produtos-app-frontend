@@ -1,15 +1,13 @@
 .navbar.sticky-top.btn-toolbar {
     display: block;
     overflow-x: hidden;
-    padding: 1em 0;
+    padding: 1em 0 0;
     background: var(--primary);
     margin: 0 auto;
-    border-bottom-left-radius: 4em;
 }
 @media (min-width: 950px) {
     .navbar.sticky-top.btn-toolbar {
         background-color: var(--dark);
-        border-radius: 0 0 2em 2em;
     }
 }
 #category-selector {

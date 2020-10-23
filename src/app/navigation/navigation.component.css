@@ -11,9 +11,6 @@
 nav {
     background-color: var(--primary);
 }
-nav.navbar {
-    border-radius: 0 0 2em 2em;
-}
 .navbar-brand {
     color: white !important;
 }
@@ -21,8 +18,6 @@ nav.navbar {
     display: grid;
     grid-template: 1fr / 1fr 1fr 1fr 1fr;
     justify-content: space-around;
-    border-top-left-radius: 1.5em;
-    border-top-right-radius: 1.5em;
     box-shadow: -1px -1px 0.5em rgba(0, 0, 0, 0.5);
 }
 div.nav-item {

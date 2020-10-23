@@ -13,6 +13,13 @@ export class CartService {
   private _orderObserver: Subscriber<OrderItem[]>;
   private _orderItems: OrderItem[] = [];
 
+  private readonly options = {
+    headers: {
+      'authorization': 't5b3b9a5',
+      'Access-Control-Allow-Origin': '*'
+    }
+  };
+
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
     private http: HttpClient
@@ -114,12 +121,13 @@ export class CartService {
         status: 0,
         total
       },
-      {
-        headers: {
-          'authorization': 't5b3b9a5',
-          'Access-Control-Allow-Origin': '*'
-        }
-      }
+      this.options
     );
+  }
+
+  getOrder(cod: string) {
+    return this.http.get<Order>(
+      `https://produtos-server.herokuapp.com/order/` + cod, this.options
+    ).toPromise();
   }
 }
