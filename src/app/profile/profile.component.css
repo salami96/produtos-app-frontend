@@ -5,7 +5,6 @@ main {
   display: grid;
   grid-template-columns: 2fr 4fr;
   border-radius: 0;
-  border-bottom-left-radius: 4em;
   background: var(--dark);
   padding-bottom: 1em;
   align-items: center;
@@ -82,7 +81,7 @@ main {
 }
 .card {
   text-align: center;
-  border-radius: 1.5em;
+  border-radius: 0.5em;
   background: var(--primary);
   max-width: 500px;
   flex-grow: 1;
@@ -112,8 +111,8 @@ main {
   vertical-align: middle;
   color: var(--primary);
   gap: 0.5em;
-  border-top-left-radius: 1.5em;
-  border-top-right-radius: 1.5em;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
   background: linear-gradient(var(--secondary), white);
 }
 .card .card-body .actions {
@@ -126,7 +125,7 @@ main {
 }
 .shadow-0 {
   box-shadow: 0 -0.5px rgba(0, 0, 0, 0.25) !important;
-  border-radius: 1.5em;
+  border-radius: 0.5em;
 }
 .label-float{
   position: relative;
@@ -205,4 +204,7 @@ main {
     font-size: 1.1em;
     bottom: 1em !important;
   }
+}
+.card-footer {
+  background: white;
 }

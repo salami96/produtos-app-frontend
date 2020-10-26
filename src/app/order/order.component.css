@@ -18,7 +18,7 @@ main {
     display: flex;
     flex-direction: column;
     margin-bottom: 2em;
-    border-radius: 1.5em;
+    border-radius: 0.5em;
     border-color: var(--dark);
     box-shadow: inset 0px 5px var(--primary);
 }
@@ -27,34 +27,40 @@ main {
     transition: 300ms;
 } */
 .items.card .card-header {
-    border-top-left-radius: 1.5em;
-    border-top-right-radius: 1.5em;
-    height: 5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
     color: var(--secondary);
     background: var(--primary);
-    transition: 300ms;
+    transition: all 500ms;
 }
 .items.card > .card-body.colappsing {
     transition: 100ms;
 }
-.items.card > .card-body {
-    transition: 300ms;
-    border-top-left-radius: 1.5em;
-    border-top-right-radius: 1.5em;
+.items.card > .card-body,
+.card-logged .collapse.show {
+    transition: all 500ms;
+    padding: 0;
+    margin-top: -1em;
+}
+.card-footer {
+    border-radius: 0.5em;
+    background: white;
+}
+.collapse.show.card-body .card {
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    margin-bottom: 1em;
+    padding: 0.5em;
+}
+.card.empty-cart {
+    grid-template: 5fr 1fr / 1fr;
+    padding-top: 1em !important;
     background: linear-gradient(
         var(--secondary),
         white
     );
-    margin-top: -2em;
-    margin-bottom: 3em;
-}
-.items.card .card-footer {
-    margin-top: -2em;
-    border-radius: 1.5em;
-    background: white;
-}
-.card.empty-cart {
-    grid-template: 5fr 1fr / 1fr;
+    border: 0;
 }
 .card.empty-cart img {
     max-width: 300px;
@@ -63,7 +69,7 @@ main {
     display: grid;
     grid-template-columns: 2fr 5fr 1fr;
     text-align: center;
-    border-radius: 1em;
+    border-radius: 0.5em;
 }
 .card img {
     width: 100%;
@@ -108,13 +114,18 @@ main {
 .card-logged {
     text-align: center;
     display: flex;
-    border-radius: 1.5em;
-    background: var(--primary);
+    border-radius: 0.5em;
     max-width: 500px;
     flex-grow: 1;
+    border: 1px solid var(--primary);
 }
 .card-logged .btn-block {
     height: 2.5em;
+}
+.card-logged .card-header {
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    background: var(--primary);
 }
 .card-logged .card-title {
     color: var(--secondary);
@@ -124,8 +135,7 @@ main {
     margin: auto;
     background: linear-gradient(var(--secondary), white);
     box-shadow: 0 1.5em white;
-    border-top-left-radius: 1.5em;
-    border-top-right-radius: 1.5em;
+    border-radius: 0.5em;
 }
 .card-empty * {
     max-height: 10em;
@@ -139,8 +149,7 @@ main {
     vertical-align: middle;
     color: var(--primary);
     gap: 0.5em;
-    border-top-left-radius: 1.5em;
-    border-top-right-radius: 1.5em;
+    border-radius: 0.5em;
     background: linear-gradient(var(--secondary), white);
 }
 .card-logged .card-body .actions {
@@ -154,7 +163,7 @@ main {
 }
 .shadow-0 {
     box-shadow: 0 -0.5px rgba(0, 0, 0, 0.25) !important;
-    border-radius: 1.5em;
+    border-radius: 0.5em;
 }
 .selected {
     stroke: var(--dark);
@@ -253,7 +262,6 @@ input[type=number] {
 }
 .invalid {
     border: 5px solid tomato;
-    border-bottom: 0;
 }
 h5 .text-danger.show {
     background: var(--secondary);

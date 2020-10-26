@@ -11,7 +11,7 @@
       </h5>
     </div>
     <div class="card-body collapse show" id="itens">
-      <div class="card mt-2" *ngFor="let item of items; index as i">
+      <div class="card" *ngFor="let item of items; index as i">
         <img src="{{item.img}}" alt="Miniatura do Produto">
         <div class="card-body">
           <h6 class="card-title">{{item.name}}</h6>
@@ -34,12 +34,12 @@
           </span>
         </div>
       </div>
-      <div class="card empty-cart p-3" *ngIf="items == undefined || items.length == 0">
+      <div class="card empty-cart" *ngIf="items == undefined || items.length == 0">
         <undraw-empty></undraw-empty>
         <h6 class="card-title">Carrinho vazio...</h6>
       </div>
     </div>
-    <div class="card-footer">
+    <div class="card-footer" [style.margin-top]="isExpanded['itens'] ? '0' : '-1em'">
       <a routerLink="/produtos" class="btn btn-block btn-theme" *ngIf="items == undefined || items.length == 0">
         <i-tag></i-tag>Ver Produtos
       </a>
@@ -58,16 +58,18 @@
       <i-user></i-user>Entrar para continuar
     </a>
     <div *ngIf="user">
-      <div class="card card-logged pt-3 mx-auto" [class.invalid]="shipmentError" *ngIf="store">
-        <h5 class="card-title text-theme">
-          Entrega
-          <span class="pointer" data-toggle="collapse" data-target="#shipment" role="button" aria-expanded="true"
-          aria-controls="shipment" (click)="isExpanded['shipment'] = !isExpanded['shipment']">
-            <i-chevron-down [hidden]="isExpanded['shipment']"></i-chevron-down>
-            <i-chevron-up [hidden]="!isExpanded['shipment']"></i-chevron-up>
-          </span>
-          <div class="text-danger fade" [class.show]="shipmentError">Você precisa escolher a forma de entrega!</div>
-        </h5>
+      <div class="card card-logged mx-auto" [class.invalid]="shipmentError" *ngIf="store">
+        <div class="card-header">
+          <h5 class="card-title text-theme">
+            Entrega
+            <span class="pointer" data-toggle="collapse" data-target="#shipment" role="button" aria-expanded="true"
+            aria-controls="shipment" (click)="isExpanded['shipment'] = !isExpanded['shipment']">
+              <i-chevron-down [hidden]="isExpanded['shipment']"></i-chevron-down>
+              <i-chevron-up [hidden]="!isExpanded['shipment']"></i-chevron-up>
+            </span>
+            <div class="text-danger fade" [class.show]="shipmentError">Você precisa escolher a forma de entrega!</div>
+          </h5>
+        </div>
         <div class="collapse show" id="shipment">
           <div class="card-body" *ngFor="let ad of store.address; index as i">
             <div class="content">
@@ -91,20 +93,24 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-theme btn-block card-btn" [class.border-dark]="!isExpanded['shipment']" routerLink="/perfil/endereco" [queryParams]="{ origem: 'pedido' }">
-          <i-plus-circle></i-plus-circle>
-          Adicionar endereço
-        </button>
+        <div class="card-footer" [style.margin-top]="isExpanded['shipment'] ? '0' : '-1em'">
+          <button class="btn btn-theme btn-block card-btn" routerLink="/perfil/endereco" [queryParams]="{ origem: 'pedido' }">
+            <i-plus-circle></i-plus-circle>
+            Adicionar endereço
+          </button>
+        </div>
       </div>
-      <div class="card card-logged pt-3 mx-auto mt-3">
-        <h5 class="card-title text-theme">
-          Resumo
-          <span class="pointer" data-toggle="collapse" data-target="#resume" role="button" aria-expanded="true"
-          aria-controls="resume" (click)="isExpanded['resume'] = !isExpanded['resume']">
-            <i-chevron-down [hidden]="isExpanded['resume']"></i-chevron-down>
-            <i-chevron-up [hidden]="!isExpanded['resume']"></i-chevron-up>
-          </span>
-        </h5>
+      <div class="card card-logged mx-auto mt-3">
+        <div class="card-header">
+          <h5 class="card-title text-theme">
+            Resumo
+            <span class="pointer" data-toggle="collapse" data-target="#resume" role="button" aria-expanded="true"
+            aria-controls="resume" (click)="isExpanded['resume'] = !isExpanded['resume']">
+              <i-chevron-down [hidden]="isExpanded['resume']"></i-chevron-down>
+              <i-chevron-up [hidden]="!isExpanded['resume']"></i-chevron-up>
+            </span>
+          </h5>
+        </div>
         <div class="collapse show" id="resume">
           <div class="card-body">
             <span>Quantidade</span> <span><b>{{quantity}}</b></span>
@@ -125,13 +131,15 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-theme btn-block card-btn" [class.border-dark]="!isExpanded['resume']" *ngIf="quantity !== 0" (click)="finish()">
-          <div>
-            <i-check-circle class="fade" [class.show]="!loading"></i-check-circle>
-            <i-loading class="fade" [class.show]="loading"></i-loading>
-          </div>
-          Finalizar Pedido
-        </button>
+        <div class="card-footer" *ngIf="quantity !== 0" [style.margin-top]="isExpanded['resume'] ? '0' : '-1em'">
+          <button class="btn btn-theme btn-block card-btn" (click)="finish()">
+            <div>
+              <i-check-circle class="fade" [class.show]="!loading"></i-check-circle>
+              <i-loading class="fade" [class.show]="loading"></i-loading>
+            </div>
+            Finalizar Pedido
+          </button>
+        </div>
       </div>
     </div>
   </div>
