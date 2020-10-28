@@ -207,4 +207,5 @@ main {
 }
 .card-footer {
   background: white;
+  border-radius: 0.5em;
 }

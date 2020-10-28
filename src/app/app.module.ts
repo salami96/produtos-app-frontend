@@ -10,7 +10,6 @@ import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
 import { AuthGuard } from './services/auth.guard';
-import { ChildGuard } from './services/child.guard';
 
 import * as firebase from 'firebase';
 import { HttpClientModule } from '@angular/common/http';
@@ -59,7 +58,6 @@ const firebaseConfig = {
     // AngularFireAuth,
     // AngularFireModule,
     AuthGuard,
-    ChildGuard,
     DrawModule,
     IconsModule,
     LandingPageModule,

@@ -55,6 +55,11 @@ export class OrderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     auth().onAuthStateChanged(user => {
       this.user = this.uService.userData;
+      if (!this.user) {
+        setTimeout(() => {
+          this.user = this.uService.userData;
+        }, 2000);
+      }
     });
     if (this.sService.selectedStore) {
       this.store = this.sService.selectedStore;

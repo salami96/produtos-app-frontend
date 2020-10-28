@@ -141,29 +141,29 @@
     </div>
   </div>
 </div>
-<!-- <div class="modal fade" id="change-avatar" tabindex="-1" role="dialog" aria-labelledby="change-avatar" aria-hidden="true">
+<div class="modal fade" id="change-avatar" tabindex="-1" role="dialog" aria-labelledby="change-avatar" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-theme">Trocar Foto</h5>
-        <button type="button" class="close" data-dismiss="modal" id="senha-success" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" id="avatar-success" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <form class="modal-body" id="avatar">
         <div class="label-float">
-          <input type="password" [(ngModel)]="password" [class.invalid]="error['senha']" placeholder=" " (keyup.enter)="saveChanges('senha')" autofocus />
-          <label>Nova Senha</label>
+          <input type="file" placeholder="Escolha uma imagem" autofocus [(ngModel)]="avatar" name="avatar"/>
+          <label>Nova imagem de perfil</label>
         </div>
-        <div class="text-danger fade mt-1 text-right" [class.show]="error['senha']">A nova senha deve ter no mínimo 8 dígitos</div>
-      </div>
+        <div class="text-danger fade mt-1 text-right" [class.show]="error['avatar']">É necessário escolher uma foto para o seu perfil!</div>
+      </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-theme" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-theme" (click)="saveChanges('senha')">Salvar</button>
+        <button type="button" class="btn btn-theme" (click)="saveChanges('avatar')">Salvar</button>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 <div class="alert alert-success alert-dismissible fade" id="success" role="alert">
   <i-check></i-check>
   <strong> Perfeito!</strong>

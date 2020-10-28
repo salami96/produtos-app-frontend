@@ -101,7 +101,7 @@
         </div>
       </div>
       <div class="card card-logged mx-auto mt-3">
-        <div class="card-header">
+        <div class="card-header" [class.header-collapsed]="!isExpanded['resume'] && quantity === 0">
           <h5 class="card-title text-theme">
             Resumo
             <span class="pointer" data-toggle="collapse" data-target="#resume" role="button" aria-expanded="true"

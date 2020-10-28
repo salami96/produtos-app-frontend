@@ -90,7 +90,8 @@ const icons = [
   IconShare,
   IconDollarSign,
   IconCreditCard,
-  InsertIconComponent
+  InsertIconComponent,
+  IconHome
 ];
 
 @NgModule({

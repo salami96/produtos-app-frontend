@@ -37,9 +37,7 @@ export class UserService {
     }
     if (isPlatformBrowser(this.platformID)) {
       http.get(this.url, this.options);
-      if (localStorage['token']) {
-        this.getUser(localStorage['token']);
-      }
+      this.verifyLocalStorage();
       auth().onAuthStateChanged(user => {
         if (user) {
           localStorage['token'] = user.uid;
@@ -49,6 +47,12 @@ export class UserService {
           this.isLogged = false;
         }
       });
+    }
+  }
+
+  public verifyLocalStorage(page?: string) {
+    if (localStorage['token']) {
+      this.getUser(localStorage['token'], page);
     }
   }
 
@@ -146,6 +150,35 @@ export class UserService {
       auth().currentUser.photoURL !== resp.avatar) {
         auth().currentUser.updateProfile({
           displayName: resp.name,
+          photoURL: resp.avatar
+        });
+      }
+    }, error => {
+      console.log(error);
+    });
+
+    return response;
+  }
+
+  public async editUserAvatar(form: HTMLFormElement) {
+    const data = new FormData(form);
+    data.append('uid', this.userData.uid);
+    console.log(data);
+
+    // const op = {
+    //   headers: this.options.headers,
+    //   enctype: 'multipart/form-data',
+    //   processData: false,
+    //   contentType: false,
+    // };
+
+    const response = this.http.put<User>(`${this.url}/user-avatar`, data, this.options);
+    // const response = this.http.put<User>(`http://localhost:9000/user-avatar`, data, this.options);
+
+    response.subscribe(resp => {
+      this.userData = resp;
+      if (auth().currentUser.photoURL !== resp.avatar) {
+        auth().currentUser.updateProfile({
           photoURL: resp.avatar
         });
       }

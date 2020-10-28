@@ -2,7 +2,9 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { auth } from 'firebase';
 import { CartService } from '../../services/cart.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-order-detail',
@@ -14,21 +16,34 @@ export class OrderDetailComponent implements OnInit {
   order: Order;
   isExpanded: boolean[] = [];
   safeHtml: SafeHtml[] = [];
+  user: User;
 
   constructor(
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     @Inject(PLATFORM_ID) private platformID: Object,
     private cService: CartService,
+    private uService: UserService,
   ) { }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
+      auth().onAuthStateChanged(user => {
+        this.user = this.uService.userData;
+        if (!this.user) {
+          setTimeout(() => {
+            this.user = this.uService.userData;
+            if (this.user._id !== (this.order.client as any)._id) {
+              this.order = undefined;
+            }
+          }, 2000);
+        }
+      });
       this.isExpanded['itens'] = true;
       this.route.params.subscribe(async res => {
         this.cod = res.cod;
         this.cService.getOrder(res.cod).then(response => {
-          if (response) {
+          if (response.client) {
             this.order = response;
           }
         }).catch(e => console.log(e));

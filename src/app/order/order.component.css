@@ -26,12 +26,16 @@ main {
     height: 3em;
     transition: 300ms;
 } */
-.items.card .card-header {
+.card-header {
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
     color: var(--secondary);
     background: var(--primary);
     transition: all 500ms;
+}
+.header-collapsed {
+    border-radius: 0.5em;
+    height: 3em;
 }
 .items.card > .card-body.colappsing {
     transition: 100ms;

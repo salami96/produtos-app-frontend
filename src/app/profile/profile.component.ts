@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   name = '';
   phone = '';
   observer: Subscription[] = [];
+  avatar: any;
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
@@ -105,6 +106,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
       case 'senha':
         if (this.password.length >= 8) {
           this.uService.changePassword(this.password).then(() => this.success(field));
+        } else {
+          this.error[field] = true;
+        }
+      break;
+      case 'avatar':
+        if (this.avatar) {
+          this.uService.editUserAvatar(document.forms.item(0)).then(() => this.success(field));
         } else {
           this.error[field] = true;
         }

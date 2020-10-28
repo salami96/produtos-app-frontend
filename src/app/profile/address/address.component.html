@@ -24,17 +24,17 @@
           <input type="text" [(ngModel)]="address.street" [class.invalid]="error.street" id="street" placeholder=" " (keyup.enter)="focus('number')" />
           <label>Rua, Avenida, etc.</label>
         </div>
-        <div class="text-danger fade mt-1 text-right" [class.show]="error.street">É obrigatório informar o nome da rua!</div>
       </div>
       <div class="col-4">
         <div class="label-float">
           <input id="number" type="text" pattern="[0-9]*" minlength="1" [(ngModel)]="address.number" [class.invalid]="error.number" placeholder=" " (keyup.enter)="focus('district')" />
           <label>Nº</label>
         </div>
-        <div class="text-danger fade mt-1 text-right" [class.show]="error.number">É obrigatório informar o número!</div>
       </div>
-      <div class="text-muted fade mt-1 mx-auto" [class.show]="!error.number && address.number.length == 0"><i-info></i-info> Caso não possua nº, Informe 0.</div>
     </div>
+    <div class="text-danger fade mt-1 text-right" [class.show]="error.street">É obrigatório informar o nome da rua!</div>
+    <div class="text-danger fade mt-1 text-right" [class.show]="error.number">É obrigatório informar o número!</div>
+    <div class="text-muted fade mt-1 text-right" [class.show]="!error.number && address.number.length == 0"><i-info></i-info> Caso não possua nº, Informe 0.</div>
     <div class="label-float">
       <input type="text" [(ngModel)]="address.district" id="district" [class.invalid]="error.district" placeholder=" " (keyup.enter)="focus('city')" />
       <label>Bairro</label>

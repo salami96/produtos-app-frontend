@@ -47,7 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.url.includes('1') ||
       this.url.includes('produtos-app')
     ) {
-      code = 'nick';
+      code = 'copac';
     }
 
     this.sService.loadStore(code, this.cb);
