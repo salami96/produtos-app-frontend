@@ -19,9 +19,11 @@ main {
 .jumbotron .rounded-circle {
   justify-self: center;
   width: 30vw;
-  height: auto;
+  height: 30vw;
   max-width: 150px;
   border: 2px solid white;
+  background: whitesmoke;
+  object-fit: scale-down;
 }
 .jumbotron div, .jumbotron div a {
   max-width: 60vw;
