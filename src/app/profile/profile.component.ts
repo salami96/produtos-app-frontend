@@ -129,4 +129,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     document.getElementById(field + '-success').click();
   }
 
+  getFace(url: string) {
+    if (url.includes('cloudinary')) {
+      return url.replace(url.substr(50, 11), 'c_thumb,g_face,h_150,w_150');
+    } else {
+      return url;
+    }
+  }
+
 }

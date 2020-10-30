@@ -99,8 +99,8 @@ main {
   padding: 0 15% !important;
   background: linear-gradient(var(--secondary), white);
   box-shadow: 0 1.5em white;
-  border-top-left-radius: 1.5em;
-  border-top-right-radius: 1.5em;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
 }
 .card-empty * {
   max-height: 10em;
