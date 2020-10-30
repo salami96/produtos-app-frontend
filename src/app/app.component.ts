@@ -74,11 +74,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.meta.updateTag({ name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' });
     this.meta.updateTag({ property: 'og:url', content: `https://${store.code}.produtos.app` });
     // this.meta.updateTag({ property: 'og:type', content: 'website' });
-    this.meta.updateTag({ property: 'og:type', content: 'video' });
+    this.meta.updateTag({ property: 'og:type', content: 'video.other' });
     this.meta.updateTag({ property: 'og:title', content: store.title });
     this.meta.updateTag({ property: 'og:description', content: store.slogan });
     // this.meta.updateTag({ property: 'og:image', content: store.logo, itemprop: 'image' });
     this.meta.updateTag({ property: 'og:video', content: 'https://www.facebook.com/supercopac/videos/791847998216078', itemprop: 'video' });
+    this.meta.updateTag({ property: 'og:video:secure_url', content: 'https://www.facebook.com/supercopac/videos/791847998216078', itemprop: 'video' });
     this.loading = false;
   }
 }

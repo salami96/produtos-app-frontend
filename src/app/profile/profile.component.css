@@ -21,6 +21,7 @@ main {
   width: 30vw;
   height: 30vw;
   max-width: 150px;
+  max-height: 150px;
   border: 2px solid white;
   background: whitesmoke;
   object-fit: scale-down;
