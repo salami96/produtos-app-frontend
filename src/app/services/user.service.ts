@@ -176,6 +176,7 @@ export class UserService {
     // const response = this.http.put<User>(`http://localhost:9000/user-avatar`, data, this.options);
 
     response.subscribe(resp => {
+      console.log(resp);
       this.userData = resp;
       if (auth().currentUser.photoURL !== resp.avatar) {
         auth().currentUser.updateProfile({

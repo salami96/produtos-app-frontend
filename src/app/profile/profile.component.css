@@ -146,6 +146,9 @@ main {
   -webkit-transition: all .1s linear;
   -moz-transition: all .1s linear;
   -webkit-appearance:none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .label-float input:focus{
   border: 2px solid var(--primary);

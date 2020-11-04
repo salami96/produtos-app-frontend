@@ -1,6 +1,6 @@
 <main class="mobile">
   <section class="jumbotron">
-    <img src="{{getFace(user.avatar)}}" *ngIf="user.avatar" class="rounded-circle pointer" data-toggle="modal" data-target="#change-avatar" alt="Foto de Perfil do Usuário">
+    <img src="{{user.avatar}}" *ngIf="user.avatar" class="rounded-circle pointer" data-toggle="modal" data-target="#change-avatar" alt="Foto de Perfil do Usuário">
     <undraw-avatar *ngIf="!user.avatar" class="rounded-circle pointer" data-toggle="modal" data-target="#change-avatar"></undraw-avatar>
     <div>
       <h4 *ngIf="user">{{user.name}}</h4>
