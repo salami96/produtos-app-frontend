@@ -63,9 +63,9 @@ export class OrderDetailComponent implements OnInit {
   }
 
   showBadges(order: Order) {
-    this.title.setTitle('Pedido nº: ' + order.cod);
+    this.title.setTitle(this.title.getTitle() + ' - Pedido nº: ' + order.cod);
     this.meta.updateTag({ property: 'og:type', content: 'product' });
-    this.meta.updateTag({ property: 'og:title', content: 'Pedido nº: ' + order.cod });
+    this.meta.updateTag({ property: 'og:title', content: this.title.getTitle() });
     for (let index = 0; index < order.products.length; index++) {
       const el = order.products[index];
       this.meta.addTag({ property: 'og:image', content: el.img, itemprop: 'image' });
