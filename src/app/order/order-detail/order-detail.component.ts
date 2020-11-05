@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { store } from '@angular/core/src/render3';
+import { SafeHtml, DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { auth } from 'firebase';
 import { CartService } from '../../services/cart.service';
@@ -24,6 +25,8 @@ export class OrderDetailComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformID: Object,
     private cService: CartService,
     private uService: UserService,
+    private title: Title,
+    private meta: Meta,
   ) { }
 
   ngOnInit() {
@@ -43,6 +46,7 @@ export class OrderDetailComponent implements OnInit {
       this.route.params.subscribe(async res => {
         this.cod = res.cod;
         this.cService.getOrder(res.cod).then(response => {
+          this.showBadges(response);
           if (response.client) {
             this.order = response;
           }
@@ -58,9 +62,14 @@ export class OrderDetailComponent implements OnInit {
     }).format(price);
   }
 
-  showBadges(items: OrderItem[]) {
-    for (let index = 0; index < items.length; index++) {
-      const el = items[index];
+  showBadges(order: Order) {
+    this.title.setTitle('Pedido nº: ' + order.cod);
+    this.meta.updateTag({ property: 'og:type', content: 'product' });
+    this.meta.updateTag({ property: 'og:title', content: 'Pedido nº: ' + order.cod });
+    for (let index = 0; index < order.products.length; index++) {
+      const el = order.products[index];
+      this.meta.addTag({ property: 'og:image', content: el.img, itemprop: 'image' });
+
       let text = '';
       if (el.extras.length > 0) {
         text += '<hr class="m-0"><p class="m-0">Adicionar: ';

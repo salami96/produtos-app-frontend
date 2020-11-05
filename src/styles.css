@@ -1,5 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
+body {
+    --background: #E6EBF2;
+    --dark: #343a40;
+    --primary: #6C757B;
+    --secondary: #eef3f6;
+    --accent: #ff7575;
+}
+
 .btn.btn-block {
     display: grid;
     grid-template-columns: 1fr 12fr;

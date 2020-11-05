@@ -286,3 +286,6 @@ i-check-circle.fade:not(.show),
     height: 0;
     display: none;
 }
+#success .modal-content{
+    background: linear-gradient(135deg, var(--secondary) 5%, white);
+}

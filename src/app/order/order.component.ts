@@ -6,6 +6,7 @@ import { UserService } from '../services/user.service';
 import { auth } from 'firebase';
 import { StoreService } from '../services/store.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -49,7 +50,8 @@ export class OrderComponent implements OnInit, OnDestroy {
     @Inject(PLATFORM_ID) private platformID: Object,
     private cService: CartService,
     private uService: UserService,
-    private sService: StoreService
+    private sService: StoreService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -310,6 +312,13 @@ export class OrderComponent implements OnInit, OnDestroy {
         if (resp) {
           this.clear();
           this.loading = false;
+          document.getElementById('show-success').click();
+          setTimeout(() => {
+            document.getElementById('close-success').click();
+            this.router.navigate([ '/pedido/' + resp._id ]);
+            const url = `https://${this.store.code}.produtos.app/pedido/${resp._id}`;
+            window.open(`https://api.whatsapp.com/send?phone=55${this.store.phone}&text=Olá, fiz o pedido nº ${resp.cod} no seu site, link: ${url}`);
+          }, 5000);
           console.log(resp);
         }
       }).catch(e => {

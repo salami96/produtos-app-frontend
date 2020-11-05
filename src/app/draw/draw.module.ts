@@ -4,6 +4,7 @@ import { ConfusedComponent } from './confused/confused.component';
 import { E404Component } from './e404/e404.component';
 import { EmptyComponent } from './empty/empty.component';
 import { NoDataComponent } from './no-data/no-data.component';
+import { SuccessComponent } from './success/success.component';
 
 @NgModule({
   declarations: [
@@ -11,14 +12,16 @@ import { NoDataComponent } from './no-data/no-data.component';
     ConfusedComponent,
     E404Component,
     EmptyComponent,
-    NoDataComponent
+    NoDataComponent,
+    SuccessComponent
   ],
   exports: [
     AvatarComponent,
     ConfusedComponent,
     E404Component,
     EmptyComponent,
-    NoDataComponent
+    NoDataComponent,
+    SuccessComponent
   ]
 })
 export class DrawModule { }

@@ -36,9 +36,13 @@ export class StoreService {
 
   loadStore(code: string, cb: any) {
     this.http.get<Store>(this.url + 'store/' + code, this.options).subscribe(resp => {
-      cb(resp);
-      this.store.next(resp);
-      this.selectedStore = resp;
+      if (resp) {
+        cb(resp);
+        this.store.next(resp);
+        this.selectedStore = resp;
+      } else {
+        this.loadStore('exemplo', cb);
+      }
     });
     this.http.get<Product[]>(this.url + 'products/' + code, this.options).subscribe(resp2 => this.products = resp2);
   }
