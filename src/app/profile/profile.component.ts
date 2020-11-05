@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   phone = '';
   observer: Subscription[] = [];
   avatar: any;
+  successMsg: boolean;
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
@@ -54,7 +55,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.phone = this.user.phone;
     this.name = this.user.name;
     if (isPlatformBrowser(this.platformID)) {
-      document.querySelector('nav').style.setProperty('box-shadow', '0 0 0 1em var(--dark)');
+      if (!this.user.phone) {
+        document.getElementById('add-phone').click();
+      }
     }
   }
 
@@ -112,7 +115,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
       break;
       case 'avatar':
         if (this.avatar) {
-          this.uService.editUserAvatar(document.forms.item(0)).then(() => this.success(field));
+          this.uService.editUserAvatar(document.forms.item(0)).then(resp => {
+            resp.subscribe(user => {
+              this.user = user;
+              this.success(field);
+            });
+          });
         } else {
           this.error[field] = true;
         }
@@ -122,9 +130,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   success(field: string) {
     this.error[field] = false;
-    document.getElementById('success').className += 'show';
+    this.successMsg = true; // document.getElementById('success').className += 'show';
     setTimeout(() => {
-      document.getElementById('success').className = 'alert alert-success alert-dismissible fade';
+      this.successMsg = false; // document.getElementById('success').className = 'alert alert-success alert-dismissible fade';
     }, 5000);
     document.getElementById(field + '-success').click();
   }

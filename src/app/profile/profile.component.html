@@ -63,7 +63,7 @@
       </div>
       <div class="card-body">
         <p>Telefone: {{user.phone}}</p>
-        <i-edit class="pointer" data-toggle="modal" data-target="#edit-phone"></i-edit>
+        <i-edit class="pointer" id="add-phone" data-toggle="modal" data-target="#edit-phone"></i-edit>
       </div>
       <div class="card-body shadow-0">
         <p>Senha: ********</p>
@@ -164,7 +164,7 @@
     </div>
   </div>
 </div>
-<div class="alert alert-success alert-dismissible fade" id="success" role="alert">
+<div class="alert alert-success alert-dismissible fade" [class.show]="successMsg" role="alert">
   <i-check></i-check>
   <strong> Perfeito!</strong>
   <hr>
