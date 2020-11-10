@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.css' ]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   url: string;
   landing = false;
   loading = true;
@@ -24,12 +24,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private title: Title,
     private meta: Meta,
   ) { }
-
-  ngOnDestroy() {
-    if (this.observer) {
-      this.observer.forEach(o => o.unsubscribe);
-    }
-  }
 
   ngOnInit() {
     let code: string;
