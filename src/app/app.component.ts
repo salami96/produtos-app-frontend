@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
       code = 'copac';
     }
 
-    this.sService.loadStore(code, this.cb);
+    this.sService.filterStore(code, this.cb);
   }
 
   setColor(active: string) {

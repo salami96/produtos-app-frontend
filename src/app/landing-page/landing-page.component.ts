@@ -34,7 +34,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   setStore(code: string) {
-    this.sService.loadStore(code, this.cb);
+    this.sService.filterStore(code, this.cb);
   }
 
   cb = (store: Store) => {

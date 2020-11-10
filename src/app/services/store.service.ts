@@ -24,7 +24,9 @@ export class StoreService {
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) {
+    this.loadStores();
+  }
 
   getProducts() {
     return this.products;
@@ -34,16 +36,23 @@ export class StoreService {
     return this.getProducts().find(prod => prod.cod === cod);
   }
 
-  loadStore(code: string, cb: any) {
-    this.http.get<Store>(this.url + 'store/' + code, this.options).subscribe(resp => {
-      if (resp) {
-        cb(resp);
-        this.store.next(resp);
-        this.selectedStore = resp;
-      } else {
-        this.loadStore('exemplo', cb);
-      }
+  loadStores() {
+    this.http.get<Store[]>(this.url + 'stores/', this.options).subscribe(resp => {
+      this.stores = resp;
     });
+  }
+
+  filterStore(code: string, cb: any) {
+    if (this.stores) {
+      const resp = this.stores.find(store => store.code === code);
+      cb(resp);
+      this.store.next(resp);
+      this.selectedStore = resp;
+    } else {
+      setTimeout(() => {
+        this.filterStore(code, cb);
+      }, 250);
+    }
     this.http.get<Product[]>(this.url + 'products/' + code, this.options).subscribe(resp2 => this.products = resp2);
   }
 }
