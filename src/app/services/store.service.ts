@@ -48,11 +48,11 @@ export class StoreService {
       cb(resp);
       this.store.next(resp);
       this.selectedStore = resp;
+      this.http.get<Product[]>(this.url + 'products/' + code, this.options).subscribe(resp2 => this.products = resp2);
     } else {
       setTimeout(() => {
         this.filterStore(code, cb);
       }, 250);
     }
-    this.http.get<Product[]>(this.url + 'products/' + code, this.options).subscribe(resp2 => this.products = resp2);
   }
 }
