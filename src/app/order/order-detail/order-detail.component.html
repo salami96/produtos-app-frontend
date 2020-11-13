@@ -1,5 +1,46 @@
 <div id="body">
   <main *ngIf="order">
+    <div class="card">
+      <div class="card-header">
+        <h5>Resumo</h5>
+      </div>
+      <div class="card-body">
+        <div class="images">
+          <img src="{{order.client.avatar}}" class="rounded-circle avatar" alt="Foto do cliente">
+          <i-shopping-bag></i-shopping-bag>
+          <img src="{{order.store.logo}}" class="rounded-circle avatar" alt="Logotipo da empresa">
+        </div>
+        <h6>{{order.client.name}} fez o pedido #{{order.cod}} em {{order.store.title}} com {{order.products.lenght}} item(s) por R$ {{order.total}}, pagamento em {{order.payment.name}}</h6>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" [class.header-collapsed]="!isExpanded['itens']">
+        <h5>
+          Itens
+          <span class="pointer" data-toggle="collapse" data-target=".itens" role="button" aria-expanded="true"
+          aria-controls="itens" (click)="isExpanded['itens'] = !isExpanded['itens']">
+            <i-chevron-down [hidden]="isExpanded['itens']"></i-chevron-down>
+            <i-chevron-up [hidden]="!isExpanded['itens']"></i-chevron-up>
+          </span>
+        </h5>
+      </div>
+      <div class="card-body collapse show itens">
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" [class.header-collapsed]="!isExpanded['itens']">
+        <h5>
+          Itens
+          <span class="pointer" data-toggle="collapse" data-target=".itens" role="button" aria-expanded="true"
+          aria-controls="itens" (click)="isExpanded['itens'] = !isExpanded['itens']">
+            <i-chevron-down [hidden]="isExpanded['itens']"></i-chevron-down>
+            <i-chevron-up [hidden]="!isExpanded['itens']"></i-chevron-up>
+          </span>
+        </h5>
+      </div>
+      <div class="card-body collapse show itens">
+      </div>
+    </div>
     <div class="items card">
       <div class="card-header" [class.header-collapsed]="!isExpanded['itens']">
         <h5>

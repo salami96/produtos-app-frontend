@@ -47,9 +47,8 @@ export class OrderDetailComponent implements OnInit {
         this.cod = res.cod;
         this.cService.getOrder(res.cod).then(response => {
           this.showBadges(response);
-          if (response.client) {
-            this.order = response;
-          }
+          this.order = response;
+          console.log(response);
         }).catch(e => console.log(e));
       });
     }
