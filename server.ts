@@ -37,7 +37,7 @@ axios.get(
 });
 
 function find(code: string) {
-  return stores.find(s => {
+  let found = stores.find(s => {
     if (
       code.includes('localhost') ||
       code.includes('www') ||
@@ -49,6 +49,11 @@ function find(code: string) {
       return s.code === code;
     }
   });
+  if (found) {
+    return found;
+  } else {
+    return stores.find(s => s.code === 'exemplo');
+  }
 }
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)

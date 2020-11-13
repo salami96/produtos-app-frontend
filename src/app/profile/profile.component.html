@@ -34,27 +34,6 @@
         </button>
       </div>
     </div>
-    <!-- <div class="card pt-3 m-3">
-      <h5 class="card-title text-theme">Pedidos</h5>
-      <div class="card-empty" *ngIf="orders.length == 0">
-        <undraw-no-data></undraw-no-data>
-        <h6 class="text-theme">Nenhum pedido ainda</h6>
-      </div>
-      <div class="card-body" *ngFor="let order of orders">
-        <div class="content">
-          <p class="m-0">pedido #{{order.number}}</p>
-          <p class="m-0">data: {{order.date}}</p>
-        </div>
-        <div class="actions">
-          <i-search class="pointer" style="stroke: var(--dark);"></i-search>
-          <i-copy class="pointer"></i-copy>
-        </div>
-      </div>
-      <button class="btn btn-theme btn-block" routerLink="/produtos">
-        <i-tag></i-tag>
-        Começar novo pedido
-      </button>
-    </div> -->
     <div class="card pt-3 m-3">
       <h5 class="card-title text-theme">Dados</h5>
       <div class="card-body">
@@ -68,6 +47,29 @@
       <div class="card-body shadow-0">
         <p>Senha: ********</p>
         <i-edit class="pointer" data-toggle="modal" data-target="#edit-password"></i-edit>
+      </div>
+    </div>
+    <div class="card pt-3 m-3">
+      <h5 class="card-title text-theme">Pedidos</h5>
+      <div class="card-empty" *ngIf="orders.length == 0">
+        <undraw-no-data></undraw-no-data>
+        <h6 class="text-theme">Nenhum pedido ainda</h6>
+      </div>
+      <div class="card-body" *ngFor="let order of orders">
+        <div class="content">
+          <p class="m-0">pedido #{{order.number}}</p>
+          <p class="m-0">data: {{order.date}}</p>
+        </div>
+        <div class="actions">
+          <i-search class="pointer" style="stroke: var(--dark);" [routerLink]="'/pedido/' + order._id"></i-search>
+          <i-copy class="pointer"></i-copy>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-theme btn-block" routerLink="/produtos">
+          <i-tag></i-tag>
+          Começar novo pedido
+        </button>
       </div>
     </div>
   </section>
