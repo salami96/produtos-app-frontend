@@ -9,6 +9,9 @@ import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import * as express from 'express';
 import { join } from 'path';
 
+import axios from 'axios';
+
+
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
 
@@ -21,12 +24,40 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./server/main');
 
+let stores: any[] = [];
+
+axios.get(
+  'https://produtos-server.herokuapp.com/stores',
+  { headers: {
+    'authorization': 't5b3b9a5',
+    'Access-Control-Allow-Origin': '*'
+  }
+}).then(resp => {
+  stores = resp.data;
+});
+
+function find(code: string) {
+  return stores.find(s => {
+    if (
+      code.includes('localhost') ||
+      code.includes('www') ||
+      code.includes('1') ||
+      code.includes('produtos-app')
+    ) {
+      return s.code === 'copac';
+    } else {
+      return s.code === code;
+    }
+  });
+}
+
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 app.engine('html', (_, options, callback) => {
   const engine = ngExpressEngine({
       bootstrap: AppServerModuleNgFactory,
       providers: [
           { provide: 'request', useFactory: () => options.req, deps: [] },
+          { provide: 'obj', useFactory: () => find(options.req.get('host').split('.')[0]), deps: [] },
           provideModuleMap(LAZY_MODULE_MAP)
       ]
   });

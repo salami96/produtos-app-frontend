@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     @Optional() @Inject('request') private request: any,
+    @Optional() @Inject('obj') private obj: any,
     @Inject(PLATFORM_ID) private platformID: Object,
     private sService: StoreService,
     private title: Title,
@@ -29,22 +30,23 @@ export class AppComponent implements OnInit {
     let code: string;
     if (isPlatformBrowser(this.platformID)) {
       this.url = window.location.host.split('.')[0];
+
+      code = this.url;
+
+      if (
+        this.url.includes('localhost') ||
+        this.url.includes('www') ||
+        this.url.includes('1') ||
+        this.url.includes('produtos-app')
+      ) {
+        code = 'copac';
+      }
+
+      this.sService.filterStore(code, this.cb);
+
     } else if (isPlatformServer(this.platformID)) {
-      this.url = this.request.get('host').split('.')[0];
+      this.cb(this.obj);
     }
-
-    code = this.url;
-
-    if (
-      this.url.includes('localhost') ||
-      this.url.includes('www') ||
-      this.url.includes('1') ||
-      this.url.includes('produtos-app')
-    ) {
-      code = 'copac';
-    }
-
-    this.sService.filterStore(code, this.cb);
   }
 
   setColor(active: string) {
