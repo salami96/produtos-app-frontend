@@ -52,8 +52,8 @@ interface Order {
     _id: string;
     cod: number;
     products: OrderItem[];
-    client: string;
-    store: string;
+    client: User;
+    store: Store;
     date: Date;
     payment: Payment;
     address: Address;

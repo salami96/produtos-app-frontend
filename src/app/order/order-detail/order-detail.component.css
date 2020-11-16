@@ -1,12 +1,15 @@
 #body {
     min-height: 100vh;
-    padding: 2em;
+    padding: 2em 0;
 }
 main {
     padding: 1em;
     color: var(--primary);
     max-width: 700px;
     margin: auto;
+    display: grid;
+    grid-template: 1fr;
+    gap: 1em;
 }
 @media (min-width: 950px) {
     main {
@@ -22,18 +25,18 @@ main {
     flex-direction: column;
     margin-bottom: 2em;
     border-radius: 0.5em;
-    border-color: var(--dark);
 }
 /* .items.card .card-header.body-expanded {
     height: 3em;
     transition: 300ms;
 } */
-.items.card .card-header {
+.card-header {
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
     color: var(--secondary);
     background: var(--primary);
     transition: all 500ms;
+    margin-right: -0.5px;
 }
 .header-collapsed {
     border-radius: 0.5em;
@@ -41,6 +44,24 @@ main {
 }
 .items.card > .card-body.colappsing {
     transition: 100ms;
+}
+.resume.card > .card-body {
+    margin-top: -1em;
+    border-radius: 0.5em;
+    background: white;
+    margin-right: -0.5px;
+}
+.resume.card .dados {
+    display: grid;
+    grid-template: repeat(5, 1fr) / 1fr 1fr;
+    column-gap: 0.5em;
+    justify-items: flex-end;
+    color: var(--dark)
+}
+.left {
+    justify-self: left;
+    color: var(--primary);
+    font-weight: 500;
 }
 .items.card > .card-body,
 .card-logged .collapse.show {
@@ -80,10 +101,12 @@ main {
 .items .card {
     display: grid;
     grid-template-columns: 2fr 5fr 1fr;
+    border: 0.5px solid rgba(0, 0, 0, 0.25);
 }
 .card {
     text-align: center;
     border-radius: 0.5em;
+    border-color: var(--dark);
 }
 .items .card img {
     width: 100%;
@@ -124,25 +147,6 @@ main {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
-}
-.card-logged {
-    text-align: center;
-    display: flex;
-    border-radius: 0.5em;
-    max-width: 500px;
-    flex-grow: 1;
-    border: 1px solid var(--primary);
-}
-.card-logged .btn-block {
-    height: 2.5em;
-}
-.card-logged .card-header {
-    border-top-left-radius: 0.5em;
-    border-top-right-radius: 0.5em;
-    background: var(--primary);
-}
-.card-logged .card-title {
-    color: var(--secondary);
 }
 .card-empty {
     padding: 0 15% !important;
@@ -311,4 +315,5 @@ i-check-circle.fade:not(.show),
     height: 15vw;
     max-width: 100px;
     max-height: 100px;
+    border: 2px solid white;
 }
