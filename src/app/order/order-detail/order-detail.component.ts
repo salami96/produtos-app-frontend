@@ -1,6 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { store } from '@angular/core/src/render3';
 import { SafeHtml, DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { auth } from 'firebase';
@@ -18,6 +17,7 @@ export class OrderDetailComponent implements OnInit {
   isExpanded: boolean[] = [];
   safeHtml: SafeHtml[] = [];
   user: User;
+  map: SafeHtml;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -43,6 +43,7 @@ export class OrderDetailComponent implements OnInit {
         }
       });
       this.isExpanded['itens'] = true;
+      this.isExpanded['status'] = true;
       this.route.params.subscribe(async res => {
         this.cod = res.cod;
         this.cService.getOrder(res.cod).then(response => {
@@ -93,6 +94,11 @@ export class OrderDetailComponent implements OnInit {
         this.safeHtml[index] = this.sanitizer.bypassSecurityTrustHtml(text);
       }
     }
+  }
+
+  getRoute() {
+    const { street, number, city, zipCode } = this.order.address;
+    window.open(`https://www.google.com.br/maps/dir//${street}, ${number} ${zipCode} ${city}`);
   }
 
   read(ad: Address) {

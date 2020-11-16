@@ -45,6 +45,13 @@ main {
 .items.card > .card-body.colappsing {
     transition: 100ms;
 }
+.map.card .card-body,
+.status.card .card-body {
+    background: linear-gradient(135deg, var(--secondary) 5%, white);
+    margin-top: -1em;
+    border-radius: 0.5em;
+    color: var(--dark);
+}
 .resume.card > .card-body {
     margin-top: -1em;
     border-radius: 0.5em;
