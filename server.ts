@@ -27,7 +27,7 @@ const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./server/main');
 let stores: any[] = [];
 
 axios.get(
-  'https://produtos-server.herokuapp.com/stores',
+  'https://produtos-server.herokuapp.com/api/stores',
   { headers: {
     'authorization': 't5b3b9a5',
     'Access-Control-Allow-Origin': '*'

@@ -13,7 +13,7 @@
         <div class="dados">
           <div>Cliente: </div>
           <div class="left">{{order.client.name}}</div>
-          <div>Loja: </div>
+          <div>Empresa: </div>
           <div class="left">{{order.store.title}}</div>
           <div>Quantidade: </div>
           <div class="left">{{order.products.length + (order.products.length === 1 ? ' Item' : ' Itens')}}</div>
@@ -60,18 +60,18 @@
       <div class="card-header">
         <h5>
           Endereço da entrega
-          <span class="pointer" data-toggle="collapse" data-target="#map" role="button" aria-expanded="true"
-            aria-controls="map" (click)="isExpanded['map'] = !isExpanded['map']">
-            <i-chevron-down [hidden]="isExpanded['map']"></i-chevron-down>
-            <i-chevron-up [hidden]="!isExpanded['map']"></i-chevron-up>
+          <span class="pointer" data-toggle="collapse" data-target="#address" role="button" aria-expanded="true"
+            aria-controls="map" (click)="isExpanded['address'] = !isExpanded['address']">
+            <i-chevron-down [hidden]="isExpanded['address']"></i-chevron-down>
+            <i-chevron-up [hidden]="!isExpanded['address']"></i-chevron-up>
           </span>
         </h5>
       </div>
-      <div class="card-body collapse show" id="map">
+      <div class="card-body collapse show" id="address">
         <undraw-map></undraw-map>
         <h6>{{read(order.address)}}</h6>
       </div>
-      <div class="card-footer" [style.margin-top]="isExpanded['map'] ? '0' : '-1em'">
+      <div class="card-footer">
         <button class="btn btn-theme btn-block" (click)="getRoute()"><i-map></i-map>Como Chegar</button>
       </div>
     </div>
@@ -106,102 +106,12 @@
         </div>
       </div>
     </div>
-    <div>
-      <a routerLink="/perfil/entrar" [queryParams]="{ pagina: 'pedido/' + cod }" class="btn btn-block btn-theme"
-        *ngIf="!user">
-        <i-user></i-user>Entrar para continuar
-      </a>
-      <!--     <div>
-        <div class="card card-logged pt-3 mx-auto">
-          <h5 class="card-title text-theme">
-            Entrega
-            <span class="pointer" data-toggle="collapse" data-target="#shipment" role="button" aria-expanded="true"
-            aria-controls="shipment" (click)="isExpanded['shipment'] = !isExpanded['shipment']">
-              <i-chevron-down [hidden]="isExpanded['shipment']"></i-chevron-down>
-              <i-chevron-up [hidden]="!isExpanded['shipment']"></i-chevron-up>
-            </span>
-            <div class="text-danger fade" [class.show]="shipmentError">Você precisa escolher a forma de entrega!</div>
-          </h5>
-          <div class="collapse show" id="shipment">
-            <div class="card-body" *ngFor="let ad of store.address; index as i">
-              <div class="content">
-                <span><b>Retirar na loja:</b> <br>{{read(ad)}}</span>
-              </div>
-              <div class="actions pointer" (click)="setShipment(ad, true)">
-                Grátis
-                <i-circle *ngIf="selectedAddress !== ad" class="mx-auto"></i-circle>
-                <i-check-circle *ngIf="selectedAddress === ad" style="stroke: var(--dark)" class="mx-auto"></i-check-circle>
-              </div>
-            </div>
-            <div class="card-body" *ngFor="let ad of user.address">
-              <div class="content">
-                <b [hidden]="calcShip(ad.zipCode) >= 0">Infelizmente não entregamos nesse local 🙁<br></b>
-                <span [class.out-of-range]="calcShip(ad.zipCode) < 0"><b>Receber em:</b> <br>{{read(ad)}}</span>
-              </div>
-              <div class="actions pointer" [class.fade]="calcShip(ad.zipCode) < 0" (click)="setShipment(ad)">
-                {{formatPrice(calcShip(ad.zipCode))}}
-                <i-circle *ngIf="selectedAddress !== ad" class="mx-auto"></i-circle>
-                <i-check-circle *ngIf="selectedAddress === ad" style="stroke: var(--dark)" class="mx-auto"></i-check-circle>
-              </div>
-            </div>
-          </div>
-          <button class="btn btn-theme btn-block card-btn" [class.border-dark]="!isExpanded['shipment']" routerLink="/perfil/endereco" [queryParams]="{ origem: 'pedido' }">
-            <i-plus-circle></i-plus-circle>
-            Adicionar endereço
-          </button>
-        </div>
-        <div class="card card-logged pt-3 mx-auto mt-3">
-          <h5 class="card-title text-theme">
-            Resumo
-            <span class="pointer" data-toggle="collapse" data-target="#resume" role="button" aria-expanded="true"
-            aria-controls="resume" (click)="isExpanded['resume'] = !isExpanded['resume']">
-              <i-chevron-down [hidden]="isExpanded['resume']"></i-chevron-down>
-              <i-chevron-up [hidden]="!isExpanded['resume']"></i-chevron-up>
-            </span>
-          </h5>
-          <div class="collapse show" id="resume">
-            <div class="card-body">
-              <span>Quantidade</span> <span><b>{{quantity}}</b></span>
-            </div>
-            <div class="card-body">
-              <span>Total</span> <span><b>{{formatPrice(total)}}</b></span>
-            </div>
-            <div class="card-body" *ngIf="store" [class.invalid]="paymentError" [class.shadow-0]="quantity === 0">
-              <div>
-                <span>Forma de Pagamento</span>
-                <div class="text-danger fade" [class.show]="paymentError">Você precisa escolher uma forma de pagamento!</div>
-              </div>
-              <div class="payments">
-                <div class="pointer" [class.selected]="formaPgto == p" (click)="formaPgto = p" *ngFor="let p of store.payments">
-                  <app-insert-icon icon="{{p.icon}}"></app-insert-icon>
-                  <span class="ml-2">{{p.name}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="btn btn-theme btn-block card-btn" [class.border-dark]="!isExpanded['resume']" *ngIf="quantity !== 0" (click)="finish()">
-            <div>
-              <i-check-circle class="fade" [class.show]="!loading"></i-check-circle>
-              <i-loading class="fade" [class.show]="loading"></i-loading>
-            </div>
-            Finalizar Pedido
-          </button>
-        </div>
-      </div> -->
-    </div>
   </main>
   <div *ngIf="!order && user" class="empty-cart">
     <undraw-confused></undraw-confused>
     <h3 class="text-theme">O pedido não foi encontrado...</h3>
     <a class="btn-theme btn-block btn" routerLink="/">
       <i-home></i-home>Voltar a página inicial?
-    </a>
-  </div>
-  <div *ngIf="!user" class="empty-cart">
-    <undraw-confused></undraw-confused>
-    <h3 class="text-theme">Acesso negado... Para ver esse pedido, você precisa entra na sua conta...</h3>
-    <a class="btn-theme btn-block btn" routerLink="/perfil/entrar" [queryParams]="{ origem: 'pedido/' + id }">
-      <i-user></i-user>Entrar para ver
     </a>
   </div>
 </div>

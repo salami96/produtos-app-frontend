@@ -108,7 +108,7 @@ export class CartService {
 
   buy(store: string, client: string, address: Address, payment: string, pickup: boolean, total: number) {
     return this.http.post<Order>(
-      `https://produtos-server.herokuapp.com/order`,
+      `https://produtos-server.herokuapp.com/api/order`,
       {
         cod: 0,
         products: this._orderItems,
@@ -127,7 +127,7 @@ export class CartService {
 
   getOrder(cod: string) {
     return this.http.get<Order>(
-      `https://produtos-server.herokuapp.com/order/` + cod, this.options
+      `https://produtos-server.herokuapp.com/api/order/` + cod, this.options
     ).toPromise();
   }
 }

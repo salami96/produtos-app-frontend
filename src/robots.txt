@@ -1,3 +1,3 @@
 User-agent: *
 Disallow: 
-Sitemap: https://copac.herokuapp.com/sitemap.xml
+Sitemap: https://copac.herokuapp.com/api/sitemap.xml

@@ -42,6 +42,7 @@ export class OrderDetailComponent implements OnInit {
           }, 2000);
         }
       });
+      this.isExpanded['address'] = true;
       this.isExpanded['itens'] = true;
       this.isExpanded['status'] = true;
       this.route.params.subscribe(async res => {
@@ -49,7 +50,6 @@ export class OrderDetailComponent implements OnInit {
         this.cService.getOrder(res.cod).then(response => {
           this.showBadges(response);
           this.order = response;
-          console.log(response);
         }).catch(e => console.log(e));
       });
     }
