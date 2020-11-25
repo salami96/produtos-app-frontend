@@ -11,7 +11,7 @@ import { StoreService } from './store.service';
 export class UserService {
   isLogged: boolean;
   userData: User;
-  url = 'https://produtos-server.herokuapp.com';
+  url = 'https://produtos-server.herokuapp.com/api';
   // url = 'http://10.1.1.119:9000';
   options = {
     headers: {
