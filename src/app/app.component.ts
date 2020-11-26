@@ -60,19 +60,21 @@ export class AppComponent implements OnInit {
   }
 
   cb = (store: Store) => {
-    this.title.setTitle(store.title);
-    this.meta.updateTag({ name: 'keywords', content: store.code });
-    this.meta.updateTag({ name: 'description', content: store.slogan });
-    if (isPlatformBrowser(this.platformID)) {
-      this.meta.updateTag({ name: 'theme-color', content: this.setColor(store.color) });
+    if (store) {
+      this.title.setTitle(store.title);
+      this.meta.updateTag({ name: 'keywords', content: store.code });
+      this.meta.updateTag({ name: 'description', content: store.slogan });
+      if (isPlatformBrowser(this.platformID)) {
+        this.meta.updateTag({ name: 'theme-color', content: this.setColor(store.color) });
+      }
+      this.meta.updateTag({ name: 'apple-mobile-web-app-capable', content: 'yes' });
+      this.meta.updateTag({ name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' });
+      this.meta.updateTag({ property: 'og:url', content: `https://${store.code}.produtos.app` });
+      this.meta.updateTag({ property: 'og:type', content: 'product' });
+      this.meta.updateTag({ property: 'og:title', content: store.title });
+      this.meta.updateTag({ property: 'og:description', content: store.slogan });
+      this.meta.updateTag({ property: 'og:image', content: store.logo, itemprop: 'image' });
+      this.loading = false;
     }
-    this.meta.updateTag({ name: 'apple-mobile-web-app-capable', content: 'yes' });
-    this.meta.updateTag({ name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' });
-    this.meta.updateTag({ property: 'og:url', content: `https://${store.code}.produtos.app` });
-    this.meta.updateTag({ property: 'og:type', content: 'product' });
-    this.meta.updateTag({ property: 'og:title', content: store.title });
-    this.meta.updateTag({ property: 'og:description', content: store.slogan });
-    this.meta.updateTag({ property: 'og:image', content: store.logo, itemprop: 'image' });
-    this.loading = false;
   }
 }
