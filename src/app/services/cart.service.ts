@@ -106,7 +106,7 @@ export class CartService {
     this._orderObserver.next(items);
   }
 
-  buy(store: string, client: string, address: Address, payment: string, pickup: boolean, total: number) {
+  buy(store: string, client: string, address: string, payment: string, pickup: boolean, total: number) {
     return this.http.post<Order>(
       `https://produtos-server.herokuapp.com/api/order`,
       {

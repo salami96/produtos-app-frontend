@@ -85,6 +85,7 @@ interface User {
     avatar: string;
 }
 interface Address {
+    _id: string;
     name: string;
     street: string;
     number: string;

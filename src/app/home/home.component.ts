@@ -38,9 +38,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       );
     }
     if (isPlatformBrowser(this.platformID)) {
-      this.innerWidth = window.innerWidth;
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.canLoad = true;
+      this.innerWidth = window.innerWidth;
       window.onresize = () => {
         this.innerWidth = window.innerWidth;
       };

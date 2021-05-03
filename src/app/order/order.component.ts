@@ -304,7 +304,7 @@ export class OrderComponent implements OnInit, OnDestroy {
         this.cService.buy(
         this.store._id,
         this.user._id,
-        this.selectedAddress,
+        this.selectedAddress._id,
         this.formaPgto._id,
         this.pickUp,
         this.total
