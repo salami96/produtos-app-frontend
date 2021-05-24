@@ -51,10 +51,17 @@
           <h6>O pedido saiu para entrega! <span class="badge badge-pill badge-theme px-2 py-1">{{order.date[order.status] | date : 'short' }}</span></h6>
         </div>
         <div *ngIf="order.status === 3">
+          <undraw-order-ready></undraw-order-ready>
+          <h6>O pedido está pronto para retirar! <span class="badge badge-pill badge-theme px-2 py-1">{{order.date[order.status] | date : 'short' }}</span></h6>
+        </div>
+        <div *ngIf="order.status === 4">
           <undraw-success></undraw-success>
           <h6>O pedido foi entregue! <span class="badge badge-pill badge-theme px-2 py-1">{{order.date[order.status] | date : 'short' }}</span></h6>
         </div>
-        <!-- TODO: more two status -->
+        <div *ngIf="order.status === 5">
+          <undraw-cancelled></undraw-cancelled>
+          <h6>O pedido foi cancelado! <span class="badge badge-pill badge-theme px-2 py-1">{{order.date[order.status] | date : 'short' }}</span></h6>
+        </div>
       </div>
     </div>
     <div class="card map">
