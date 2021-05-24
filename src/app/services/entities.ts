@@ -54,7 +54,7 @@ interface Order {
     products: OrderItem[];
     client: User;
     store: Store;
-    date: Date;
+    date: Date[];
     payment: Payment;
     address: Address;
     status: number;

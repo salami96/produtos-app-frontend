@@ -12,7 +12,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run postinstall && npm run start:heroku",
-    "serve": "ng s --port 80 --host 0.0.0.0",
+    "serve": "ng s --port 8080 --host 0.0.0.0",
     "build": "ng build",
     "lint": "ng lint produtos-app",
     "build:client-and-server-bundles": "ng build --prod && ng run produtos-app:server:production",

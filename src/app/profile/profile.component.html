@@ -57,8 +57,8 @@
       </div>
       <div class="card-body" *ngFor="let order of orders">
         <div class="content">
-          <p class="m-0">pedido #{{order.number}}</p>
-          <p class="m-0">data: {{order.date}}</p>
+          <p class="m-0">pedido #{{order.cod}}</p>
+          <p class="m-0">feito em: {{order.date[0] | date: 'short'}}</p>
         </div>
         <div class="actions">
           <i-search class="pointer" style="stroke: var(--dark);" [routerLink]="'/pedido/' + order._id"></i-search>

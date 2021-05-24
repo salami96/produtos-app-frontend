@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { TransferHttpCacheModule } from '@nguniversal/common';
@@ -16,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { DrawModule } from './draw/draw.module';
 // import { AngularFireModule } from '@angular/fire';
 // import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
+import { registerLocaleData } from '@angular/common';
+import ptBr from '@angular/common/locales/pt';
+registerLocaleData(ptBr)
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCYIemjawWYApHGDQ1QpjheX4FArLLPDfo',
@@ -61,6 +64,7 @@ const firebaseConfig = {
     DrawModule,
     IconsModule,
     LandingPageModule,
+    { provide: LOCALE_ID, useValue: 'pt' }
   ],
   bootstrap: [ AppComponent ]
 })
