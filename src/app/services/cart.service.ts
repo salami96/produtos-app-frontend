@@ -114,7 +114,7 @@ export class CartService {
         products: this._orderItems,
         client,
         store,
-        date: new Date(),
+        date: [],
         payment,
         pickup,
         address,
