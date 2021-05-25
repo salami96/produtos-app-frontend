@@ -132,7 +132,7 @@ main {
   box-shadow: 3px 3px 2px 2px rgba(100, 100, 100, 0.25);
   transition: 300ms;
 }
-.social a * {
+.social a *, .social a svg {
   width: 36px;
   height: 36px;
 }
