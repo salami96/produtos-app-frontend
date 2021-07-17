@@ -52,61 +52,6 @@
       Comprar
     </button>
   </div>
-  <div class="card" *ngFor="let product of filteredProducts">
-    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
-    <div class="card-body">
-      <p>{{product.name}}</p>
-      <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
-    </div>
-    <button class="btn btn-theme" routerLink="/produtos/{{product.cod}}">
-      <i-shopping-bag></i-shopping-bag>
-      Comprar
-    </button>
-  </div>
-  <div class="card" *ngFor="let product of filteredProducts">
-    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
-    <div class="card-body">
-      <p>{{product.name}}</p>
-      <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
-    </div>
-    <button class="btn btn-theme" routerLink="/produtos/{{product.cod}}">
-      <i-shopping-bag></i-shopping-bag>
-      Comprar
-    </button>
-  </div>
-  <div class="card" *ngFor="let product of filteredProducts">
-    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
-    <div class="card-body">
-      <p>{{product.name}}</p>
-      <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
-    </div>
-    <button class="btn btn-theme" routerLink="/produtos/{{product.cod}}">
-      <i-shopping-bag></i-shopping-bag>
-      Comprar
-    </button>
-  </div>
-  <div class="card" *ngFor="let product of filteredProducts">
-    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
-    <div class="card-body">
-      <p>{{product.name}}</p>
-      <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
-    </div>
-    <button class="btn btn-theme" routerLink="/produtos/{{product.cod}}">
-      <i-shopping-bag></i-shopping-bag>
-      Comprar
-    </button>
-  </div>
-  <div class="card" *ngFor="let product of filteredProducts">
-    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
-    <div class="card-body">
-      <p>{{product.name}}</p>
-      <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
-    </div>
-    <button class="btn btn-theme" routerLink="/produtos/{{product.cod}}">
-      <i-shopping-bag></i-shopping-bag>
-      Comprar
-    </button>
-  </div>
   <div class="card" *ngIf="filteredProducts.length == 0">
     <undraw-confused class="card-img-top"></undraw-confused>
     <div class="error-msg">
