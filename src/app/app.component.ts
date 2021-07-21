@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
         this.url.includes('1') ||
         this.url.includes('produtos-app')
       ) {
-        code = 'copac';
+        code = 'nick';
       }
 
       this.sService.filterStore(code, this.cb);
