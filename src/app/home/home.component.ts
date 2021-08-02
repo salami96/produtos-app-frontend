@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer
   ) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     if (this.service.selectedStore) {
       this.store = this.service.selectedStore;
       this.map = this.sanitizer.bypassSecurityTrustResourceUrl(this.store.map + '&output=embed');

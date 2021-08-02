@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   img: string;
 
   constructor(
-    @Optional() @Inject('request') private request: any,
     @Optional() @Inject('obj') private obj: any,
     @Inject(PLATFORM_ID) private platformID: Object,
     private sService: StoreService,
@@ -29,24 +28,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     let code: string;
     if (isPlatformBrowser(this.platformID)) {
-      this.url = window.location.host.split('.')[0];
-
-      code = this.url;
-
-      if (
-        this.url.includes('localhost') ||
-        this.url.includes('www') ||
-        this.url.includes('1') ||
-        this.url.includes('produtos-app')
-      ) {
-        code = 'jadore';
-      }
-
-      this.sService.filterStore(code, this.cb);
-
+      code = window.location.host.split('.')[0];
     } else if (isPlatformServer(this.platformID)) {
-      this.cb(this.obj);
+      code = this.obj;
     }
+    this.sService.filterStore(code, this.cb);
   }
 
   setColor(active: string) {

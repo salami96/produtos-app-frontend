@@ -13,7 +13,7 @@ export class StoreService {
   products = new Subject<Product[]>();
   loadedProducts: Product[];
   categories: Category[];
-  url = 'https://produtos-server.herokuapp.com/api/';
+  url = 'https://produtos-server.herokuapp.com/api';
   // url = 'http://10.1.1.119:9000/';
   options = {
     headers: {
@@ -27,7 +27,7 @@ export class StoreService {
   constructor(
     private http: HttpClient,
   ) {
-    this.loadStores();
+    // this.loadStores();
   }
 
   getProducts() {
@@ -55,25 +55,32 @@ export class StoreService {
   }
 
   loadStores() {
-    this.http.get<Store[]>(this.url + 'stores/', this.options).subscribe(resp => {
+    this.http.get<Store[]>(this.url + '/stores/', this.options).subscribe(resp => {
       this.stores = resp;
     });
   }
 
-  filterStore(code: string, cb: any) {
-    if (this.stores) {
-      const resp = this.stores.find(store => store.code === code);
-      cb(resp);
-      this.store.next(resp);
-      this.selectedStore = resp;
-      this.http.get<Product[]>(this.url + 'products/' + code, this.options).subscribe(resp2 => {
-        this.products.next(resp2);
-        this.loadedProducts = resp2;
-      });
-    } else {
-      setTimeout(() => {
-        this.filterStore(code, cb);
-      }, 250);
-    }
+  filterStore(code: string, cb: Function) {
+    this.http.get<Store>(`${this.url}/store/${code}`, this.options).subscribe(resp => {
+      this.setStore(resp, cb);
+    });
+
+    // if (this.stores) {
+    //   const resp = this.stores.find(store => store.code === code);
+    // } else {
+    //   setTimeout(() => {
+    //     this.filterStore(code, cb);
+    //   }, 75);
+    // }
+  }
+
+  setStore(store: Store, cb: Function) {
+    cb(store);
+    this.selectedStore = store;
+    this.store.next(store);
+    this.http.get<Product[]>(`${this.url}/products/${store.code}`, this.options).subscribe(resp => {
+      this.products.next(resp);
+      this.loadedProducts = resp;
+    });
   }
 }
