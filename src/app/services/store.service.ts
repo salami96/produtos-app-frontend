@@ -11,6 +11,7 @@ export class StoreService {
   [x: string]: Object;
   store = new Subject<Store>();
   products = new Subject<Product[]>();
+  loadedProducts: Product[];
   categories: Category[];
   url = 'https://produtos-server.herokuapp.com/api/';
   // url = 'http://10.1.1.119:9000/';
@@ -65,7 +66,10 @@ export class StoreService {
       cb(resp);
       this.store.next(resp);
       this.selectedStore = resp;
-      this.http.get<Product[]>(this.url + 'products/' + code, this.options).subscribe(resp2 => this.products.next(resp2));
+      this.http.get<Product[]>(this.url + 'products/' + code, this.options).subscribe(resp2 => {
+        this.products.next(resp2);
+        this.loadedProducts = resp2;
+      });
     } else {
       setTimeout(() => {
         this.filterStore(code, cb);

@@ -39,7 +39,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       );
     }
     if (isPlatformBrowser(this.platformID)) {
-      document.querySelector('nav').style.setProperty('box-shadow', '0 0 0 1em var(--dark)');
+      // document.querySelector('nav').style.setProperty('box-shadow', '0 0 0 1em var(--dark)');
       this.selectedCategory = this.route.snapshot.queryParamMap.get('categoria');
       // this.showCategories();
       if (this.selectedCategory) {
@@ -64,9 +64,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
   init = (store: Store) => {
     this.store = store;
     this.categories = store.categories;
+    if (this.sService.loadedProducts) {
+      this.products = this.sService.loadedProducts;
+      this.filteredProducts = this.sService.loadedProducts;
+    }
     this.sService.getProducts().subscribe(r => {
-      this.products = r
-      this.filteredProducts = r
+      this.products = r;
+      this.filteredProducts = r;
     });
   }
 

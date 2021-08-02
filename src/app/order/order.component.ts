@@ -97,7 +97,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     // document.getElementById('edit-item').className += ' show';
     this.selectedItemPosition = i;
     this.selectedItem = item;
-    this.baseProduct = await this.sService.getProduct(item.cod);
+    this.sService.getProduct(item.cod).subscribe(r => this.baseProduct = r);
     this.selectedSize = this.baseProduct.sizes.find(s => s.name === item.size);
     this.baseProduct.optional.forEach(op => {
       this.optional[op] = item.removed.includes(op);
