@@ -38,7 +38,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.observer.push(this.route.params.subscribe(async res => {
         this.cod = res.cod;
-        this.service.getProduct(res.cod).then(response => {
+        this.service.getProduct(res.cod).subscribe(response => {
           if (response) {
             this.product = response;
             this.selectedSize = response.sizes[0];
@@ -51,7 +51,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
               this.extras.push(element);
             }
           }
-        }).catch(e => console.log(e));
+        }, e => console.log(e));
       }));
     }
   }

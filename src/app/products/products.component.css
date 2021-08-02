@@ -35,8 +35,8 @@
     height: 5px;
 }
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
@@ -45,8 +45,8 @@
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background: var(--primary);
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: var(--primary);
@@ -141,6 +141,8 @@ main .card .card-img-top {
     border-radius: 0.5em;
     position: relative;
     padding: 0.5em;
+    flex-grow: 1;
+    object-fit: cover;
 }
 main .card .card-body {
     border-radius: 0.5em;

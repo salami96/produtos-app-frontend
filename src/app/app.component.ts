@@ -66,6 +66,9 @@ export class AppComponent implements OnInit {
       this.meta.updateTag({ name: 'description', content: store.slogan });
       if (isPlatformBrowser(this.platformID)) {
         this.meta.updateTag({ name: 'theme-color', content: this.setColor(store.color) });
+        if (store.favicon) {
+          document.getElementById('favicon').setAttribute('href', store.favicon)
+        }
       }
       this.meta.updateTag({ name: 'apple-mobile-web-app-capable', content: 'yes' });
       this.meta.updateTag({ name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' });

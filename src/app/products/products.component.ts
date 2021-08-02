@@ -64,8 +64,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   init = (store: Store) => {
     this.store = store;
     this.categories = store.categories;
-    this.products = this.sService.getProducts();
-    this.filteredProducts = this.sService.getProducts();
+    this.sService.getProducts().subscribe(r => {
+      this.products = r
+      this.filteredProducts = r
+    });
   }
 
   isActive(i: number) {
