@@ -9,9 +9,6 @@ import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import * as express from 'express';
 import { join } from 'path';
 
-import axios from 'axios';
-
-
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
 
