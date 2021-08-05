@@ -34,7 +34,7 @@ interface Category {
 interface Product {
     cod: string;
     store: string;
-    category: string;
+    categories: Category[];
     name: string;
     imgs: string[];
     sizes: {

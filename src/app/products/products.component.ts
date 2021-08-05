@@ -125,7 +125,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.filterTitle = text;
       if (this.products) {
         this.filteredProducts = this.products.filter(prod =>
-          prod.category.toLowerCase() === text.toLowerCase()
+          prod.categories.some(cat => cat.name.toLowerCase() === text.toLowerCase())
         );
       } else {
         this.filteredProducts = [];
