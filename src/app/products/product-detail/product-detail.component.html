@@ -5,7 +5,9 @@
       voltar
     </a>
     <span>{{product?.name}}</span>
-    <a routerLink="/produtos" [queryParams]="{categoria: product?.categories[0].name}" class="badge badge-pill badge-theme-light">{{product?.categories[0].name}}</a>
+    <div>
+      <a *ngFor="let cat of product.categories" routerLink="/produtos" [queryParams]="{categoria: cat.name}" class="badge badge-pill badge-theme">{{cat.name}}</a>
+    </div>
   </nav>
   <main *ngIf="!product" class="text-center">
     <undraw-confused class="product-img"></undraw-confused>
@@ -75,7 +77,9 @@
           voltar
         </a>
         <span>{{product.name}}</span>
-        <a routerLink="/produtos" [queryParams]="{categoria: product.categories[0].name}" class="badge badge-pill badge-theme">{{product.categories[0].name}}</a>
+        <div>
+          <a *ngFor="let cat of product.categories" routerLink="/produtos" [queryParams]="{categoria: cat.name}" class="badge badge-pill badge-theme">{{cat.name}}</a>
+        </div>
       </div>
       <img src="{{product.imgs[0]}}" alt="" class="product-img">
     </div>
