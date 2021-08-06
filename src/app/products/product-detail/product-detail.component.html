@@ -5,8 +5,17 @@
       voltar
     </a>
     <span>{{product?.name}}</span>
-    <div>
-      <a *ngFor="let cat of product.categories" routerLink="/produtos" [queryParams]="{categoria: cat.name}" class="badge badge-pill badge-theme">{{cat.name}}</a>
+    <div class="dropdown">
+      <button class="btn btn-theme btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i-more-vertical></i-more-vertical>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+        <h6 class="dropdown-header">Categorias</h6>
+        <a *ngFor="let cat of product.categories" routerLink="/produtos" [queryParams]="{categoria: cat.name}" class="dropdown-item">
+            <app-insert-icon mini="true" [icon]="cat.icon"></app-insert-icon>
+            <span>{{cat.name}}</span>
+        </a>
+      </div>
     </div>
   </nav>
   <main *ngIf="!product" class="text-center">
@@ -77,8 +86,17 @@
           voltar
         </a>
         <span>{{product.name}}</span>
-        <div>
-          <a *ngFor="let cat of product.categories" routerLink="/produtos" [queryParams]="{categoria: cat.name}" class="badge badge-pill badge-theme">{{cat.name}}</a>
+        <div class="dropdown">
+          <button class="btn btn-theme btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i-more-vertical></i-more-vertical>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <h6 class="dropdown-header">Categorias</h6>
+            <a *ngFor="let cat of product.categories" routerLink="/produtos" [queryParams]="{categoria: cat.name}" class="dropdown-item">
+              <app-insert-icon [icon]="cat.icon"></app-insert-icon>
+              <span>{{cat.name}}</span>
+            </a>
+          </div>
         </div>
       </div>
       <img src="{{product.imgs[0]}}" alt="" class="product-img">
