@@ -23,9 +23,11 @@
       </div>
     </section>
     <section class="social">
-      <a href="{{store.fb}}" target="_blank" rel="nofollow external noopener noreferrer"><i-facebook></i-facebook></a>
-      <a href="{{store.insta}}" target="_blank" rel="nofollow external noopener noreferrer"><i-instagram></i-instagram></a>
-      <a href="{{store.whatsapp}}" target="_blank" rel="nofollow external noopener noreferrer"><i-whatsapp></i-whatsapp></a>
+      <a href="https://facebook.com/{{store.fb.replace('@','')}}" target="_blank" rel="nofollow external noopener noreferrer"><i-facebook></i-facebook></a>
+      <a href="https://instagram.com/{{store.insta.replace('@','')}}" target="_blank" rel="nofollow external noopener noreferrer"><i-instagram></i-instagram></a>
+      <a href="{{store.whatsapp}}" target="_blank" rel="nofollow external noopener noreferrer">
+        <i-whatsapp size="36px"></i-whatsapp>
+      </a>
     </section>
   </div>
   <div class="desktop row" *ngIf="innerWidth > 949px">
@@ -46,7 +48,9 @@
           rel="nofollow external noopener noreferrer" *ngIf="store.insta">
             <i-instagram></i-instagram>
         </a>
-        <a href="https://wa.me/55{{store.whatsapp}}" target="_blank" rel="nofollow external noopener noreferrer" *ngIf="store.whatsapp"><i-whatsapp size="36px"></i-whatsapp></a>
+        <a href="https://wa.me/55{{store.whatsapp}}" target="_blank" rel="nofollow external noopener noreferrer" *ngIf="store.whatsapp">
+          <i-whatsapp size="36px"></i-whatsapp>
+        </a>
       </section>
     </div>
     <section class="map col" *ngIf="canLoad">
