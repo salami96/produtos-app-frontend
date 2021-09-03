@@ -5,7 +5,10 @@
       voltar
     </a>
     <span>{{product?.name}}</span>
-    <div class="dropdown">
+    <a *ngIf="product.categories.length == 1" routerLink="/produtos" [queryParams]="{categoria: product.categories[0].name}" class="btn btn-theme btn-sm">
+      <app-insert-icon [icon]="product.categories[0].icon"></app-insert-icon>
+    </a>
+    <div class="dropdown" *ngIf="product.categories.length > 1">
       <button class="btn btn-theme btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i-more-vertical></i-more-vertical>
       </button>
@@ -86,7 +89,10 @@
           voltar
         </a>
         <span>{{product.name}}</span>
-        <div class="dropdown">
+        <a *ngIf="product.categories.length == 1" routerLink="/produtos" [queryParams]="{categoria: product.categories[0].name}" class="btn btn-theme btn-sm">
+          <app-insert-icon [icon]="product.categories[0].icon"></app-insert-icon>
+        </a>
+        <div class="dropdown" *ngIf="product.categories.length > 1" >
           <button class="btn btn-theme btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i-more-vertical></i-more-vertical>
           </button>

@@ -97,6 +97,7 @@ main {
 }
 main .card {
   width: 98%;
+  max-height: 13em;
   border-radius: 0.5em;
 }
 @media (min-width: 320px) {
@@ -137,9 +138,9 @@ main .card {
 main .card .card-img-top {
   border-radius: 0.5em;
   position: relative;
-  padding: 0.5em;
+  object-fit: contain;
+  max-height: 10em;
   flex-grow: 1;
-  object-fit: cover;
 }
 main .card .card-body {
   border-radius: 0.5em;

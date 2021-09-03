@@ -42,7 +42,7 @@
 <h3 class="text-theme text-center" *ngIf="filterTitle">{{filterTitle}}</h3>
 <main *ngIf="store && products">
   <div class="card" *ngFor="let product of filteredProducts">
-    <img src="{{product.imgs[0]}}" alt="" class="card-img-top">
+    <img src="{{formatImg(product.imgs[0])}}" alt="" class="card-img-top">
     <div class="card-body">
       <p>{{product.name}}</p>
       <p class="value">{{formatPrice(product.sizes[0].value)}}</p>
