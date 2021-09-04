@@ -48,7 +48,7 @@ export class StoreService {
         current.includes('1') ||
         current.includes('produtos-app')
         ) {
-        code = 'jadore';
+        code = 'nick';
       }
     }
     return this.http.get<Product>(`${this.url}/product/${code}/${cod}`, this.options);

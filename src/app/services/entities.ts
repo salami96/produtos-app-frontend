@@ -47,6 +47,7 @@ interface Product {
         value: number;
     }[];
     optional: string[];
+    active: boolean;
 }
 interface Order {
     _id: string;

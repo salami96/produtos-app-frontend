@@ -30,6 +30,10 @@
   </main>
   <main *ngIf="product">
     <img src="{{product.imgs[0]}}" alt="Imagem do produto" class="product-img">
+    <div class="alert alert-warning" *ngIf="!product.active">😕 Este produto não está disponível no momento!</div>
+    <div *ngIf="product.sizes.length == 1" class="card">
+      <h5>{{product.unity}} {{product.sizes[0].name}}</h5>
+    </div>
     <div *ngIf="product.sizes.length > 1" class="card">
       <h5>Quero o {{product.unity}}:</h5>
       <div class="chk" *ngFor="let size of product.sizes">
@@ -41,32 +45,32 @@
     <div *ngIf="product.optional.length != 0" class="card">
       <h5>Quero retirar:</h5>
       <div class="chk" *ngFor="let option of product.optional; let i=index">
-        <input type="checkbox" [id]="option" [(ngModel)]="optional[option]">
+        <input type="checkbox" [id]="option" [(ngModel)]="optional[option]" [disabled]="!product.active">
         <label [for]="option">{{option}}</label>
       </div>
     </div>
     <div *ngIf="extras.length != 0" class="card">
       <h5>Quero adicionar:</h5>
       <div class="chk" *ngFor="let extra of extras">
-        <input type="checkbox" [id]="extra.name" [(ngModel)]="extra.checked">
+        <input type="checkbox" [id]="extra.name" [(ngModel)]="extra.checked" [disabled]="!product.active">
         <label [for]="extra.name">{{extra.name}}</label>
         <label [for]="extra.name" class="badge-pill badge badge-theme">{{formatPrice(extra.value)}}</label>
       </div>
     </div>
     <div class="card">
       <h5>Observações</h5>
-      <textarea [(ngModel)]="observations" id="" cols="30" rows="3"></textarea>
+      <textarea [(ngModel)]="observations" id="" cols="30" rows="3" [disabled]="!product.active"></textarea>
     </div>
     <div class="card qtt-and-value">
       <div class="qtt">
         <h6>Quantidade</h6>
         <div class="input-group input-group-sm">
           <div class="input-group-prepend">
-            <button class="btn btn-sm btn-theme" (click)="changeQuantity('minus')">-</button>
+            <button class="btn btn-sm btn-theme" (click)="changeQuantity('minus')" [disabled]="!product.active">-</button>
           </div>
-          <input type="number" class="form-control" [(ngModel)]="quantity" (change)="changeQuantity()" min="0">
+          <input type="number" class="form-control" [(ngModel)]="quantity" (change)="changeQuantity()" min="0" [disabled]="!product.active">
           <div class="input-group-append">
-            <button class="btn btn-sm btn-theme" (click)="changeQuantity('add')">+</button>
+            <button class="btn btn-sm btn-theme" (click)="changeQuantity('add')" [disabled]="!product.active">+</button>
           </div>
         </div>
       </div>
@@ -75,7 +79,7 @@
         <h6>{{getPrice()}}</h6>
       </div>
     </div>
-    <button class="btn btn-theme mx-auto w-100" (click)="buy()">
+    <button class="btn btn-theme mx-auto w-100" (click)="buy()" [disabled]="!product.active">
       Adicionar ao Pedido
     </button>
   </main>
@@ -83,7 +87,7 @@
 <div class="desktop">
   <main class="card" *ngIf="product">
     <div class="back-and-img">
-      <div>
+      <div class="mb-2">
         <a routerLink="/produtos" class="btn btn-theme">
           <i-chevron-left></i-chevron-left>
           voltar
@@ -108,10 +112,14 @@
       <img src="{{product.imgs[0]}}" alt="" class="product-img">
     </div>
     <div class="buy-options">
+      <div class="alert alert-warning" *ngIf="!product.active">😕 Este produto não está disponível no momento!</div>
+      <div *ngIf="product.sizes.length == 1">
+        <h5>{{product.unity}} {{product.sizes[0].name}}</h5>
+      </div>
       <div *ngIf="product.sizes.length > 1">
         <h5>Quero o {{product.unity}}:</h5>
         <div class="chk" *ngFor="let size of product.sizes">
-          <input type="radio" id="{{size.name}}-desktop" [(ngModel)]="selectedSize" [value]="size">
+          <input type="radio" id="{{size.name}}-desktop" [(ngModel)]="selectedSize" [value]="size" [disabled]="!product.active">
           <label for="{{size.name}}-desktop">{{size.name}}</label>
           <label for="{{size.name}}-desktop" class="badge-pill badge badge-theme">{{formatPrice(size.value)}}</label>
         </div>
@@ -119,32 +127,32 @@
       <div *ngIf="product.optional.length != 0">
         <h5>Quero retirar</h5>
         <div class="chk" *ngFor="let option of product.optional; let i=index">
-          <input type="checkbox" id="{{option}}-desktop" [(ngModel)]="optional[option]">
+          <input type="checkbox" id="{{option}}-desktop" [(ngModel)]="optional[option]" [disabled]="!product.active">
           <label for="{{option}}-desktop">{{option}}</label>
         </div>
       </div>
       <div *ngIf="product.extras.length != 0">
         <h5>Quero adicionar</h5>
         <div class="chk" *ngFor="let extra of extras">
-          <input type="checkbox" id="{{extra.name}}-desktop" [(ngModel)]="extra.checked">
+          <input type="checkbox" id="{{extra.name}}-desktop" [(ngModel)]="extra.checked" [disabled]="!product.active">
           <label for="{{extra.name}}-desktop">{{extra.name}}</label>
           <label for="{{extra.name}}-desktop" class="badge-pill badge badge-theme">{{formatPrice(extra.value)}}</label>
         </div>
       </div>
       <div>
         <h5>Observações</h5>
-        <textarea [(ngModel)]="observations" id="" cols="30" rows="3"></textarea>
+        <textarea [(ngModel)]="observations" id="" cols="30" rows="3" [disabled]="!product.active"></textarea>
       </div>
       <div class="qtt-and-value">
         <div class="qtt">
           <h6>Quantidade</h6>
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
-              <button class="btn btn-sm btn-theme" (click)="changeQuantity('minus')">-</button>
+              <button class="btn btn-sm btn-theme" (click)="changeQuantity('minus')" [disabled]="!product.active">-</button>
             </div>
-            <input type="number" class="form-control" [(ngModel)]="quantity" (change)="changeQuantity()" min="0">
+            <input type="number" class="form-control" [(ngModel)]="quantity" (change)="changeQuantity()" min="0" [disabled]="!product.active">
             <div class="input-group-append">
-              <button class="btn btn-sm btn-theme" (click)="changeQuantity('add')">+</button>
+              <button class="btn btn-sm btn-theme" (click)="changeQuantity('add')" [disabled]="!product.active">+</button>
             </div>
           </div>
         </div>
@@ -153,7 +161,7 @@
           <h6>{{getPrice()}}</h6>
         </div>
       </div>
-      <button class="btn btn-theme mx-auto w-100" (click)="buy()">
+      <button class="btn btn-theme mx-auto w-100" (click)="buy()" [disabled]="!product.active">
         Adicionar ao Pedido
       </button>
     </div>
