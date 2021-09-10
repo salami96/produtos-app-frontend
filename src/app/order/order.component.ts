@@ -176,7 +176,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   calcShip(z: string) {
-    const found = this.store.ship.find(s => s.zipCode === z);
+    const found = this.store.ship.find(s => s.zipCode.substr(0,5) === z.substr(0,5));
     if (found) {
       return found.value;
     }

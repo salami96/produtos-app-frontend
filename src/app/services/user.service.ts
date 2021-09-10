@@ -197,6 +197,7 @@ export class UserService {
       );
     }
 
+    delete address._id;
     const response = this.http.put<User>(
       `${this.url}/address`, { uid: this.userData.uid, address }, this.options
     );
