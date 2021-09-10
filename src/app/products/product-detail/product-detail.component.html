@@ -5,13 +5,13 @@
       voltar
     </a>
     <span>{{product?.name}}</span>
-    <a *ngIf="product.categories.length == 1" routerLink="/produtos" [queryParams]="{categoria: product.categories[0].name}" class="btn btn-theme btn-sm">
+    <a *ngIf="product?.categories.length == 1" routerLink="/produtos" [queryParams]="{categoria: product.categories[0].name}">
       <app-insert-icon [icon]="product.categories[0].icon"></app-insert-icon>
     </a>
-    <div class="dropdown" *ngIf="product.categories.length > 1">
-      <button class="btn btn-theme btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div class="dropdown" *ngIf="product?.categories.length > 1">
+      <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i-more-vertical></i-more-vertical>
-      </button>
+      </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
         <h6 class="dropdown-header">Categorias</h6>
         <a *ngFor="let cat of product.categories" routerLink="/produtos" [queryParams]="{categoria: cat.name}" class="dropdown-item">

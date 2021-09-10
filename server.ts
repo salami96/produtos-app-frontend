@@ -39,7 +39,8 @@ app.engine('html', (_, options, callback) => {
       bootstrap: AppServerModuleNgFactory,
       providers: [
           // { provide: 'request', useFactory: () => options.req, deps: [] },
-          { provide: 'obj', useFactory: () => options.req.get('host').split('.')[0], deps: [] },
+          { provide: 'host', useFactory: () => options.req.get('host'), deps: [] },
+          { provide: 'param', useFactory: () => options.req.params[0], deps: [] },
           provideModuleMap(LAZY_MODULE_MAP)
       ]
   });

@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, Optional } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StoreService } from '../../services/store.service';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { Subscription } from 'rxjs';
 
@@ -31,28 +31,41 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     @Inject(PLATFORM_ID) private platformID: Object,
     private service: StoreService,
     private cService: CartService,
+    @Optional() @Inject('host') private host: string,
+    @Optional() @Inject('param') private param: string,
   ) {}
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformID)) {
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
-      this.observer.push(this.route.params.subscribe(async res => {
-        this.cod = res.cod;
-        this.service.getProduct(res.cod).subscribe(response => {
-          if (response) {
-            this.product = response;
-            this.selectedSize = response.sizes[0];
-            response.optional.forEach(op => {
-              this.optional[op] = false;
-            });
-            for (let index = 0; index < response.extras.length; index++) {
-              const element: any = response.extras[index];
-              element.checked = false;
-              this.extras.push(element);
-            }
-          }
-        }, e => console.log(e));
-      }));
+      this.observer.push(
+        this.route.params.subscribe(res => {
+          this.cod = res.cod;
+          if (!this.product)
+            this.observer.push(this.service.getProduct(res.cod).subscribe(this.productHandler, e => console.log(e)));
+        })
+      );
+    } else if (isPlatformServer(this.platformID)) {
+      let code = this.host.split('.')[0];
+      let id = this.param.match(/\/produtos\/(?<value>[a-zA-Z0-9|_-]+)/)[1];
+      this.observer.push(
+        this.service.getProduct(id, code).subscribe(this.productHandler, e => console.log(e))
+      );
+    }
+  }
+
+  productHandler = (response) => {
+    if (response) {
+      this.product = response;
+      this.selectedSize = response.sizes[0];
+      response.optional.forEach(op => {
+        this.optional[op] = false;
+      });
+      for (let index = 0; index < response.extras.length; index++) {
+        const element: any = response.extras[index];
+        element.checked = false;
+        this.extras.push(element);
+      }
     }
   }
 

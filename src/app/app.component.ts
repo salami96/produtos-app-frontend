@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   img: string;
 
   constructor(
-    @Optional() @Inject('obj') private obj: any,
+    @Optional() @Inject('host') private host: any,
     @Inject(PLATFORM_ID) private platformID: Object,
     private sService: StoreService,
     private title: Title,
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     if (isPlatformBrowser(this.platformID)) {
       code = window.location.host.split('.')[0];
     } else if (isPlatformServer(this.platformID)) {
-      code = this.obj;
+      code = this.host.split('.')[0];
     }
     this.sService.filterStore(code, this.cb);
   }

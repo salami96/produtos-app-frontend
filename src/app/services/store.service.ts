@@ -34,11 +34,10 @@ export class StoreService {
     return this.products;
   }
 
-  getProduct(cod: string) {
-    let code: string;
-    if (this.selectedStore) {
+  getProduct(cod: string, code?: string) {
+    if (!code && this.selectedStore) {
       code = this.selectedStore.code;
-    } else {
+    } else if (!code) {
       let current = window.location.host.split('.')[0];
       code = current;
 
@@ -48,7 +47,7 @@ export class StoreService {
         current.includes('1') ||
         current.includes('produtos-app')
         ) {
-        code = 'nick';
+        code = 'jadore';
       }
     }
     return this.http.get<Product>(`${this.url}/product/${code}/${cod}`, this.options);
