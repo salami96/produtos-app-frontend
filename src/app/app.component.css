@@ -9,7 +9,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 10em 2em;
+    margin: 10em 1em;
 }
 footer .card {
     border-radius: 0.5em;
@@ -18,7 +18,7 @@ footer a {
     background: white;
     color: #215c96;
     transition: 300ms;
-    padding: 1.5em;
+    padding: 1em;
     border-radius: 0.5em;
 }
 footer a:hover {
@@ -31,7 +31,6 @@ footer a:hover {
     stroke: #CCE5FF;
 }
 .logo {
-    width: 80%;
+    width: 90%;
     max-width: 300px;
-    margin-top: 2em;
 }
