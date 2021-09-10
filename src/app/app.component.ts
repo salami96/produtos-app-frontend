@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
     } else if (isPlatformServer(this.platformID)) {
       code = this.obj;
     }
-    this.sService.filterStore(code, this.cb);
+    this.sService.filterStore('nick', this.cb);
   }
 
   setColor(active: string) {
