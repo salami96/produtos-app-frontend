@@ -6,6 +6,7 @@ import { ProductsComponent } from './products.component';
 import { RouterModule } from '@angular/router';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { DrawModule } from '../draw/draw.module';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 @NgModule({
   declarations: [ProductsComponent, ProductDetailComponent ],
@@ -14,10 +15,11 @@ import { DrawModule } from '../draw/draw.module';
     DrawModule,
     FormsModule,
     IconsModule,
+    IvyCarouselModule,
     RouterModule.forChild([
       { path: '', component: ProductsComponent, pathMatch: 'full' },
       { path: ':cod', component: ProductDetailComponent, pathMatch: 'full' },
-    ])
+    ]),
   ]
 })
 export class ProductsModule { }
