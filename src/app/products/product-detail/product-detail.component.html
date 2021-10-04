@@ -29,7 +29,12 @@
     </a>
   </main>
   <main *ngIf="product">
-    <img src="{{product.imgs[0]}}" alt="Imagem do produto" class="product-img">
+    <carousel *ngIf="product.imgs.length > 1" dots="true" height="400" cellsToShow="1" arrowsTheme="dark" counter="true">
+      <div class="carousel-cell" *ngFor="let img of product.imgs">
+        <img [src]="img" class="product-img">
+      </div>
+    </carousel>
+    <img src="{{product.imgs[0]}}" alt="Imagem do produto" class="product-img" *ngIf="product.imgs.length == 1">
     <div class="alert alert-warning" *ngIf="!product.active">😕 Este produto não está disponível no momento!</div>
     <div *ngIf="product.sizes.length == 1" class="card">
       <h5>{{product.unity}} {{product.sizes[0].name}}</h5>
@@ -109,7 +114,12 @@
           </div>
         </div>
       </div>
-      <img src="{{product.imgs[0]}}" alt="" class="product-img">
+      <carousel *ngIf="product.imgs.length > 1" dots="true" height="400" cellsToShow="1" arrowsTheme="dark" counter="true">
+        <div class="carousel-cell" *ngFor="let img of product.imgs">
+          <img [src]="img" class="product-img">
+        </div>
+      </carousel>
+      <img src="{{product.imgs[0]}}" alt="Imagem do produto" class="product-img" *ngIf="product.imgs.length == 1">
     </div>
     <div class="buy-options">
       <div class="alert alert-warning" *ngIf="!product.active">😕 Este produto não está disponível no momento!</div>
