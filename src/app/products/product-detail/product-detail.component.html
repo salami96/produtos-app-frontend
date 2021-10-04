@@ -35,6 +35,7 @@
       </div>
     </carousel>
     <img src="{{product.imgs[0]}}" alt="Imagem do produto" class="product-img" *ngIf="product.imgs.length == 1">
+    <img src="assets/produto-sem-imagem.jpg" alt="Imagem do produto" class="product-img" *ngIf="product.imgs.length == 0">
     <div class="alert alert-warning" *ngIf="!product.active">😕 Este produto não está disponível no momento!</div>
     <div *ngIf="product.sizes.length == 1" class="card">
       <h5>{{product.unity}} {{product.sizes[0].name}}</h5>
@@ -120,6 +121,7 @@
         </div>
       </carousel>
       <img src="{{product.imgs[0]}}" alt="Imagem do produto" class="product-img" *ngIf="product.imgs.length == 1">
+      <img src="assets/produto-sem-imagem.jpg" alt="Imagem do produto" class="product-img" *ngIf="product.imgs.length == 0">
     </div>
     <div class="buy-options">
       <div class="alert alert-warning" *ngIf="!product.active">😕 Este produto não está disponível no momento!</div>

@@ -185,7 +185,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   formatImg(url: string) {
-    return url.replace('/upload/v', '/upload/w_300,h_300,c_pad,b_auto/v')
+    if (url) return url.replace('/upload/v', '/upload/w_300,h_300,c_pad,b_auto/v')
+    return "assets/produto-sem-imagem.jpg"
   }
 
 }
