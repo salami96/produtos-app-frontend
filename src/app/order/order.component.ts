@@ -38,9 +38,9 @@ export class OrderComponent implements OnInit, OnDestroy {
   store: Store;
   quantity: number;
   total = 0;
-  shipment = 0;
+  shippings = 0;
   paymentError = false;
-  shipmentError = false;
+  shippingError = false;
   pickUp: boolean;
   loading: boolean;
 
@@ -74,7 +74,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
     if (isPlatformBrowser(this.platformID)) {
       this.isExpanded['itens'] = true;
-      this.isExpanded['shipment'] = true;
+      this.isExpanded['shipping'] = true;
       this.isExpanded['resume'] = true;
       document.querySelector('nav').style.setProperty('box-shadow', 'none');
       this.observer.push(
@@ -165,7 +165,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.itemTotal = undefined;
     this.selectedExtras = [];
     document.getElementById('edit-item-success').click();
-    this.shipmentError = false;
+    this.shippingError = false;
     this.paymentError = false;
   }
 
@@ -175,8 +175,8 @@ export class OrderComponent implements OnInit, OnDestroy {
     }
   }
 
-  calcShip(z: string) {
-    const found = this.store.ship.find(s => s.zipCode.substr(0,5) === z.substr(0,5));
+  calcShipping(z: string) {
+    const found = this.store.shippings.find(s => s.zipCode.substr(0,5) === z.substr(0,5));
     if (found) {
       return found.value;
     }
@@ -264,12 +264,12 @@ export class OrderComponent implements OnInit, OnDestroy {
     }
   }
 
-  setShipment(ad: Address, isPickUp = false) {
+  setShipping(ad: Address, isPickUp = false) {
     this.pickUp = isPickUp;
-    if (this.calcShip(ad.zipCode) < 0 || isPickUp) {
-      this.shipment = 0;
+    if (this.calcShipping(ad.zipCode) < 0 || isPickUp) {
+      this.shippings = 0;
     } else {
-      this.shipment = this.calcShip(ad.zipCode);
+      this.shippings = this.calcShipping(ad.zipCode);
     }
     if (isPickUp) {
       this.selectedAddress = ad;
@@ -285,14 +285,14 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.items.forEach(item => {
       sum += item.total;
     });
-    this.total = (this.shipment + sum);
+    this.total = (this.shippings + sum);
   }
 
   finish() {
     this.clearSelected();
     let valid = true;
     if (this.selectedAddress === undefined) {
-      this.shipmentError = true;
+      this.shippingError = true;
       valid = false;
     }
     if (this.formaPgto === undefined) {

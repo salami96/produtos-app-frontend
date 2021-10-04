@@ -58,24 +58,24 @@
       <i-user></i-user>Entrar para continuar
     </a>
     <div *ngIf="user">
-      <div class="card card-logged mx-auto" [class.invalid]="shipmentError" *ngIf="store">
+      <div class="card card-logged mx-auto" [class.invalid]="shippingError" *ngIf="store">
         <div class="card-header">
           <h5 class="card-title text-theme">
             Entrega
-            <span class="pointer" data-toggle="collapse" data-target="#shipment" role="button" aria-expanded="true"
-            aria-controls="shipment" (click)="isExpanded['shipment'] = !isExpanded['shipment']">
-              <i-chevron-down [hidden]="isExpanded['shipment']"></i-chevron-down>
-              <i-chevron-up [hidden]="!isExpanded['shipment']"></i-chevron-up>
+            <span class="pointer" data-toggle="collapse" data-target="#shipping" role="button" aria-expanded="true"
+            aria-controls="shipping" (click)="isExpanded['shipping'] = !isExpanded['shipping']">
+              <i-chevron-down [hidden]="isExpanded['shipping']"></i-chevron-down>
+              <i-chevron-up [hidden]="!isExpanded['shipping']"></i-chevron-up>
             </span>
-            <div class="text-danger fade" [class.show]="shipmentError">Você precisa escolher a forma de entrega!</div>
+            <div class="text-danger fade" [class.show]="shippingError">Você precisa escolher a forma de entrega!</div>
           </h5>
         </div>
-        <div class="collapse show" id="shipment">
+        <div class="collapse show" id="shipping">
           <div class="card-body" *ngFor="let ad of store.address; index as i">
             <div class="content">
               <span><b>Retirar na loja:</b> <br>{{read(ad)}}</span>
             </div>
-            <div class="actions pointer" (click)="setShipment(ad, true)">
+            <div class="actions pointer" (click)="setShipping(ad, true)">
               Grátis
               <i-circle *ngIf="selectedAddress !== ad" class="mx-auto"></i-circle>
               <i-check-circle *ngIf="selectedAddress === ad" style="stroke: var(--dark)" class="mx-auto"></i-check-circle>
@@ -83,17 +83,17 @@
           </div>
           <div class="card-body" *ngFor="let ad of user.address">
             <div class="content">
-              <b [hidden]="calcShip(ad.zipCode) >= 0">Infelizmente não entregamos nesse local 🙁<br></b>
-              <span [class.out-of-range]="calcShip(ad.zipCode) < 0"><b>Receber em:</b> <br>{{read(ad)}}</span>
+              <b [hidden]="calcShipping(ad.zipCode) >= 0">Infelizmente não entregamos nesse local 🙁<br></b>
+              <span [class.out-of-range]="calcShipping(ad.zipCode) < 0"><b>Receber em:</b> <br>{{read(ad)}}</span>
             </div>
-            <div class="actions pointer" [class.fade]="calcShip(ad.zipCode) < 0" (click)="setShipment(ad)">
-              {{formatPrice(calcShip(ad.zipCode))}}
+            <div class="actions pointer" [class.fade]="calcShipping(ad.zipCode) < 0" (click)="setShipping(ad)">
+              {{formatPrice(calcShipping(ad.zipCode))}}
               <i-circle *ngIf="selectedAddress !== ad" class="mx-auto"></i-circle>
               <i-check-circle *ngIf="selectedAddress === ad" style="stroke: var(--dark)" class="mx-auto"></i-check-circle>
             </div>
           </div>
         </div>
-        <div class="card-footer" [style.margin-top]="isExpanded['shipment'] ? '0' : '-1em'">
+        <div class="card-footer" [style.margin-top]="isExpanded['shipping'] ? '0' : '-1em'">
           <button class="btn btn-theme btn-block card-btn" routerLink="/perfil/endereco" [queryParams]="{ origem: 'pedido' }">
             <i-plus-circle></i-plus-circle>
             Adicionar endereço

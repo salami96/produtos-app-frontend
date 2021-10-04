@@ -16,7 +16,7 @@ interface Store {
     directions: string;
     payments: Payment[];
     categories: Category[];
-    ship: {
+    shippings: {
         zipCode: string;
         value: number;
     }[];
