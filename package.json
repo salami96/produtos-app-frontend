@@ -11,9 +11,9 @@
   ],
   "scripts": {
     "ng": "ng",
-    "start": "npm run postinstall && npm run start:heroku",
+    "start": "npm run serve",
     "serve": "ng s --port 8080 --host 0.0.0.0",
-    "build": "ng build",
+    "build": "npm run postinstall && npm run start:heroku",
     "lint": "ng lint produtos-app",
     "build:client-and-server-bundles": "ng build --prod && ng run produtos-app:server:production",
     "build:prerender": "npm run build:client-and-server-bundles && npm run compile:server && npm run generate:prerender",
