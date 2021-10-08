@@ -21,6 +21,9 @@ interface Store {
         value: number;
     }[];
     color: string;
+    pixQrCode: string;
+    pixKey: string;
+    pixKeyType: string;
 }
 interface Payment {
     _id: string;

@@ -61,4 +61,13 @@
       </div>
     </section>
   </div>
+  <div class="card payments p-2">
+    <h4>aceitamos:</h4>
+    <div class="cells">
+      <div *ngFor="let p of store.payments">
+        <app-insert-icon [icon]="p.icon" style="color: var(--primary);"></app-insert-icon>
+        {{p.name}}
+      </div>
+    </div>
+  </div>
 </main>

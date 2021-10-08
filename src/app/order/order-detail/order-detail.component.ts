@@ -105,4 +105,18 @@ export class OrderDetailComponent implements OnInit {
     return `${ad.name}: ${ad.street}, ${ad.number}, ${ad.district}, ${ad.city} - ${ad.state}`;
   }
 
+  hasClipboard = () => navigator.clipboard;
+
+  copyKey() {
+    navigator.clipboard.writeText(this.order.store.pixKey).then(resp => navigator.vibrate(200)).catch(e => alert(e))
+  }
+
+  getFace(url: string) {
+    if (url.includes('cloudinary')) {
+      return url.replace(url.substr(50, 11), 'c_thumb,g_face,h_150,w_150');
+    } else {
+      return url;
+    }
+  }
+
 }

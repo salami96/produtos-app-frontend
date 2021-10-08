@@ -6,7 +6,7 @@
       </div>
       <div class="card-body">
         <div class="images">
-          <img src="{{order.client.avatar}}" class="rounded-circle avatar" alt="Foto do cliente">
+          <img src="{{getFace(order.client.avatar)}}" class="rounded-circle avatar" alt="Foto do cliente">
           <i-shopping-bag></i-shopping-bag>
           <img src="{{order.store.logo}}" class="rounded-circle avatar" alt="Logotipo da empresa">
         </div>
@@ -25,6 +25,20 @@
           </div>
         </div>
       </div>
+      <div class="card-footer">
+        <div class="payment-method" *ngIf="order.payment.name == 'Pix' || true">
+          <p>Utilize a chave tipo: {{order.store.pixKeyType}}</p>
+          <textarea class="text-theme" disabled>{{order.store.pixKey}}</textarea>
+          <button class="btn-secondary btn-sm btn" (click)="copyKey()" *ngIf="hasClipboard()">
+            <i-link></i-link>
+            Copiar chave
+          </button>
+        </div>
+        <div class="payment-method" *ngIf="order.payment.name == 'Cartão' && false">
+          <p>Escolha o tipo e a bandeira do cartão:</p>
+        </div>
+      </div>
+
     </div>
     <div class="card status">
       <div class="card-header" [class.header-collapsed]="!isExpanded['status']">

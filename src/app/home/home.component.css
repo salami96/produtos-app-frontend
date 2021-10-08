@@ -150,3 +150,23 @@ main {
 .desktop .logo-and-number * {
   color: var(--primary);
 }
+.payments {
+  width: 80vw;
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+.payments h4 {
+  width: 100%;
+  text-align: center;
+}
+.payments .cells {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1em 4em;
+}

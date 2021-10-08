@@ -299,6 +299,9 @@ export class OrderComponent implements OnInit, OnDestroy {
       this.paymentError = true;
       valid = false;
     }
+    if (!this.user) {
+      valid = false;
+    }
     if (valid) {
       this.loading = true;
         this.cService.buy(
