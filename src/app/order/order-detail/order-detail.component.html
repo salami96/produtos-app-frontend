@@ -29,10 +29,11 @@
         <div class="payment-method" *ngIf="order.payment.name == 'Pix'">
           <p>Utilize a chave tipo: {{order.store.pixKeyType}}</p>
           <textarea class="text-theme" disabled>{{order.store.pixKey}}</textarea>
-          <!-- <button class="btn-secondary btn-sm btn" (click)="copyKey()" *ngIf="hasClipboard()">
+          <!-- <button class="btn-secondary btn-sm btn" (click)="copyKey()" *ngIf="hasClipboard()"> -->
+          <button class="btn-secondary btn-sm btn" ngxClipboard [cbContent]="order.store.pixKey">
             <i-copy></i-copy>
             Copiar chave
-          </button> -->
+          </button>
         </div>
         <div class="payment-method" *ngIf="order.payment.name == 'Cartão' && false">
           <p>Escolha o tipo e a bandeira do cartão:</p>

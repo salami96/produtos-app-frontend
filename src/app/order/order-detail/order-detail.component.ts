@@ -105,8 +105,8 @@ export class OrderDetailComponent implements OnInit {
     return `${ad.name}: ${ad.street}, ${ad.number}, ${ad.district}, ${ad.city} - ${ad.state}`;
   }
 
-  // hasClipboard() {
-  //   if (navigator) {
+  // hasClipboard(): any {
+  //   if (isPlatformBrowser(this.platformID) && window.isSecureContext) {
   //     try {
   //       return navigator.clipboard;
   //     } catch (e) {
@@ -120,10 +120,9 @@ export class OrderDetailComponent implements OnInit {
 
   // copyKey() {
   //   if (this.hasClipboard()) {
-  //     (this.hasClipboard() as Clipboard)
-  //       .writeText(this.order.store.pixKey)
-  //         .then(resp => navigator.vibrate(200))
-  //         .catch(e => console.log(e));
+  //     this.hasClipboard().writeText(this.order.store.pixKey)
+  //     .then(resp => navigator.vibrate(200))
+  //     .catch(e => console.log(e));
   //   }
   // }
 

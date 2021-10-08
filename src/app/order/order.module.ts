@@ -6,10 +6,12 @@ import { IconsModule } from '../icons/icons.module';
 import { DrawModule } from '../draw/draw.module';
 import { FormsModule } from '@angular/forms';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [ OrderComponent, OrderDetailComponent ],
   imports: [
+    ClipboardModule,
     CommonModule,
     DrawModule,
     FormsModule,
