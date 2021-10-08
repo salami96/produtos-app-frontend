@@ -105,10 +105,10 @@ export class OrderDetailComponent implements OnInit {
     return `${ad.name}: ${ad.street}, ${ad.number}, ${ad.district}, ${ad.city} - ${ad.state}`;
   }
 
-  hasClipboard = () => navigator.clipboard;
+  hasClipboard = () => navigator.clipboard?;
 
   copyKey() {
-    if (this.hasClipboard()) navigator.clipboard.writeText(this.order.store.pixKey).then(resp => navigator.vibrate(200)).catch(e => alert(e))
+    if (this.hasClipboard()) navigator.clipboard?.writeText(this.order.store.pixKey).then(resp => navigator.vibrate(200)).catch(e => alert(e))
   }
 
   getFace(url: string) {
