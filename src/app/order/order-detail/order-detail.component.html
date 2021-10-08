@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="card-footer">
-        <div class="payment-method" *ngIf="order.payment.name == 'Pix' || true">
+        <div class="payment-method" *ngIf="order.payment.name == 'Pix'">
           <p>Utilize a chave tipo: {{order.store.pixKeyType}}</p>
           <textarea class="text-theme" disabled>{{order.store.pixKey}}</textarea>
           <button class="btn-secondary btn-sm btn" (click)="copyKey()" *ngIf="hasClipboard()">
