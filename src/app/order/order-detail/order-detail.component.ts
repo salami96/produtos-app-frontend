@@ -105,11 +105,27 @@ export class OrderDetailComponent implements OnInit {
     return `${ad.name}: ${ad.street}, ${ad.number}, ${ad.district}, ${ad.city} - ${ad.state}`;
   }
 
-  hasClipboard = () => navigator.clipboard?;
+  // hasClipboard() {
+  //   if (navigator) {
+  //     try {
+  //       return navigator.clipboard;
+  //     } catch (e) {
+  //       console.log(e);
+  //       return false;
+  //     }
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
-  copyKey() {
-    if (this.hasClipboard()) navigator.clipboard?.writeText(this.order.store.pixKey).then(resp => navigator.vibrate(200)).catch(e => alert(e))
-  }
+  // copyKey() {
+  //   if (this.hasClipboard()) {
+  //     (this.hasClipboard() as Clipboard)
+  //       .writeText(this.order.store.pixKey)
+  //         .then(resp => navigator.vibrate(200))
+  //         .catch(e => console.log(e));
+  //   }
+  // }
 
   getFace(url: string) {
     if (url.includes('cloudinary')) {

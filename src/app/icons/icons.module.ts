@@ -25,7 +25,6 @@ const icons = [
   IconInfo,
   IconInstagram,
   IconLoadingComponent,
-  IconLink,
   IconLogIn,
   IconMap,
   IconMoreVertical,
