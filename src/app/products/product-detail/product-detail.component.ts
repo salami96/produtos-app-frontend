@@ -15,15 +15,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   cod: string;
   product: Product;
   observations: string;
-  quantity = 1;
+  quantity: number;
   selectedSize: any;
   extras: {
     name: string,
     value: number,
     checked: boolean,
-  }[] = [];
-  selectedExtras: any[] = [];
-  optional: boolean[] = [];
+  }[];
+  selectedExtras: any[];
+  optional: boolean[];
   observer: Subscription[] = [];
 
   constructor(
@@ -57,15 +57,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   productHandler = (response) => {
     if (response) {
       this.product = response;
-      this.selectedSize = response.sizes[0];
-      response.optional.forEach(op => {
-        this.optional[op] = false;
-      });
-      for (let index = 0; index < response.extras.length; index++) {
-        const element: any = response.extras[index];
-        element.checked = false;
-        this.extras.push(element);
-      }
+      this.init();
+    }
+  }
+
+  init() {
+    this.quantity = 1;
+    this.observations = '';
+    this.selectedSize = this.product.sizes[0];
+    this.optional = [];
+    this.product.optional.forEach(op => {
+      this.optional[op] = false;
+    });
+    this.extras = [];
+    this.selectedExtras = [];
+    for (let index = 0; index < this.product.extras.length; index++) {
+      const element: any = this.product.extras[index];
+      element.checked = false;
+      this.extras.push(element);
     }
   }
 
@@ -144,6 +153,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       observations: this.observations,
     };
     this.cService.add2Cart(orderItem);
+    this.init();
   }
 
   ngOnDestroy() {

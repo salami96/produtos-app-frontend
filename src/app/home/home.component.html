@@ -61,7 +61,7 @@
       </div>
     </section>
   </div>
-  <div class="card payments p-2">
+  <div class="card payments p-2" *ngIf="canLoad">
     <h4>aceitamos:</h4>
     <div class="cells">
       <div *ngFor="let p of store.payments">
