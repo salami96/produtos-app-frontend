@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-      <div class="card-footer" *ngIf="['Pix'].includes(order.payment.name)">
+      <div class="card-footer" *ngIf="['Pix', 'Cartão', 'Dinheiro'].includes(order.payment.name)">
         <div class="payment-method" *ngIf="order.payment.name == 'Pix'">
           <p>Utilize a chave tipo: {{order.store.pixKeyType}}</p>
           <textarea class="text-theme" disabled>{{order.store.pixKey}}</textarea>
@@ -35,8 +35,23 @@
             Copiar chave
           </button>
         </div>
-        <div class="payment-method" *ngIf="order.payment.name == 'Cartão' && false">
+        <div class="payment-method" *ngIf="order.payment.name == 'Cartão'">
           <p>Escolha o tipo e a bandeira do cartão:</p>
+          <div class="btn-group">
+            <button class="btn btn-sm" [ngClass]="selectedDetail.includes(brand) ? 'btn-theme' : 'btn-outline-theme'"
+              *ngFor="let brand of order.store.cardBrands" (click)="setPaymentDetail('Tipo de cartão: ' + brand)">
+                {{brand}}
+            </button>
+          </div>
+        </div>
+        <div class="payment-method" *ngIf="order.payment.name == 'Dinheiro'">
+          <p>Precisa de troco para:</p>
+          <div class="btn-group">
+            <button class="btn btn-sm" [ngClass]="selectedDetail.includes(change) ? 'btn-theme' : 'btn-outline-theme'"
+              *ngFor="let change of possibleChanges" (click)="setPaymentDetail('Troco para: ' + change)">
+                {{change}}
+            </button>
+          </div>
         </div>
       </div>
 

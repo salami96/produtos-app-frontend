@@ -24,6 +24,7 @@ interface Store {
     pixQrCode: string;
     pixKey: string;
     pixKeyType: string;
+    cardBrands: string[];
 }
 interface Payment {
     _id: string;
@@ -63,6 +64,7 @@ interface Order {
     address: Address;
     status: number;
     total: number;
+    paymentDetail: string;
 }
 interface OrderItem {
     cod: string;

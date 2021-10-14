@@ -18,11 +18,13 @@ export class OrderDetailComponent implements OnInit {
   safeHtml: SafeHtml[] = [];
   user: User;
   map: SafeHtml;
+  selectedDetail: string;
+  possibleChanges: string[];
 
   constructor(
+    @Inject(PLATFORM_ID) private platformID: Object,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
-    @Inject(PLATFORM_ID) private platformID: Object,
     private cService: CartService,
     private uService: UserService,
     private title: Title,
@@ -47,15 +49,21 @@ export class OrderDetailComponent implements OnInit {
       this.isExpanded['status'] = true;
       this.route.params.subscribe(async res => {
         this.cod = res.cod;
-        this.cService.getOrder(res.cod).then(response => {
-          this.showBadges(response);
-          this.order = response;
-        }).catch(e => console.log(e));
+        this.cService.getOrder(res.cod).then(this.setOrder).catch(console.log);
       });
     }
   }
 
-  formatPrice(price: number) {
+  setOrder = (response: Order) => {
+    this.showBadges(response);
+    this.order = response;
+    this.selectedDetail = this.order.paymentDetail || '';
+    if (this.order.payment.name == 'Dinheiro') {
+      this.possibleChanges = [ 10, 20, 50, 100, 200 ].filter(value => value > this.order.total).map(this.formatPrice);
+    }
+  }
+
+  formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
@@ -97,12 +105,18 @@ export class OrderDetailComponent implements OnInit {
   }
 
   getRoute() {
-    const { street, number, city, zipCode } = this.order.address;
-    window.open(`https://www.google.com.br/maps/dir//${street}, ${number} ${zipCode} ${city}`);
+    const { street, number, city, zipCode, state } = this.order.address;
+    window.open(`https://www.google.com.br/maps/dir//${street},${number},${zipCode},${city},${state}`);
   }
 
   read(ad: Address) {
     return `${ad.name}: ${ad.street}, ${ad.number}, ${ad.district}, ${ad.city} - ${ad.state}`;
+  }
+
+  setPaymentDetail(data: string) {
+    this.selectedDetail = data;
+    this.order.paymentDetail = data;
+    this.cService.updateOrder(this.order).then(this.setOrder).catch(console.log);
   }
 
   // hasClipboard(): any {

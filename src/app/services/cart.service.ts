@@ -130,4 +130,10 @@ export class CartService {
       `https://produtos-server.herokuapp.com/api/order/` + cod, this.options
     ).toPromise();
   }
+
+  updateOrder(order: Order) {
+    return this.http.put<Order>(
+      `http://localhost:9000/api/order/` + order._id, { order }, this.options
+    ).toPromise();
+  }
 }
