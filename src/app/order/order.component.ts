@@ -312,18 +312,16 @@ export class OrderComponent implements OnInit, OnDestroy {
         this.pickUp,
         this.total
       ).toPromise().then(resp => {
-        if (resp) {
+        if (resp.status) {
           this.clear();
           this.loading = false;
           document.getElementById('show-success').click();
           setTimeout(() => {
             document.getElementById('close-success').click();
-            this.router.navigate([ '/pedido/' + resp._id ]);
-            const url = `https://${this.store.code}.produtos.app/pedido/${resp._id}`;
-            window.open(`https://api.whatsapp.com/send?phone=55${this.store.phone}&text=Olá, fiz o pedido nº ${resp.cod} no seu site, link: ${url}`);
+            this.router.navigate([ '/pedido/' + resp.id ]);
           }, 5000);
           console.log(resp);
-        }
+        } // TODO: else stt with resp.msg
       }).catch(e => {
         console.log(e);
         this.loading = false;

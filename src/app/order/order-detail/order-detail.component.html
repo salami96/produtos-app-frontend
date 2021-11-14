@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-      <div class="card-footer" *ngIf="['Pix', 'Cartão', 'Dinheiro'].includes(order.payment.name)">
+      <div class="card-footer">
         <div class="payment-method" *ngIf="order.payment.name == 'Pix'">
           <p>Utilize a chave tipo: {{order.store.pixKeyType}}</p>
           <textarea class="text-theme" disabled>{{order.store.pixKey}}</textarea>
@@ -53,8 +53,8 @@
             </button>
           </div>
         </div>
+        <button class="btn btn-block btn-success mt-3" (click)="openWhatsApp()"><i-whatsapp></i-whatsapp>Falar com a empresa</button>
       </div>
-
     </div>
     <div class="card status">
       <div class="card-header" [class.header-collapsed]="!isExpanded['status']">

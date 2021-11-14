@@ -1,9 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { SafeHtml, DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { auth } from 'firebase';
+import { Subscription } from 'rxjs';
 import { CartService } from '../../services/cart.service';
+import { SocketService } from '../../services/socket.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -11,7 +13,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.css']
 })
-export class OrderDetailComponent implements OnInit {
+export class OrderDetailComponent implements OnInit, OnDestroy {
   cod: string;
   order: Order;
   isExpanded: boolean[] = [];
@@ -20,6 +22,8 @@ export class OrderDetailComponent implements OnInit {
   map: SafeHtml;
   selectedDetail: string;
   possibleChanges: string[];
+  subs: Subscription[] = [];
+  currentListener: string;
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: Object,
@@ -29,6 +33,7 @@ export class OrderDetailComponent implements OnInit {
     private uService: UserService,
     private title: Title,
     private meta: Meta,
+    private socket: SocketService
   ) { }
 
   ngOnInit() {
@@ -47,10 +52,15 @@ export class OrderDetailComponent implements OnInit {
       this.isExpanded['address'] = true;
       this.isExpanded['itens'] = true;
       this.isExpanded['status'] = true;
-      this.route.params.subscribe(async res => {
-        this.cod = res.cod;
-        this.cService.getOrder(res.cod).then(this.setOrder).catch(console.log);
-      });
+      this.subs.push(
+        this.route.params.subscribe(async res => {
+          this.cod = res.cod;
+          this.cService.getOrder(res.cod).then(this.setOrder).catch(console.log);
+          this.socket.listen.off(this.currentListener);
+          this.currentListener = `changes-on-${res.cod}`;
+          this.socket.listen.on(this.currentListener, this.setOrder)
+        })
+      );
     }
   }
 
@@ -146,6 +156,18 @@ export class OrderDetailComponent implements OnInit {
     } else {
       return url;
     }
+  }
+
+  openWhatsApp() {
+    const store = this.order.store
+    const url = `https://${store.code}.produtos.app/pedido/${this.order._id}`;
+    window.open(`https://api.whatsapp.com/send?phone=55${store.whatsapp}&text=Olá, fiz um pedido no seu site, link: ${url}`);
+
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach(s => s.unsubscribe());
+    this.socket.listen.off(this.currentListener);
   }
 
 }
